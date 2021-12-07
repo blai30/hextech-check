@@ -70,6 +70,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      tableLayout: ['hover'],
       typography: ['dark'],
     },
   },

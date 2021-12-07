@@ -6,6 +6,7 @@ specifiers:
   '@types/react': ^17.0.37
   autoprefixer: ^10.4.0
   axios: ^0.24.0
+  dayjs: ^1.10.7
   eslint: ^7.32.0
   eslint-config-next: ^12.0.4
   next: ^12.0.4
@@ -18,6 +19,7 @@ specifiers:
 
 dependencies:
   axios: 0.24.0
+  dayjs: 1.10.7
   next: 12.0.4_react-dom@17.0.2+react@17.0.2
   next-themes: 0.0.15_f195614718841b3c14a81ac95268ce58
   react: 17.0.2
@@ -1039,6 +1041,10 @@ packages:
   /data-uri-to-buffer/3.0.1:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
     engines: {node: '>= 6'}
+    dev: false
+
+  /dayjs/1.10.7:
+    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
     dev: false
 
   /debug/2.6.9:
