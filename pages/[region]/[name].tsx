@@ -12,8 +12,12 @@ const Home: NextPage = () => {
   const { region, name } = router.query
 
   useEffect(() => {
+    if (!router.isReady) {
+      return
+    }
+
     const getSummoner = async () => {
-      const response = await api.get(`/Summoners/?region=${region}&name=${name}`)
+      const response = await api.get(`/Summoners/${region}/${name}`)
       setSummoner(response.data)
     }
 
@@ -32,12 +36,12 @@ const Home: NextPage = () => {
     <div className="">
       <div>
         <p>{summoner.id}</p>
-        <p>Summoner Name: {summoner.name}</p>
+        <p>{summoner.name}</p>
         <p>{summoner.accountId}</p>
         <p>{summoner.profileIconId}</p>
         <p>{summoner.puuid}</p>
         <p>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</p>
-        <p>Level: {summoner.level}</p>
+        <p>{summoner.level}</p>
       </div>
 
       <ChampionMasteriesTable name={name} region={region} />

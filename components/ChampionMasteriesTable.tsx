@@ -19,12 +19,12 @@ const ChampionMasteriesTable = ({ name, region }) => {
 
   useEffect(() => {
     const getChampionMasteries = async () => {
-      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/?region=${region}&name=${name}`)
+      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${name}`)
       setChampionMasteries(response.data)
     }
 
     getChampionMasteries()
-  }, [championNames])
+  }, [championNames, name, region])
 
   useEffect(() => {
     const getChampionsTable = async () => {
