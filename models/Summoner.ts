@@ -4,6 +4,6 @@ export interface Summoner {
   puuid: string
   name: string
   profileIconId: number
-  revisionDate: number
+  revisionDate: Date
   level: number
 }

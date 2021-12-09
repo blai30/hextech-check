@@ -1,25 +1,16 @@
 import { useEffect, useState } from 'react'
+import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
-import dayjs from '@/lib/dayjs'
 import { ChampionMastery } from '@/models'
 
-const ChampionMasteriesTable = ({ summoner, platform }) => {
-  const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
+const ChampionMasteriesTable = ({ name, region }) => {
   const [championNames, setChampionNames] = useState<{ [key: string]: string }>({})
+  const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
   const [championsTable, setChampionsTable] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    const getChampionMasteries = async () => {
-      const response = await api.get<ChampionMastery[]>(`/summoner/championmasteries/${summoner}?platform=${platform}`)
-      setChampionMasteries(response.data)
-    }
-
-    getChampionMasteries()
-  }, [platform, summoner])
-
-  useEffect(() => {
     const getChampionNames = async () => {
-      const response = await api.get('/champion')
+      const response = await api.get('/ChampionNames')
       setChampionNames(response.data)
     }
 
@@ -27,13 +18,20 @@ const ChampionMasteriesTable = ({ summoner, platform }) => {
   }, [])
 
   useEffect(() => {
+    const getChampionMasteries = async () => {
+      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/?region=${region}&name=${name}`)
+      setChampionMasteries(response.data)
+    }
 
+    getChampionMasteries()
+  }, [championNames])
+
+  useEffect(() => {
     const getChampionsTable = async () => {
       let table: JSX.Element[] = []
   
       championMasteries.forEach((championMastery) => {
-        const date = dayjs(championMastery.lastPlayTime).format('L LT')
-        const ago = dayjs(championMastery.lastPlayTime).fromNow()
+        const date = new Date(championMastery.lastPlayTime + 'Z')
 
         table.push(
           <tr key={championMastery.championId}>
@@ -41,7 +39,7 @@ const ChampionMasteriesTable = ({ summoner, platform }) => {
             <td>{championMastery.championLevel}</td>
             <td>{championMastery.championPoints.toLocaleString()}</td>
             <td className={`${championMastery.chestGranted ? 'bg-green-600' : 'bg-red-600'}`}>{championMastery.chestGranted ? 'Yes' : 'No'}</td>
-            <td>{`${date} (${ago})`}</td>
+            <td>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</td>
           </tr>
         )
       })
