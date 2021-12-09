@@ -44,7 +44,7 @@ const Home: NextPage = () => {
         <p>{summoner.level}</p>
       </div>
 
-      <ChampionMasteriesTable name={name} region={region} />
+      <ChampionMasteriesTable name={name as string} region={region as string} />
     </div>
   )
 }

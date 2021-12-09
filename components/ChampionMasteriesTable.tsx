@@ -3,7 +3,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
 import { ChampionMastery } from '@/models'
 
-const ChampionMasteriesTable = ({ name, region }) => {
+const ChampionMasteriesTable = ({ name, region }: { name: string, region: string }) => {
   const [championNames, setChampionNames] = useState<{ [key: string]: string }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
   const [championsTable, setChampionsTable] = useState<JSX.Element[]>([])
