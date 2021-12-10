@@ -9,7 +9,7 @@ import ChampionMasteriesTable from '@/components/ChampionMasteriesTable'
 const Home: NextPage = () => {
   const [summoner, setSummoner] = useState<Summoner>()
   const router = useRouter()
-  const { region, name } = router.query
+  const { region, name } = router.query as { region: string; name: string }
 
   useEffect(() => {
     if (!router.isReady) {
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
         <p>{summoner.level}</p>
       </div>
 
-      <ChampionMasteriesTable name={name as string} region={region as string} />
+      <ChampionMasteriesTable name={name} region={region} />
     </div>
   )
 }
