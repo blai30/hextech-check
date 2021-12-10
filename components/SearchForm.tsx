@@ -1,11 +1,9 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 const SearchForm = () => {
   const [name, setName] = useState('')
   const [region, setRegion] = useState('')
-
   const router = useRouter()
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,16 +14,14 @@ const SearchForm = () => {
     setRegion(event.target.value)
   }
 
-  const handleSubmit = () => {
-    router.push(`/${region}/${name}`)
-  }
-
-  const getLink = () => {
-    if (region && name) {
-      return `/${region}/${name}`
-    }
-
-    return '/'
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    router.push({
+      query: {
+        name,
+        region
+      }
+    })
   }
 
   return (
@@ -36,7 +32,7 @@ const SearchForm = () => {
           <option value="">Select a region</option>
           <option value="NA">North America</option>
         </select>
-        <Link href={getLink()}>Submit</Link>
+        <button type="submit">Submit</button>
       </form>
     </div>
   )
