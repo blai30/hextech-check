@@ -1,44 +1,53 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { format, formatDistanceToNow } from 'date-fns'
+import api from '@/lib/api'
+import { Summoner } from '@/models'
+import ChampionMasteriesTable from '@/components/ChampionMasteriesTable'
+import SearchForm from '@/components/SearchForm'
 
 const Home: NextPage = () => {
-  const [name, setName] = useState('')
-  const [region, setRegion] = useState('')
-
+  const [summoner, setSummoner] = useState<Summoner>()
   const router = useRouter()
+  const { region, name } = router.query as { region: string, name: string }
 
-  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
-  }
-
-  const handleChangeRegion = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setRegion(event.target.value)
-  }
-
-  const handleSubmit = () => {
-    router.push(`/${region}/${name}`)
-  }
-
-  const getLink = () => {
-    if (region && name) {
-      return `/${region}/${name}`
+  useEffect(() => {
+    if (!router.isReady) {
+      return
     }
 
-    return '/'
+    const getSummoner = async () => {
+      const response = await api.get(`/Summoners/${region}/${name}`)
+      setSummoner(response.data)
+    }
+
+    getSummoner()
+  }, [region, name])
+
+  if (!summoner) {
+    return (
+      <div>Loading...</div>
+    )
   }
+
+  const date = new Date(summoner.revisionDate + 'Z')
 
   return (
     <div className="">
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value={name} onChange={handleChangeName} />
-        <select name="region" id="region" value={region} onChange={handleChangeRegion}>
-          <option value="">Select a region</option>
-          <option value="NA">North America</option>
-        </select>
-        <Link href={getLink()}>Submit</Link>
-      </form>
+      <SearchForm />
+
+      <div>
+        <p>{summoner.id}</p>
+        <p>{summoner.name}</p>
+        <p>{summoner.accountId}</p>
+        <p>{summoner.profileIconId}</p>
+        <p>{summoner.puuid}</p>
+        <p>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</p>
+        <p>{summoner.level}</p>
+      </div>
+
+      <ChampionMasteriesTable name={name} region={region} />
     </div>
   )
 }
