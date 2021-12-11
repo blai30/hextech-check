@@ -3,14 +3,14 @@ import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
 import { ChampionMastery } from '@/models'
 
-const ChampionMasteriesTable = ({ name, region }: { name: string, region: string }) => {
+const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
   const [championNames, setChampionNames] = useState<{ [key: string]: string }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
   const [championsTable, setChampionsTable] = useState<JSX.Element[]>([])
 
   useEffect(() => {
     const getChampionNames = async () => {
-      const response = await api.get('/ChampionNames')
+      const response = await api.get<{ [key: string]: string }>('/ChampionNames')
       setChampionNames(response.data)
     }
 
@@ -19,46 +19,57 @@ const ChampionMasteriesTable = ({ name, region }: { name: string, region: string
 
   useEffect(() => {
     const getChampionMasteries = async () => {
-      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${name}`)
+      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
       setChampionMasteries(response.data)
     }
 
     getChampionMasteries()
-  }, [championNames, name, region])
+  }, [summonerName, region])
 
   useEffect(() => {
-    const getChampionsTable = async () => {
-      let table: JSX.Element[] = []
+    const table = championMasteries.map((championMastery) => {
+      const date = new Date(championMastery.lastPlayTime + 'Z')
   
-      championMasteries.forEach((championMastery) => {
-        const date = new Date(championMastery.lastPlayTime + 'Z')
+      return (
+        <tr key={championMastery.championId}>
+          <td>
+            <span>
+              {championNames[championMastery.championId.toString()]}
+            </span>
+          </td>
+          <td>
+            <span className="font-bold">
+              {championMastery.championLevel}
+            </span>
+            <span className="pl-3">
+              {championMastery.championPoints.toLocaleString()}
+            </span>
+          </td>
+          <td className={`${championMastery.chestGranted ? 'bg-green-400' : 'bg-red-400'}`}>
+            <span>
+              {championMastery.chestGranted ? 'Yes' : 'No'}
+            </span>
+          </td>
+          <td>
+            <span className="underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
+              {formatDistanceToNow(date) + ' ago'}
+            </span>
+          </td>
+        </tr>
+      )
+    })
 
-        table.push(
-          <tr key={championMastery.championId}>
-            <td>{championNames[championMastery.championId.toString()]}</td>
-            <td>{championMastery.championLevel}</td>
-            <td>{championMastery.championPoints.toLocaleString()}</td>
-            <td className={`${championMastery.chestGranted ? 'bg-green-600' : 'bg-red-600'}`}>{championMastery.chestGranted ? 'Yes' : 'No'}</td>
-            <td>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</td>
-          </tr>
-        )
-      })
-  
-      setChampionsTable(table)
-    }
-
-    getChampionsTable()
+    setChampionsTable(table)
   }, [championMasteries, championNames])
 
   return (
-    <table className="table-auto">
+    <table className="table-fixed w-full">
       <thead>
         <tr>
-          <th scope="col" className="">Champion</th>
-          <th scope="col" className="">Mastery Level</th>
-          <th scope="col" className="">Mastery Points</th>
-          <th scope="col" className="">Chest Obtained</th>
-          <th scope="col" className="">Last Played</th>
+          <th className="w-4/12 text-left">Champion</th>
+          <th className="w-3/12 text-left">Mastery</th>
+          <th className="w-1/12 text-left">Chest</th>
+          <th className="w-4/12 text-left">Last Played</th>
         </tr>
       </thead>
       <tbody>

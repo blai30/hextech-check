@@ -6,15 +6,15 @@ import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const { region, name } = router.query as { region: string, name: string }
+  const { region, summoner } = router.query as { region: string, summoner: string }
 
   return (
-    <div className="">
+    <div className="container mx-auto px-4">
       <SearchForm />
-      {region && name &&
+      {region && summoner &&
       <>
-        <SummonerDetails region={region} name={name} />
-        <ChampionMasteriesTable region={region} name={name} />
+        <SummonerDetails region={region} summonerName={summoner} />
+        <ChampionMasteriesTable region={region} summonerName={summoner} />
       </>}
     </div>
   )

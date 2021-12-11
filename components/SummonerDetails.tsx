@@ -3,17 +3,17 @@ import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
 import { Summoner } from '@/models'
 
-const SummonerDetails = ({ name, region }: { name: string, region: string }) => {
+const SummonerDetails = ({ region, summonerName }: { summonerName: string, region: string }) => {
   const [summoner, setSummoner] = useState<Summoner>()
 
   useEffect(() => {
     const getSummoner = async () => {
-      const response = await api.get(`/Summoners/${region}/${name}`)
+      const response = await api.get(`/Summoners/${region}/${summonerName}`)
       setSummoner(response.data)
     }
 
     getSummoner()
-  }, [region, name])
+  }, [region, summonerName])
 
   if (!summoner) {
     return (
@@ -25,13 +25,10 @@ const SummonerDetails = ({ name, region }: { name: string, region: string }) => 
 
   return (
     <div>
-      <p>{summoner.id}</p>
-      <p>{summoner.name}</p>
-      <p>{summoner.accountId}</p>
       <p>{summoner.profileIconId}</p>
-      <p>{summoner.puuid}</p>
-      <p>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</p>
+      <p>{summoner.name}</p>
       <p>{summoner.level}</p>
+      <p>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</p>
     </div>
   )
 }

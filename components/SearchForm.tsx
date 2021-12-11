@@ -1,9 +1,23 @@
-import { useRouter } from 'next/router';
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+
+const regions = [
+  { value: 'NA', label: 'North America' },
+  { value: 'EUW', label: 'Europe West' },
+  { value: 'EUNE', label: 'Europe Nordic & East' },
+  { value: 'KR', label: 'Korea' },
+  { value: 'BR', label: 'Brazil' },
+  { value: 'JP', label: 'Japan' },
+  { value: 'RU', label: 'Russia' },
+  { value: 'OCE', label: 'Oceania' },
+  { value: 'TR', label: 'Turkey' },
+  { value: 'LAN', label: 'Latin America North' },
+  { value: 'LAS', label: 'Latin America South' }
+]
 
 const SearchForm = () => {
-  const [name, setName] = useState('')
-  const [region, setRegion] = useState('')
+  const [summoner, setName] = useState('')
+  const [region, setRegion] = useState('NA')
   const router = useRouter()
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,23 +32,46 @@ const SearchForm = () => {
     event.preventDefault()
     router.push({
       query: {
-        name,
+        summoner,
         region
       }
     })
   }
 
   return (
-    <div className="">
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value={name} onChange={handleChangeName} required />
-        <select name="region" id="region" value={region} onChange={handleChangeRegion} required>
-          <option value="">Select a region</option>
-          <option value="NA">North America</option>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="summoner" className="block text-sm font-medium text-gray-700">
+        Summoner
+      </label>
+      <div className="flex flex-row items-center">
+        <label htmlFor="region" className="sr-only">
+          Region
+        </label>
+        <select
+          id="region"
+          name="region"
+          value={region}
+          onChange={handleChangeRegion}
+          className="h-full border-gray-300 sm:text-sm rounded-md"
+        >
+          {regions.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </select>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        <input
+          type="text"
+          name="summoner"
+          id="summoner"
+          value={summoner}
+          onChange={handleChangeName}
+          className="block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+      </div>
+
+      <button type="submit" className="px-3 py-1 bg-green-400 hover:bg-green-300 rounded-md">Submit</button>
+    </form>
   )
 }
 
