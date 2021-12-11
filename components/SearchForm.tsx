@@ -40,9 +40,6 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="summoner" className="block text-sm font-medium text-gray-700">
-        Summoner
-      </label>
       <div className="flex flex-row items-center">
         <label htmlFor="region" className="sr-only">
           Region
@@ -60,17 +57,19 @@ const SearchForm = () => {
             </option>
           ))}
         </select>
+
         <input
-          type="text"
-          name="summoner"
           id="summoner"
+          name="summoner"
+          type="text"
+          placeholder="Summoner name"
           value={summoner}
           onChange={handleChangeName}
           className="block w-full sm:text-sm border-gray-300 rounded-md"
         />
-      </div>
 
-      <button type="submit" className="px-3 py-1 bg-green-400 hover:bg-green-300 rounded-md">Submit</button>
+        <button id="submit" type="submit" className="px-3 py-1 bg-green-400 hover:bg-green-300 rounded-md">Submit</button>
+      </div>
     </form>
   )
 }

@@ -10,11 +10,17 @@ const Home: NextPage = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <SearchForm />
+      <div className="mt-4">
+        <SearchForm />
+      </div>
       {region && summoner &&
       <>
-        <SummonerDetails region={region} summonerName={summoner} />
-        <ChampionMasteriesTable region={region} summonerName={summoner} />
+        <div className="mt-4">
+          <SummonerDetails region={region} summonerName={summoner} />
+        </div>
+        <div className="mt-4">
+          <ChampionMasteriesTable region={region} summonerName={summoner} />
+        </div>
       </>}
     </div>
   )

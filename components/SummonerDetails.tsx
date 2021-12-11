@@ -24,7 +24,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
   const date = new Date(summoner.revisionDate + 'Z')
 
   return (
-    <div>
+    <div className="p-6 bg-white rounded-lg shadow">
       <p>{summoner.profileIconId}</p>
       <p>{summoner.name}</p>
       <p>{summoner.level}</p>
