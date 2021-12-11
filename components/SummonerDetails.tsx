@@ -23,6 +23,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
   }
 
   const date = new Date(summoner.revisionDate + 'Z')
+  console.log(process.env.BASE_PATH)
 
   return (
     <div className="p-6 bg-white rounded-lg shadow">
@@ -30,7 +31,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
         <div className="flex-col">
           <img
             className="inline-block h-16 w-16 rounded-full ring-2 ring-white"
-            src={`${process.env.BASE_PATH}/img/profileicon/${summoner.profileIconId}.png`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/profileicon/${summoner.profileIconId}.png`}
             alt={`Summoner profile icon ${summoner.profileIconId}`}
           />
         </div>
