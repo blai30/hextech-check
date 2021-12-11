@@ -30,7 +30,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
         <div className="flex-col">
           <img
             className="inline-block h-16 w-16 rounded-full ring-2 ring-white"
-            src={`/profileicon/${summoner.profileIconId}.png`}
+            src={`./profileicon/${summoner.profileIconId}.png`}
             alt={`Summoner profile icon ${summoner.profileIconId}`}
           />
         </div>

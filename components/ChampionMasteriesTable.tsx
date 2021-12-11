@@ -43,7 +43,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               <div className="flex-shrink-0 h-10 w-10">
                 <img
                   className="h-10 w-10 rounded-full ring-2 ring-white"
-                  src={`/profileicon/29.png`}
+                  src={`./profileicon/29.png`}
                   alt={`Champion icon ${championName}`}
                 />
               </div>
