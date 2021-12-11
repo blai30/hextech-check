@@ -49,7 +49,7 @@ const SearchForm = () => {
           name="region"
           value={region}
           onChange={handleChangeRegion}
-          className="h-full border-gray-300 sm:text-sm rounded-md"
+          className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300"
         >
           {regions.map(({ value, label }) => (
             <option key={value} value={value}>
@@ -65,10 +65,16 @@ const SearchForm = () => {
           placeholder="Summoner name"
           value={summoner}
           onChange={handleChangeName}
-          className="block w-full sm:text-sm border-gray-300 rounded-md"
+          className="inline-flex flex-1 items-center px-3 border border-r-0 border-gray-300"
         />
 
-        <button id="submit" type="submit" className="px-3 py-1 bg-green-400 hover:bg-green-300 rounded-md">Submit</button>
+        <button
+          id="submit"
+          type="submit"
+          className="inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-green-400 hover:bg-green-300"
+        >
+          Search
+        </button>
       </div>
     </form>
   )
