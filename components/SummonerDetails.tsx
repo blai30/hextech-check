@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
@@ -25,10 +26,25 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
 
   return (
     <div className="p-6 bg-white rounded-lg shadow">
-      <p>{summoner.profileIconId}</p>
-      <p>{summoner.name}</p>
-      <p>{summoner.level}</p>
-      <p>{`${format(date, 'Pp')} (${formatDistanceToNow(date)} ago)`}</p>
+      <div className="flex flex-row items-center">
+        <div className="flex-col">
+          <img
+            className="inline-block h-16 w-16 rounded-full ring-2 ring-white"
+            src={`/profileicon/${summoner.profileIconId}.png`}
+            alt={`Summoner profile icon ${summoner.profileIconId}`}
+          />
+        </div>
+        <div className="flex-col flex-1 ml-6">
+          <p className="font-bold text-2xl">{summoner.name}</p>
+          <span className="inline-flex items-center px-3 rounded-md border border-gray-300">
+            {summoner.level}
+          </span>
+        </div>
+        <div className="flex-col">
+          <p className="text-right text-gray-600">{format(date, 'Pp')}</p>
+          <p className="text-right text-gray-500">{formatDistanceToNow(date)} ago</p>
+        </div>
+      </div>
     </div>
   )
 }
