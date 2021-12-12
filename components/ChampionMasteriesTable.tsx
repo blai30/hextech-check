@@ -2,20 +2,20 @@
 import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
-import { ChampionMastery } from '@/models'
+import { Champion, ChampionMastery } from '@/models'
 
 const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
-  const [championNames, setChampionNames] = useState<{ [key: string]: string }>({})
+  const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
   const [championsTable, setChampionsTable] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    const getChampionNames = async () => {
-      const response = await api.get<{ [key: string]: string }>('/ChampionNames')
-      setChampionNames(response.data)
+    const getChampions = async () => {
+      const response = await api.get<{ [key: number]: Champion }>('/Champions')
+      setChampions(response.data)
     }
 
-    getChampionNames()
+    getChampions()
   }, [])
 
   useEffect(() => {
@@ -30,31 +30,33 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
   useEffect(() => {
     const table = championMasteries.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
-      const championName = championNames[championMastery.championId.toString()]
-      const masteryBgColor = (
+      const champion = champions[championMastery.championId]
+      const masteryBgColor =
         championMastery.championLevel === 5 ? 'text-red-700 bg-red-50' :
         championMastery.championLevel === 6 ? 'text-fuchsia-700 bg-fuchsia-50' :
-        championMastery.championLevel === 7 ? 'text-green-700 bg-green-50' : '')
+        championMastery.championLevel === 7 ? 'text-green-700 bg-green-50' : ''
   
       return (
         <tr key={championMastery.championId}>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-              <div className="flex-shrink-0 h-10 w-10">
-                <img
-                  className="h-10 w-10 rounded-full ring-2 ring-white"
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/profileicon/29.png`}
-                  alt={`Champion icon ${championName}`}
-                />
+              <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full">
+                <div className="relative h-14 w-14">
+                  <img
+                    className="absolute -inset-1 h-full w-full ring-2 ring-white"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/champion/${champion.image.full}`}
+                    alt={`Champion icon ${champion.name}`}
+                  />
+                </div>
               </div>
               <span className="ml-4">
-                {championName}
+                {champion.name}
               </span>
             </div>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex rounded-md">
-              <span className={`inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 font-bold ${masteryBgColor}`}>
+              <span className={`inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 ${masteryBgColor}`}>
                 {championMastery.championLevel}
               </span>
               <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300">
@@ -66,14 +68,14 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
           >
             <span>
               {championMastery.chestGranted && (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               )}
             </span>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            <span className="underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
+            <span className="text-gray-600 underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
               {formatDistanceToNow(date) + ' ago'}
             </span>
           </td>
@@ -82,7 +84,19 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
     })
 
     setChampionsTable(table)
-  }, [championMasteries, championNames])
+  }, [championMasteries, champions])
+
+  if (!championsTable) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <div className="text-center">
+          <div className="text-gray-600">
+            Loading champion masteries...
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col">

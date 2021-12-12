@@ -1,18 +1,11 @@
 export interface Champion {
-  allyTips: string[]
   blurb: string
-  enemyTips: string[]
   id: number
   image: Image
   info: Info
   key: string
-  lore: string
   name: string
   partype: string
-  passive: Passive
-  recommendedItems: any[]
-  skins: Skin[]
-  spells: Spell[]
   stats: { [key: string]: number }
   tags: number[]
   title: string
@@ -20,12 +13,25 @@ export interface Champion {
 
 export interface Image {
   full: string
-  group: string
+  group: Group
   height: number
-  sprite: string
+  sprite: Sprite
   width: number
   x: number
   y: number
+}
+
+export enum Group {
+  Champion = 'champion',
+}
+
+export enum Sprite {
+  Champion0PNG = 'champion0.png',
+  Champion1PNG = 'champion1.png',
+  Champion2PNG = 'champion2.png',
+  Champion3PNG = 'champion3.png',
+  Champion4PNG = 'champion4.png',
+  Champion5PNG = 'champion5.png',
 }
 
 export interface Info {
@@ -33,46 +39,4 @@ export interface Info {
   defense: number
   difficulty: number
   magic: number
-}
-
-export interface Passive {
-  description: string
-  image: Image
-  name: string
-  sanitizedDescription: null
-}
-
-export interface Skin {
-  id: string
-  name: string
-  num: number
-}
-
-export interface Spell {
-  altimages: null
-  cooldowns: number[]
-  cooldownBurn: string
-  costs: number[]
-  costBurn: string
-  costType: string
-  description: string
-  effects: Array<number[] | null>
-  effectBurns: Array<null | string>
-  image: Image
-  key: string
-  levelTip: LevelTip
-  maxRank: number
-  name: string
-  range: Array<any[]>
-  rangeBurn: string
-  resource: string
-  sanitizedDescription: null
-  sanitizedTooltip: null
-  tooltip: string
-  vars: any[]
-}
-
-export interface LevelTip {
-  effects: string[]
-  labels: string[]
 }

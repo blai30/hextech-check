@@ -18,7 +18,11 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
 
   if (!summoner) {
     return (
-      <div>Loading...</div>
+      <div className="p-6 bg-white rounded-lg shadow">
+        <div className="flex flex-row items-center">
+          Loading...
+        </div>
+      </div>
     )
   }
 
@@ -36,14 +40,14 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
           />
         </div>
         <div className="flex-col flex-1 ml-6">
-          <p className="font-bold text-2xl">{summoner.name}</p>
+          <p className="text-2xl">{summoner.name}</p>
           <span className="inline-flex items-center px-3 rounded-md border border-gray-300">
             {summoner.level}
           </span>
         </div>
         <div className="flex-col">
-          <p className="text-right text-gray-600">{format(date, 'Pp')}</p>
-          <p className="text-right text-gray-500">{formatDistanceToNow(date)} ago</p>
+          <p className="text-right text-gray-600">Last online {formatDistanceToNow(date)} ago</p>
+          <p className="text-right text-gray-500">{format(date, 'Pp')}</p>
         </div>
       </div>
     </div>

@@ -13,13 +13,18 @@ const Home: NextPage = () => {
       <div className="mt-4">
         <SearchForm />
       </div>
-      {region && summoner &&
+      {region && summoner ?
       <>
         <div className="mt-4">
           <SummonerDetails region={region} summonerName={summoner} />
         </div>
         <div className="mt-4">
           <ChampionMasteriesTable region={region} summonerName={summoner} />
+        </div>
+      </> :
+      <>
+        <div className="mt-4">
+          <p className="">Enter a summoner name and region.</p>
         </div>
       </>}
     </div>
