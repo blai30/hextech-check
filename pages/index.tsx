@@ -9,21 +9,19 @@ const Home: NextPage = () => {
   const { region, summoner } = router.query as { region: string, summoner: string }
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="mt-4">
-        <SearchForm />
-      </div>
+    <div className="container flex flex-col mx-auto p-4 space-y-4">
+      <SearchForm />
       {region && summoner ?
       <>
-        <div className="mt-4">
+        <div>
           <SummonerDetails region={region} summonerName={summoner} />
         </div>
-        <div className="mt-4">
+        <div>
           <ChampionMasteriesTable region={region} summonerName={summoner} />
         </div>
       </> :
       <>
-        <div className="mt-4">
+        <div>
           <p className="">Enter a summoner name and region.</p>
         </div>
       </>}

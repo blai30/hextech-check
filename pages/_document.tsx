@@ -14,12 +14,12 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html className="h-full bg-gray-50">
+      <Html className="h-full bg-gray-50 dark:bg-gray-900">
         <Head>
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
           <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
         </Head>
-        <body className="h-full subpixel-antialiased">
+        <body className="subpixel-antialiased min-h-full bg-gray-50 dark:bg-gray-900">
           <Main />
           <NextScript />
         </body>

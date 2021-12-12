@@ -4,10 +4,9 @@ import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    // <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
-    //   <Component {...pageProps} />
-    // </ThemeProvider>
-    <Component {...pageProps} />
+    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
+      <Component {...pageProps} />
+    </ThemeProvider>
   )
 }
 
