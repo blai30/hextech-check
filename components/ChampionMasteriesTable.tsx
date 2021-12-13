@@ -28,7 +28,8 @@ const tagClasses = (tag: Tag): string => {
 const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
   const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
-  const [championsTable, setChampionsTable] = useState<JSX.Element[]>([])
+  const [tableDesktop, setTableDesktop] = useState<JSX.Element[]>([])
+  const [tableMobile, setTableMobile] = useState<JSX.Element[]>([])
 
   useEffect(() => {
     const getChampions = async () => {
@@ -49,7 +50,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
   }, [summonerName, region])
 
   useEffect(() => {
-    const table = championMasteries.map((championMastery) => {
+    const tableDesktop = championMasteries.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
   
@@ -90,8 +91,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               </span>
             </div>
           </td>
-          <td className="px-6 py-4 whitespace-nowrap"
-          >
+          <td className="px-6 py-4 whitespace-nowrap">
             <span>
               {championMastery.chestGranted ? (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
@@ -113,10 +113,75 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
       )
     })
 
-    setChampionsTable(table)
+    const tableMobile = championMasteries.map((championMastery) => {
+      const date = new Date(championMastery.lastPlayTime + 'Z')
+      const champion = champions[championMastery.championId]
+
+      return (
+        <li key={championMastery.championId}>
+        {/* Image and Name */}
+          <div className="px-6 py-4 whitespace-nowrap space-y-2">
+            <div className="flex flex-1 items-center justify-between">
+              <div className="flex items-center">
+                <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full ring-2 ring-gray-200 dark:ring-gray-600">
+                  <div className="relative h-14 w-14">
+                    <img
+                      className="absolute -inset-1"
+                      src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/champion/${champion.image.full}`}
+                      alt={`Champion icon ${champion.name}`}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col ml-4 space-y-1">
+                  <span className="text-black dark:text-white">
+                    {champion.name}
+                  </span>
+                  <div className="flex rounded-md">
+                    <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
+                      {championMastery.championLevel}
+                    </span>
+                    <span className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
+                      {championMastery.championPoints.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-end space-y-1">
+                {champion.tags.map((tag) => (
+                  <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}>
+                    {Tag[tag]}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
+                Last played {formatDistanceToNow(date) + ' ago'}
+              </span>
+
+              <span>
+                {championMastery.chestGranted ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-200 dark:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                  </svg>
+                )}
+              </span>
+            </div>
+          </div>
+        </li>
+      )
+    })
+
+    setTableDesktop(tableDesktop)
+    setTableMobile(tableMobile)
   }, [championMasteries, champions])
 
-  if (championsTable.length === 0) {
+  if (tableDesktop.length === 0) {
     return (
       <div className="flex justify-center items-center h-full">
         <div className="text-center">
@@ -130,10 +195,11 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
   return (
     <div className="flex flex-col">
-      <div className="">
+      {/* Desktop */}
+      <div className="hidden md:block">
         <div className="align-middle inline-block">
-          <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
-            <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 rounded-lg">
+            <table className="table-fixed w-full">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th
@@ -169,10 +235,19 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {championsTable}
+                {tableDesktop}
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+
+      {/* Mobile */}
+      <div className="block md:hidden">
+        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
+          <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+            {tableMobile}
+          </ul>
         </div>
       </div>
     </div>
