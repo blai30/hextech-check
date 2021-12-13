@@ -16,10 +16,6 @@ const regions = [
   { value: 'LAS', label: 'Latin America South' }
 ]
 
-const classNames = (...classes: string[]) => {
-  return classes.filter(Boolean).join(' ')
-}
-
 const SearchForm = () => {
   const [summoner, setName] = useState('')
   const [region, setRegion] = useState(regions[0])
@@ -72,11 +68,8 @@ const SearchForm = () => {
                       <Listbox.Option
                         key={region.value}
                         className={({ active }) =>
-                          classNames(
-                            active ? 'text-white bg-indigo-600' : 'text-gray-900',
-                            'cursor-default select-none relative py-2 pl-3 pr-9'
-                          )
-                        }
+                          `${active ? 'text-white bg-indigo-600' : 'text-gray-900'}
+                          cursor-default select-none relative py-2 pl-3 pr-9`}
                         value={region}
                       >
                         {({ selected, active }) => (
@@ -86,7 +79,7 @@ const SearchForm = () => {
                                 {region.value}
                               </span>
                               <span
-                                className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-4 block')}
+                                className={`${selected ? 'font-semibold' : 'font-normal'} ml-4 block`}
                               >
                                 {region.label}
                               </span>
@@ -94,10 +87,7 @@ const SearchForm = () => {
 
                             {selected ? (
                               <span
-                                className={classNames(
-                                  active ? 'text-white' : 'text-indigo-600',
-                                  'absolute inset-y-0 right-0 flex items-center pr-4'
-                                )}
+                                className={`${active ? 'text-white' : 'text-indigo-600'} absolute inset-y-0 right-0 flex items-center pr-4`}
                               >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

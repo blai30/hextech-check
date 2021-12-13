@@ -7,7 +7,7 @@ export interface Champion {
   name: string
   partype: string
   stats: { [key: string]: number }
-  tags: number[]
+  tags: Tag[]
   title: string
 }
 
@@ -32,6 +32,15 @@ export enum Sprite {
   Champion3PNG = 'champion3.png',
   Champion4PNG = 'champion4.png',
   Champion5PNG = 'champion5.png',
+}
+
+export enum Tag {
+  Fighter = 0,
+  Tank = 1,
+  Mage = 2,
+  Assassin = 3,
+  Support = 4,
+  Marksman = 5,
 }
 
 export interface Info {

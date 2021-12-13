@@ -2,7 +2,28 @@
 import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
-import { Champion, ChampionMastery } from '@/models'
+import { Champion, ChampionMastery, Tag } from '@/models'
+
+const masteryClasses = (level: number): string => {
+  return (
+    level === 5 ? 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900' :
+    level === 6 ? 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900' :
+    level === 7 ? 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900' :
+    'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+  )
+}
+
+const tagClasses = (tag: Tag): string => {
+  return (
+    tag === Tag.Fighter ? 'bg-amber-100 text-amber-800' :
+    tag === Tag.Tank ? 'bg-indigo-100 text-indigo-800' :
+    tag === Tag.Mage ? 'bg-blue-100 text-blue-800' :
+    tag === Tag.Assassin ? 'bg-red-100 text-red-800' :
+    tag === Tag.Support ? 'bg-green-100 text-green-800' :
+    tag === Tag.Marksman ? 'bg-emerald-100 text-emerald-800' :
+    'bg-gray-100 text-gray-800'
+  )
+}
 
 const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
   const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
@@ -31,11 +52,6 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
     const table = championMasteries.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
-      const masteryBgColor =
-        championMastery.championLevel === 5 ? 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900' :
-        championMastery.championLevel === 6 ? 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900' :
-        championMastery.championLevel === 7 ? 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900' :
-        'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
   
       return (
         <tr key={championMastery.championId}>
@@ -56,8 +72,17 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
             </div>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
+            <div className="flex flex-col items-start space-y-1">
+              {champion.tags.map((tag) => (
+                <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}>
+                  {Tag[tag]}
+                </div>
+              ))}
+            </div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex rounded-md">
-              <span className={`inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600 ${masteryBgColor}`}>
+              <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
                 {championMastery.championLevel}
               </span>
               <span className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
@@ -91,7 +116,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
     setChampionsTable(table)
   }, [championMasteries, champions])
 
-  if (!championsTable) {
+  if (championsTable.length === 0) {
     return (
       <div className="flex justify-center items-center h-full">
         <div className="text-center">
@@ -113,9 +138,15 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                 <tr>
                   <th
                     scope="col"
-                    className="w-4/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                   >
                     Champion
+                  </th>
+                  <th
+                    scope="col"
+                    className="w-2/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                  >
+                    Class
                   </th>
                   <th
                     scope="col"
@@ -131,7 +162,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   </th>
                   <th
                     scope="col"
-                    className="w-4/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                   >
                     Last Played
                   </th>
