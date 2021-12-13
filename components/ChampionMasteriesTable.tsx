@@ -41,10 +41,10 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
         <tr key={championMastery.championId}>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-              <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full">
+              <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full ring-2 ring-gray-200 dark:ring-gray-600">
                 <div className="relative h-14 w-14">
                   <img
-                    className="absolute -inset-1 h-full w-full ring-2 ring-white"
+                    className="absolute -inset-1"
                     src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/champion/${champion.image.full}`}
                     alt={`Champion icon ${champion.name}`}
                   />
@@ -73,7 +73,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-200 dark:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
               )}
@@ -105,8 +105,8 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
   return (
     <div className="flex flex-col">
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div className="">
+        <div className="align-middle inline-block">
           <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
             <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-700">
