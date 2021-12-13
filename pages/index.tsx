@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import DarkToggle from '@/components/DarkToggle'
 import ChampionMasteriesTable from '@/components/ChampionMasteriesTable'
 import SearchForm from '@/components/SearchForm'
 import SummonerDetails from '@/components/SummonerDetails'
@@ -10,6 +11,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="container flex flex-col mx-auto p-4 space-y-4">
+      <DarkToggle />
       <SearchForm />
       {region && summoner ?
       <>

@@ -15,13 +15,13 @@ const masteryClasses = (level: number): string => {
 
 const tagClasses = (tag: Tag): string => {
   return (
-    tag === Tag.Fighter ? 'bg-amber-100 text-amber-800' :
-    tag === Tag.Tank ? 'bg-indigo-100 text-indigo-800' :
-    tag === Tag.Mage ? 'bg-blue-100 text-blue-800' :
-    tag === Tag.Assassin ? 'bg-red-100 text-red-800' :
-    tag === Tag.Support ? 'bg-green-100 text-green-800' :
-    tag === Tag.Marksman ? 'bg-emerald-100 text-emerald-800' :
-    'bg-gray-100 text-gray-800'
+    tag === Tag.Fighter ? 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900' :
+    tag === Tag.Tank ? 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900' :
+    tag === Tag.Mage ? 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900' :
+    tag === Tag.Assassin ? 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900' :
+    tag === Tag.Support ? 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900' :
+    tag === Tag.Marksman ? 'text-green-800 dark:text-green-300 bg-green-100 dark:bg-green-900' :
+    'text-gray-800 dark:text-gray-800 bg-gray-100 dark:bg-gray-100'
   )
 }
 
