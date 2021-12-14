@@ -70,7 +70,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
           <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
             {`${leagues[0].tier} ${leagues[0].rank}`}
           </span>
-          <span className="inline-flex items-center px-3 rounded-md border border-gray-300 dark:border-gray-600">
+          <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300 dark:border-gray-600">
             {summoner.level}
           </span>
         </div>
