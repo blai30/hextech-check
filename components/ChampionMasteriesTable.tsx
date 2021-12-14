@@ -183,8 +183,10 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
   if (tableDesktop.length === 0) {
     return (
-      <div className="px-6 whitespace-nowrap bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
-        Loading champion masteries...
+      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-900 rounded-lg shadow">
+        <div className="flex flex-row items-center">
+          Loading champion masteries...
+        </div>
       </div>
     )
   }
@@ -195,7 +197,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
       <div className="hidden md:block">
         <div className="align-middle inline-block">
           <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 rounded-lg">
-            <table className="table-fixed w-full">
+            <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th
