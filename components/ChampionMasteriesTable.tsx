@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
 import { Champion, ChampionMastery, Tag } from '@/models'
@@ -26,10 +27,20 @@ const tagClasses = (tag: Tag): string => {
 }
 
 const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
+  const [latestVersion, setLatestVersion] = useState<string>()
   const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
   const [tableDesktop, setTableDesktop] = useState<JSX.Element[]>([])
   const [tableMobile, setTableMobile] = useState<JSX.Element[]>([])
+
+  useEffect(() => {
+    const getLatestVersion = async () => {
+      const response = await axios.get<string[]>('https://ddragon.leagueoflegends.com/api/versions.json')
+      setLatestVersion(response.data[0])
+    }
+
+    getLatestVersion()
+  }, [])
 
   useEffect(() => {
     const getChampions = async () => {
@@ -62,7 +73,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                 <div className="relative h-14 w-14">
                   <img
                     className="absolute -inset-1"
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/champion/${champion.image.full}`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
                     alt={`Champion icon ${champion.name}`}
                   />
                 </div>
@@ -127,7 +138,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   <div className="relative h-14 w-14">
                     <img
                       className="absolute -inset-1"
-                      src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/champion/${champion.image.full}`}
+                      src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
                       alt={`Champion icon ${champion.name}`}
                     />
                   </div>
@@ -179,7 +190,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
     setTableDesktop(tableDesktop)
     setTableMobile(tableMobile)
-  }, [championMasteries, champions])
+  }, [championMasteries, champions, latestVersion])
 
   if (tableDesktop.length === 0) {
     return (

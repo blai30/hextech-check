@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { format, formatDistanceToNow } from 'date-fns'
 import api from '@/lib/api'
 import { League, Summoner, Tier } from '@/models'
@@ -20,8 +21,18 @@ const leagueClasses = (league: League): string => {
 }
 
 const SummonerDetails = ({ region, summonerName }: { summonerName: string, region: string }) => {
+  const [latestVersion, setLatestVersion] = useState<string>()
   const [summoner, setSummoner] = useState<Summoner>()
   const [leagues, setLeagues] = useState<League[]>()
+
+  useEffect(() => {
+    const getLatestVersion = async () => {
+      const response = await axios.get<string[]>('https://ddragon.leagueoflegends.com/api/versions.json')
+      setLatestVersion(response.data[0])
+    }
+
+    getLatestVersion()
+  }, [])
 
   useEffect(() => {
     const getSummoner = async () => {
@@ -62,7 +73,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
       <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
         <img
           className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/profileicon/${summoner.profileIconId}.png`}
+          src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
           alt={`Summoner profile icon ${summoner.profileIconId}`}
         />
         <div className="flex-col flex-1 items-center sm:ml-6 space-y-2">
