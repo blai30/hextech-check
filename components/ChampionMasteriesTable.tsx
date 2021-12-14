@@ -231,7 +231,8 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   </th>
                   <th
                     scope="col"
-                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                    title={`Total mastery: ${championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0).toLocaleString()}`}
+                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-help underline decoration-dotted decoration-gray-400"
                   >
                     Mastery
                   </th>
