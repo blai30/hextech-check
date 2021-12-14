@@ -83,6 +83,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               </span>
             </div>
           </td>
+
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex flex-col items-start space-y-1">
               {champion.tags.map((tag) => (
@@ -92,6 +93,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               ))}
             </div>
           </td>
+
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex rounded-md">
               <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
@@ -102,6 +104,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               </span>
             </div>
           </td>
+
           <td className="px-6 py-4 whitespace-nowrap">
             <span>
               {championMastery.chestGranted ? (
@@ -115,6 +118,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               )}
             </span>
           </td>
+
           <td className="px-6 py-4 whitespace-nowrap">
             <span className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
               {formatDistanceToNow(date) + ' ago'}
@@ -130,8 +134,8 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
       return (
         <li key={championMastery.championId}>
-        {/* Image and Name */}
           <div className="px-6 py-4 whitespace-nowrap space-y-2">
+
             <div className="flex flex-1 items-center justify-between">
               <div className="flex items-center">
                 <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full ring-2 ring-gray-200 dark:ring-gray-600">
@@ -143,6 +147,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                     />
                   </div>
                 </div>
+
                 <div className="flex flex-col ml-4 space-y-1">
                   <span className="text-black dark:text-white">
                     {champion.name}
@@ -157,6 +162,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   </div>
                 </div>
               </div>
+
               <div className="flex flex-col items-end space-y-1">
                 {champion.tags.map((tag) => (
                   <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}>
@@ -194,7 +200,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
   if (tableDesktop.length === 0) {
     return (
-      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-900 rounded-lg shadow">
+      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="flex flex-row items-center">
           Loading champion masteries...
         </div>

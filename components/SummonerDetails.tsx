@@ -36,7 +36,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
 
   useEffect(() => {
     const getSummoner = async () => {
-      const response = await api.get(`/Summoners/${region}/${summonerName}`)
+      const response = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
       setSummoner(response.data)
     }
 
@@ -49,7 +49,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
         return
       }
 
-      const response = await api.get(`/Leagues/${region}/${summoner.id}`)
+      const response = await api.get<League[]>(`/Leagues/${region}/${summoner.id}`)
       setLeagues(response.data)
     }
 
@@ -58,7 +58,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
 
   if (!summoner || !leagues) {
     return (
-      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-900 rounded-lg shadow">
+      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="flex flex-row items-center">
           Loading summoner details...
         </div>
@@ -86,7 +86,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
           </span>
         </div>
         <div className="flex-col items-center">
-          <p className="text-center sm:text-right text-gray-600 dark:text-gray-300">Last online {formatDistanceToNow(date)} ago</p>
+          <p className="text-center sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
           <p className="text-center sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
         </div>
       </div>
