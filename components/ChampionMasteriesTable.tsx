@@ -74,7 +74,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   <img
                     className="absolute -inset-1"
                     src={latestVersion && champion && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
-                    alt={`Champion icon ${champion.name}`}
+                    alt={`Champion icon ${champion && champion.name}`}
                   />
                 </div>
               </div>
@@ -143,7 +143,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                     <img
                       className="absolute -inset-1"
                       src={latestVersion && champion && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
-                      alt={`Champion icon ${champion.name}`}
+                      alt={`Champion icon ${champion && champion.name}`}
                     />
                   </div>
                 </div>
@@ -215,7 +215,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
         <div className="align-middle inline-block">
           <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 rounded-lg">
             <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-700">
+              <thead className="transition-colors bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th
                     scope="col"
@@ -250,7 +250,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="transition-colors bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {tableDesktop}
               </tbody>
             </table>
@@ -260,7 +260,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
       {/* Mobile */}
       <div className="block md:hidden">
-        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
+        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {tableMobile}
           </ul>
