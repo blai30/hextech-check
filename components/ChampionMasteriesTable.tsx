@@ -73,7 +73,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                 <div className="relative h-14 w-14">
                   <img
                     className="absolute -inset-1"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
+                    src={latestVersion && champion && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
                     alt={`Champion icon ${champion.name}`}
                   />
                 </div>
@@ -142,7 +142,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   <div className="relative h-14 w-14">
                     <img
                       className="absolute -inset-1"
-                      src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
+                      src={latestVersion && champion && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
                       alt={`Champion icon ${champion.name}`}
                     />
                   </div>

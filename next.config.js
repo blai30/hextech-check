@@ -7,4 +7,10 @@ module.exports = {
   reactStrictMode: true,
   basePath: pathPrefix,
   assetPrefix: pathPrefix,
+  images: {
+    domains: [
+      'ddragon.leagueoflegends.com',
+      'blai30hextechcheck.azurewebsites.net',
+    ],
+  },
 }

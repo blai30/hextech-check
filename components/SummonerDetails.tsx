@@ -73,7 +73,7 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
       <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
         <img
           className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
-          src={`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
+          src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
           alt={`Summoner profile icon ${summoner.profileIconId}`}
         />
         <div className="flex-col flex-1 items-center sm:ml-6 space-y-2">
