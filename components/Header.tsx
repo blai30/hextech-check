@@ -7,7 +7,7 @@ const Header = () => {
       <div className="flex flex-row items-center justify-between">
         <Link href="/">
           <a className="tracking-wide font-bold text-lg text-gray-600 dark:text-gray-300">
-            Masteries
+            Hextech Check
           </a>
         </Link>
         <DarkToggle />
