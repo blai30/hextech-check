@@ -23,18 +23,12 @@ const DarkToggle = () => {
         id="dark-toggle"
         checked={currentTheme === 'light'}
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        className={`${
-          currentTheme === 'dark' ? 'bg-gray-300' : 'bg-gray-600'
-        } relative inline-flex items-center h-6 transition ease-in-out duration-200 rounded-full w-11 focus:outline-none`}
+        className={`bg-gray-600 dark:bg-gray-300 relative inline-flex items-center h-6 transition ease-in-out duration-200 rounded-full w-11 focus:outline-none`}
       >
         <span className="sr-only">Enable dark mode</span>
         <span
           aria-hidden="true"
-          className={`${
-            currentTheme === 'dark'
-              ? 'translate-x-6 bg-gray-900'
-              : 'translate-x-1 bg-white'
-          } pointer-events-none inline-block w-4 h-4 transform ring-0 transition ease-in-out duration-200 rounded-full`}
+          className={`dark:translate-x-6 dark:bg-gray-900 translate-x-1 bg-white pointer-events-none inline-block w-4 h-4 transform ring-0 transition ease-in-out duration-200 rounded-full`}
         />
       </Switch>
       {/* Moon icon. */}

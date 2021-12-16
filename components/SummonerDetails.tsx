@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { format, formatDistanceToNow } from 'date-fns'
@@ -69,28 +70,33 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
   const date = new Date(summoner.revisionDate + 'Z')
 
   return (
-    <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
-      <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
-        <img
-          className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
-          src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
-          alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
-        />
-        <div className="flex-col flex-1 items-center sm:ml-6 space-y-2">
-          <p className="text-2xl text-center sm:text-left">{summoner.name}</p>
-          <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-            {`${leagues[0].tier} ${leagues[0].rank}`}
-          </span>
-          <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300 dark:border-gray-600">
-            {summoner.level}
-          </span>
-        </div>
-        <div className="flex-col items-center">
-          <p className="text-center sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
-          <p className="text-center sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
+    <>
+      <Head>
+        <title>{summoner.name} - Hextech Check</title>
+      </Head>
+      <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
+          <img
+            className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
+            src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
+            alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
+          />
+          <div className="flex-col flex-1 items-center sm:ml-6 space-y-2">
+            <p className="text-2xl text-center sm:text-left">{summoner.name}</p>
+            <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+              {`${leagues[0].tier} ${leagues[0].rank}`}
+            </span>
+            <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300 dark:border-gray-600">
+              {summoner.level}
+            </span>
+          </div>
+          <div className="flex-col items-center">
+            <p className="text-center sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
+            <p className="text-center sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

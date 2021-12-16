@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ChampionMasteriesTable from '@/components/ChampionMasteriesTable'
 import Header from '@/components/Header'
@@ -10,26 +11,31 @@ const Home: NextPage = () => {
   const { region, summoner } = router.query as { region: string, summoner: string }
 
   return (
-    <div className="">
-      <div className="container flex flex-col mx-auto p-4 space-y-4">
-        <Header />
-        <SearchForm />
-        {region && summoner ?
-        <>
-          <div>
-            <SummonerDetails region={region} summonerName={summoner} />
-          </div>
-          <div>
-            <ChampionMasteriesTable region={region} summonerName={summoner} />
-          </div>
-        </> :
-        <>
-          <div>
-            <p className="">Enter a summoner name and region.</p>
-          </div>
-        </>}
+    <>
+      <Head>
+        <title>Hextech Check</title>
+      </Head>
+      <div className="">
+        <div className="container flex flex-col mx-auto p-4 space-y-4">
+          <Header />
+          <SearchForm />
+          {region && summoner ?
+          <>
+            <div>
+              <SummonerDetails region={region} summonerName={summoner} />
+            </div>
+            <div>
+              <ChampionMasteriesTable region={region} summonerName={summoner} />
+            </div>
+          </> :
+          <>
+            <div>
+              <p className="">Enter a summoner name and region.</p>
+            </div>
+          </>}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
