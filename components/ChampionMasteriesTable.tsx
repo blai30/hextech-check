@@ -79,7 +79,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                 </div>
               </div>
               <span className="ml-4 text-black dark:text-white">
-                {champion.name}
+                {champion && champion.name}
               </span>
             </div>
           </td>
@@ -87,7 +87,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex flex-col items-start space-y-1">
               {champion.tags.map((tag) => (
-                <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}>
+                <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
                   {Tag[tag]}
                 </div>
               ))}
@@ -97,17 +97,17 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex rounded-md">
               <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-                {championMastery.championLevel}
+                {championMastery && championMastery.championLevel}
               </span>
               <span className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
-                {championMastery.championPoints.toLocaleString()}
+                {championMastery && championMastery.championPoints.toLocaleString()}
               </span>
             </div>
           </td>
 
           <td className="px-6 py-4 whitespace-nowrap">
             <span>
-              {championMastery.chestGranted ? (
+              {championMastery && championMastery.chestGranted ? (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
@@ -120,9 +120,19 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
           </td>
 
           <td className="px-6 py-4 whitespace-nowrap">
-            <span className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
-              {formatDistanceToNow(date) + ' ago'}
-            </span>
+            <button className="relative group">
+              <span
+                className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
+              >
+                {formatDistanceToNow(date) + ' ago'}
+              </span>
+              <div className="absolute hidden group-hover:block group-focus:block -top-16 -translate-x-12 px-4 py-2 text-xs text-black dark:text-white bg-white dark:bg-black dark:shadow-gray-700/50 shadow-xl">
+                <div className="flex flex-col items-center space-y-1">
+                  <p>{format(date, 'PPPP')}</p>
+                  <p>{format(date, 'pppp')}</p>
+                </div>
+              </div>
+            </button>
           </td>
         </tr>
       )
@@ -150,22 +160,22 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
                 <div className="flex flex-col ml-4 space-y-1">
                   <span className="text-black dark:text-white">
-                    {champion.name}
+                    {champion && champion.name}
                   </span>
                   <div className="flex rounded-md">
                     <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
-                      {championMastery.championLevel}
+                      {championMastery && championMastery.championLevel}
                     </span>
                     <span className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
-                      {championMastery.championPoints.toLocaleString()}
+                      {championMastery && championMastery.championPoints.toLocaleString()}
                     </span>
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-col items-end space-y-1">
-                {champion.tags.map((tag) => (
-                  <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}>
+                {champion && champion.tags.map((tag) => (
+                  <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
                     {Tag[tag]}
                   </div>
                 ))}
@@ -173,12 +183,22 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted cursor-help" title={`${format(date, 'PPPP')}\n${format(date, 'pppp')}`}>
-                Last played {formatDistanceToNow(date) + ' ago'}
-              </span>
+              <button className="relative group">
+                <span
+                  className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
+                >
+                  Last played {formatDistanceToNow(date) + ' ago'}
+                </span>
+                <div className="absolute hidden group-focus:block -top-16 -translate-x-4 px-4 py-2 text-xs text-black dark:text-white bg-white dark:bg-black dark:shadow-gray-700/50 shadow-xl">
+                  <div className="flex flex-col items-center space-y-1">
+                    <p>{format(date, 'PPPP')}</p>
+                    <p>{format(date, 'pppp')}</p>
+                  </div>
+                </div>
+              </button>
 
               <span>
-                {championMastery.chestGranted ? (
+                {championMastery && championMastery.chestGranted ? (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
