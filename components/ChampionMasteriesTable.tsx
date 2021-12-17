@@ -107,13 +107,15 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
           <td className="px-6 py-4 whitespace-nowrap">
             <span>
-              {championMastery && championMastery.chestGranted ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-200 dark:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              {championMastery && (
+                <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 ${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-500' : 'text-gray-200 dark:text-gray-700'}`} viewBox="0 0 64 64" fillRule="evenodd" clipRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="1.5">
+                  <g transform="matrix(0.875,0,0,0.912446,4,2.80171)">
+                    <path d="M64,7.365C64,3.3 60.559,0 56.32,0L7.68,0C3.441,0 0,3.3 0,7.365L0,56.635C0,60.7 3.441,64 7.68,64L56.32,64C60.559,64 64,60.7 64,56.635L64,7.365ZM57.143,7.365L57.143,56.635C57.143,57.071 56.774,57.424 56.32,57.424L7.68,57.424C7.226,57.424 6.857,57.071 6.857,56.635C6.857,56.635 6.857,7.365 6.857,7.365C6.857,6.929 7.226,6.576 7.68,6.576C7.68,6.576 56.32,6.576 56.32,6.576C56.774,6.576 57.143,6.929 57.143,7.365Z" fill="currentColor" />
+                  </g>
+                  <path d="M32,6L18,16L18,40L32,50L46,40L46,16L32,6ZM32,15.831L38,20.117C38,20.117 38,35.883 38,35.883C38,35.883 32,40.169 32,40.169C32,40.169 26,35.883 26,35.883C26,35.883 26,20.117 26,20.117L32,15.831Z" fill="currentColor" />
+                  <g transform="matrix(1,0,0,1,-3.55271e-15,2)">
+                    <path d="M8,6L20,18L32,6L44,18L56,6L8,6Z" fill="currentColor" stroke="currentColor" strokeWidth="5px" />
+                  </g>
                 </svg>
               )}
             </span>
@@ -144,7 +146,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
       return (
         <li key={championMastery.championId}>
-          <div className="px-6 py-4 whitespace-nowrap space-y-2">
+          <div className="px-6 py-4 whitespace-nowrap space-y-6">
 
             <div className="flex flex-1 items-center justify-between">
               <div className="flex items-center">
@@ -198,13 +200,15 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
               </button>
 
               <span>
-                {championMastery && championMastery.chestGranted ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-200 dark:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                {championMastery && (
+                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 ${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-500' : 'text-gray-200 dark:text-gray-700'}`} viewBox="0 0 64 64" fillRule="evenodd" clipRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="1.5">
+                    <g transform="matrix(0.875,0,0,0.912446,4,2.80171)">
+                      <path d="M64,7.365C64,3.3 60.559,0 56.32,0L7.68,0C3.441,0 0,3.3 0,7.365L0,56.635C0,60.7 3.441,64 7.68,64L56.32,64C60.559,64 64,60.7 64,56.635L64,7.365ZM57.143,7.365L57.143,56.635C57.143,57.071 56.774,57.424 56.32,57.424L7.68,57.424C7.226,57.424 6.857,57.071 6.857,56.635C6.857,56.635 6.857,7.365 6.857,7.365C6.857,6.929 7.226,6.576 7.68,6.576C7.68,6.576 56.32,6.576 56.32,6.576C56.774,6.576 57.143,6.929 57.143,7.365Z" fill="currentColor" />
+                    </g>
+                    <path d="M32,6L18,16L18,40L32,50L46,40L46,16L32,6ZM32,15.831L38,20.117C38,20.117 38,35.883 38,35.883C38,35.883 32,40.169 32,40.169C32,40.169 26,35.883 26,35.883C26,35.883 26,20.117 26,20.117L32,15.831Z" fill="currentColor" />
+                    <g transform="matrix(1,0,0,1,-3.55271e-15,2)">
+                      <path d="M8,6L20,18L32,6L44,18L56,6L8,6Z" fill="currentColor" stroke="currentColor" strokeWidth="5px" />
+                    </g>
                   </svg>
                 )}
               </span>
@@ -233,7 +237,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
       {/* Desktop */}
       <div className="hidden md:block">
         <div className="align-middle inline-block">
-          <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="shadow border-b border-gray-200 dark:border-gray-700 rounded-lg">
             <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="transition-colors bg-gray-50 dark:bg-gray-700">
                 <tr>
@@ -280,7 +284,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
       {/* Mobile */}
       <div className="block md:hidden">
-        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
+        <div className="transition-colors bg-white dark:bg-gray-800 shadow rounded-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {tableMobile}
           </ul>
