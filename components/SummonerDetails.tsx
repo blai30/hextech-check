@@ -1,9 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { format, formatDistanceToNow } from 'date-fns'
-import api from '@/lib/api'
 import { League, Summoner, Tier } from '@/models'
 
 const leagueClasses = (league: League): string => {
@@ -21,42 +18,17 @@ const leagueClasses = (league: League): string => {
   )
 }
 
-const SummonerDetails = ({ region, summonerName }: { summonerName: string, region: string }) => {
-  const [latestVersion, setLatestVersion] = useState<string>()
-  const [summoner, setSummoner] = useState<Summoner>()
-  const [leagues, setLeagues] = useState<League[]>()
-
-  useEffect(() => {
-    const getLatestVersion = async () => {
-      const response = await axios.get<string[]>('https://ddragon.leagueoflegends.com/api/versions.json')
-      setLatestVersion(response.data[0])
-    }
-
-    getLatestVersion()
-  }, [])
-
-  useEffect(() => {
-    const getSummoner = async () => {
-      const response = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
-      setSummoner(response.data)
-    }
-
-    getSummoner()
-  }, [region, summonerName])
-
-  useEffect(() => {
-    const getLeagues = async () => {
-      if (!summoner) {
-        return
-      }
-
-      const response = await api.get<League[]>(`/Leagues/${region}/${summoner.id}`)
-      setLeagues(response.data)
-    }
-
-    getLeagues()
-  }, [region, summoner])
-
+const SummonerDetails = ({
+  latestVersion,
+  leagues,
+  summoner,
+  totalMastery
+}: {
+  latestVersion: string | undefined
+  leagues: League[] | undefined
+  summoner: Summoner | undefined
+  totalMastery: number
+}) => {
   if (!summoner || !leagues) {
     return (
       <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -75,20 +47,26 @@ const SummonerDetails = ({ region, summonerName }: { summonerName: string, regio
         <title>{summoner.name} - Hextech Check</title>
       </Head>
       <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
-        <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
-          <img
-            className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
-            src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
-            alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
-          />
-          <div className="flex-col flex-1 items-center sm:ml-6 space-y-2">
-            <p className="text-2xl text-center sm:text-left">{summoner.name}</p>
-            <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-              {`${leagues[0].tier} ${leagues[0].rank}`}
-            </span>
-            <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300 dark:border-gray-600">
-              {summoner.level}
-            </span>
+        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0">
+            <img
+              className="inline-block h-20 w-20 rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
+              src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
+              alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
+            />
+            <div className="flex-col items-center sm:ml-6 space-y-2">
+              <p className="text-2xl text-center sm:text-left">{summoner.name}</p>
+              <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                {`${leagues[0].tier} ${leagues[0].rank}`}
+              </span>
+              <span className="inline-flex items-center px-3 rounded-r-md border border-gray-300 dark:border-gray-600">
+                {summoner.level}
+              </span>
+            </div>
+          </div>
+          <div className="flex-col items-center">
+            <p className="text-center text-gray-600 dark:text-gray-300">Total mastery</p>
+            <p className="text-center text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
           </div>
           <div className="flex-col items-center">
             <p className="text-center sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>

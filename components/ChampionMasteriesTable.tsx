@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { format, formatDistanceToNow } from 'date-fns'
-import api from '@/lib/api'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
 const masteryClasses = (level: number): string => {
@@ -26,41 +24,23 @@ const tagClasses = (tag: Tag): string => {
   )
 }
 
-const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string, region: string }) => {
-  const [latestVersion, setLatestVersion] = useState<string>()
-  const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
-  const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
+const ChampionMasteriesTable = ({
+  latestVersion,
+  champions,
+  championMasteries
+}: {
+  latestVersion: string | undefined
+  champions: { [key: number]: Champion } | undefined
+  championMasteries: ChampionMastery[] | undefined
+}) => {
   const [tableDesktop, setTableDesktop] = useState<JSX.Element[]>([])
   const [tableMobile, setTableMobile] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    const getLatestVersion = async () => {
-      const response = await axios.get<string[]>('https://ddragon.leagueoflegends.com/api/versions.json')
-      setLatestVersion(response.data[0])
+    if (!champions || !championMasteries) {
+      return
     }
 
-    getLatestVersion()
-  }, [])
-
-  useEffect(() => {
-    const getChampions = async () => {
-      const response = await api.get<{ [key: number]: Champion }>('/Champions')
-      setChampions(response.data)
-    }
-
-    getChampions()
-  }, [])
-
-  useEffect(() => {
-    const getChampionMasteries = async () => {
-      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
-      setChampionMasteries(response.data)
-    }
-
-    getChampionMasteries()
-  }, [summonerName, region])
-
-  useEffect(() => {
     const tableDesktop = championMasteries.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
@@ -237,7 +217,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
       {/* Desktop */}
       <div className="hidden md:block">
         <div className="align-middle inline-block">
-          <div className="shadow border-b border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 rounded-lg">
             <table className="table-fixed w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="transition-colors bg-gray-50 dark:bg-gray-700">
                 <tr>
@@ -255,8 +235,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
                   </th>
                   <th
                     scope="col"
-                    title={`Total mastery: ${championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0).toLocaleString()}`}
-                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-help underline decoration-dotted decoration-gray-400"
+                    className="w-3/12 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                   >
                     Mastery
                   </th>
@@ -284,7 +263,7 @@ const ChampionMasteriesTable = ({ summonerName, region }: { summonerName: string
 
       {/* Mobile */}
       <div className="block md:hidden">
-        <div className="transition-colors bg-white dark:bg-gray-800 shadow rounded-lg">
+        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {tableMobile}
           </ul>
