@@ -40,7 +40,7 @@ class MyDocument extends Document {
           <meta key="og:type" property="og:type" content="website" />
 
           {/* Twitter meta. */}
-          <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
+          <meta key="twitter:card" name="twitter:card" content="summary" />
           <meta
             key="twitter:description"
             property="twitter:description"
