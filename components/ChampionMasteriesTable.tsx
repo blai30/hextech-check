@@ -66,7 +66,7 @@ const ChampionMasteriesTable = ({
 
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex flex-col items-start space-y-1">
-              {champion.tags.map((tag) => (
+              {champion && champion.tags && champion.tags.map((tag) => (
                 <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
                   {Tag[tag]}
                 </div>
@@ -156,7 +156,7 @@ const ChampionMasteriesTable = ({
               </div>
 
               <div className="flex flex-col items-end space-y-1">
-                {champion && champion.tags.map((tag) => (
+                {champion && champion.tags && champion.tags.map((tag) => (
                   <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
                     {Tag[tag]}
                   </div>
