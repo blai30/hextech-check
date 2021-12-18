@@ -88,9 +88,9 @@ const Home: NextPage = () => {
         <meta key="title" name="title" content="Hextech Check" />
 
         {/* Open Graph. */}
-        <meta key="og:title" property="og:title" content="Hextech Check" />
+        <meta key="og:title" property="og:title" content="Hextech Check - League of Legends" />
         <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
-        <meta key="og:image" property="og:image" content="hextech-check/favicon.png" />
+        <meta key="og:image" property="og:image" content="https://www.bhlai.com/hextech-check/favicon.png" />
 
         {/* Twitter meta. */}
         <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
           property="twitter:description"
           content="View champion masteries and claimed hextech chests for your League of Legends summoner."
         />
-        <meta key="twitter:image" property="twitter:image" content="hextech-check/favicon.png" />
+        <meta key="twitter:image" property="twitter:image" content="https://www.bhlai.com/hextech-check/favicon.png" />
       </Head>
       <div className="">
         <div className="container flex flex-col mx-auto p-4 space-y-4">

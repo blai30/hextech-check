@@ -36,7 +36,6 @@ class MyDocument extends Document {
             property="og:description"
             content="View champion masteries and claimed hextech chests for your League of Legends summoner."
           />
-          <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
           <meta key="og:url" property="og:url" content="https://www.bhlai.com/hextech-check" />
           <meta key="og:type" property="og:type" content="website" />
 
@@ -67,21 +66,21 @@ class MyDocument extends Document {
           /> */}
 
           <link rel="canonical" href="https://www.bhlai.com/hextech-check" />
-          {/* <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-          <link rel="icon" href="/favicon.png" type="image/x-icon" />
-          <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+          <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+          <link rel="icon" href="favicon.png" type="image/x-icon" />
+          <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
           <link
             rel="mask-icon"
-            href="/favicon.svg"
+            href="favicon.svg"
             type="image/svg+xml"
-            color="#18181B"
+            color="#002137"
           />
           <link
             rel="apple-touch-icon"
-            href="/favicon.png"
+            href="favicon.png"
             type="image/x-icon"
           />
-          <link rel="manifest" href="/manifest.json" /> */}
+          {/* <link rel="manifest" href="/manifest.json" /> */}
 
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
           <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" />
