@@ -95,7 +95,7 @@ const Home: NextPage = () => {
         {/* Twitter meta. */}
         <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
-        <meta key="twitter:image" property="twitter:image" content="favicon.png?" />
+        <meta key="twitter:image" property="twitter:image" content="favicon.png" />
       </Head>
       <div className="my-2">
         <div className="container flex flex-col mx-auto p-4 space-y-6">
