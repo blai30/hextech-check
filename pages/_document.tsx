@@ -65,18 +65,18 @@ class MyDocument extends Document {
           /> */}
 
           <link rel="canonical" href="https://www.bhlai.com/hextech-check" />
-          <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-          <link rel="icon" href="favicon.png" type="image/x-icon" />
-          <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+          <link rel="icon" href="favicon.svg?" type="image/svg+xml" />
+          <link rel="icon" href="favicon.png?" type="image/x-icon" />
+          <link rel="shortcut icon" href="favicon.png?" type="image/x-icon" />
           <link
             rel="mask-icon"
-            href="favicon.svg"
+            href="favicon.svg?"
             type="image/svg+xml"
             color="#002137"
           />
           <link
             rel="apple-touch-icon"
-            href="favicon.png"
+            href="favicon.png?"
             type="image/x-icon"
           />
           {/* <link rel="manifest" href="/manifest.json" /> */}

@@ -90,17 +90,12 @@ const Home: NextPage = () => {
         {/* Open Graph. */}
         <meta key="og:title" property="og:title" content="Hextech Check - League of Legends" />
         <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
-        <meta key="og:image" property="og:image" content="https://www.bhlai.com/hextech-check/favicon.png" />
+        <meta key="og:image" property="og:image" content="favicon.png?" />
 
         {/* Twitter meta. */}
         <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
-        <meta
-          key="twitter:description"
-          property="twitter:description"
-          content="View champion masteries and claimed hextech chests for your League of Legends summoner."
-        />
-        <meta key="twitter:image" property="twitter:image" content="https://www.bhlai.com/hextech-check/favicon.png" />
+        <meta key="twitter:image" property="twitter:image" content="favicon.png?" />
       </Head>
       <div className="my-2">
         <div className="container flex flex-col mx-auto p-4 space-y-6">
