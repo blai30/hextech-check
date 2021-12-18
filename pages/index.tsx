@@ -83,7 +83,24 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Hextech Check</title>
+        <title key="page-title">Hextech Check</title>
+        {/* Standard meta. */}
+        <meta key="title" name="title" content="Hextech Check" />
+
+        {/* Open Graph. */}
+        <meta key="og:title" property="og:title" content="Hextech Check" />
+        <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
+        <meta key="og:image" property="og:image" content="hextech-check/favicon.png" />
+
+        {/* Twitter meta. */}
+        <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
+        <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
+        <meta
+          key="twitter:description"
+          property="twitter:description"
+          content="View champion masteries and claimed hextech chests for your League of Legends summoner."
+        />
+        <meta key="twitter:image" property="twitter:image" content="hextech-check/favicon.png" />
       </Head>
       <div className="">
         <div className="container flex flex-col mx-auto p-4 space-y-4">

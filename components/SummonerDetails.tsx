@@ -44,7 +44,12 @@ const SummonerDetails = ({
   return (
     <>
       <Head>
-        <title>{summoner.name} - Hextech Check</title>
+        <title key="page-title">{summoner.name} - Hextech Check</title>
+        <meta key="title" name="title" content={`${summoner.name} - Summoner`} />
+        <meta key="og:title" property="og:title" content={`${summoner.name} - Summoner`} />
+        <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
+        <meta key="twitter:title" property="twitter:title" content={`${summoner.name} - Summoner`} />
+        <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
       </Head>
       <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0">

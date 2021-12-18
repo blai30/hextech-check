@@ -18,7 +18,6 @@ class MyDocument extends Document {
         <Head>
           {/* Standard meta. */}
           <meta key="author" name="author" content="Brian Lai" />
-          <meta key="title" name="title" content="Hextech Check" />
           <meta
             key="description"
             name="description"
@@ -32,7 +31,6 @@ class MyDocument extends Document {
           <meta key="theme-color" name="theme-color" content="#E3BA3D" />
 
           {/* Open Graph. */}
-          <meta key="og:title" property="og:title" content="Hextech Check" />
           <meta
             key="og:description"
             property="og:description"
@@ -40,19 +38,16 @@ class MyDocument extends Document {
           />
           <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
           <meta key="og:url" property="og:url" content="https://www.bhlai.com/hextech-check" />
-          <meta key="og:image" property="og:image" content="/favicon.png" />
           <meta key="og:type" property="og:type" content="website" />
 
           {/* Twitter meta. */}
           <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
-          <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
           <meta
             key="twitter:description"
             property="twitter:description"
             content="View champion masteries and claimed hextech chests for your League of Legends summoner."
           />
           <meta key="twitter:url" property="twitter:url" content="https://www.bhlai.com/hextech-check" />
-          <meta key="twitter:image" property="twitter:image" content="/favicon.png" />
           <meta key="twitter:creator" property="twitter:creator" content="@blai30" />
 
           {/* Apple meta. */}
