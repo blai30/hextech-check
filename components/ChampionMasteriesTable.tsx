@@ -111,7 +111,12 @@ const ChampionMasteriesTable = ({
                   <span
                     className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
                   >
-                    {formatDistanceToNow(date) + ' ago'}
+                    <span className="block md:hidden">
+                      Last played {formatDistanceToNow(date) + ' ago'}
+                    </span>
+                    <span className="hidden md:block">
+                      {formatDistanceToNow(date) + ' ago'}
+                    </span>
                   </span>
                   <div className="absolute hidden group-hover:block group-focus:block -top-16 -translate-x-12 px-4 py-2 text-xs text-black dark:text-white bg-white dark:bg-black dark:shadow-gray-700/50 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
