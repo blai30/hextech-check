@@ -56,7 +56,7 @@ const Home: NextPage = () => {
     }
 
     getLeagues()
-  }, [region, summoner])
+  }, [region, summoner, summonerName])
 
   useEffect(() => {
     const getChampions = async () => {
