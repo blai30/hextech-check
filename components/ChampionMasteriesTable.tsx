@@ -41,7 +41,7 @@ const ChampionMasteriesTable = ({
       return (
         <li key={championMastery.championId}>
           <div className="px-6 py-4 whitespace-normal space-y-4">
-            <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12 items-center">
+            <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12 md:items-center">
 
               <div className="col-span-5 md:col-span-3">
                 <div className="flex gap-4 items-center">
