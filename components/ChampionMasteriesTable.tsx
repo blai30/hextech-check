@@ -108,7 +108,7 @@ const ChampionMasteriesTable = ({
 
               <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
                 <button className="relative group">
-                  <span
+                  <div
                     className="text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
                   >
                     <span className="block md:hidden">
@@ -117,8 +117,8 @@ const ChampionMasteriesTable = ({
                     <span className="hidden md:block">
                       {formatDistanceToNow(date) + ' ago'}
                     </span>
-                  </span>
-                  <div className="absolute hidden group-hover:block group-focus:block -top-16 -translate-x-12 px-4 py-2 text-xs text-black dark:text-white bg-white dark:bg-black dark:shadow-gray-700/50 shadow-xl">
+                  </div>
+                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 -translate-x-6 px-4 py-2 text-xs text-black dark:text-white bg-white dark:bg-black dark:shadow-gray-700/50 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
                       <p>{format(date, 'PPPP')}</p>
                       <p>{format(date, 'pppp')}</p>
@@ -175,7 +175,7 @@ const ChampionMasteriesTable = ({
             </div>
           </div>
         </div>
-        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-hidden rounded-b-lg">
+        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {table}
           </ul>
