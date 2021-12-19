@@ -3,26 +3,20 @@ import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
-const masteryClasses = (level: number): string => {
-  return (
-    level === 5 ? 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900' :
-    level === 6 ? 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900' :
-    level === 7 ? 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900' :
-    'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
-  )
-}
+const tagClasses = (tag: Tag) => ({
+  [Tag.Fighter]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
+  [Tag.Tank]: 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900',
+  [Tag.Mage]: 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900',
+  [Tag.Assassin]: 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900',
+  [Tag.Support]: 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900',
+  [Tag.Marksman]: 'text-green-800 dark:text-green-300 bg-green-100 dark:bg-green-900',
+})[tag] ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
 
-const tagClasses = (tag: Tag): string => {
-  return (
-    tag === Tag.Fighter ? 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900' :
-    tag === Tag.Tank ? 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900' :
-    tag === Tag.Mage ? 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900' :
-    tag === Tag.Assassin ? 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900' :
-    tag === Tag.Support ? 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900' :
-    tag === Tag.Marksman ? 'text-green-800 dark:text-green-300 bg-green-100 dark:bg-green-900' :
-    'text-gray-800 dark:text-gray-800 bg-gray-100 dark:bg-gray-100'
-  )
-}
+const masteryClasses = (level: number): string => ({
+  5: 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900',
+  6: 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900',
+  7: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900',
+})[level] ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
 
 const ChampionMasteriesTable = ({
   latestVersion,
@@ -47,7 +41,7 @@ const ChampionMasteriesTable = ({
       return (
         <li key={championMastery.championId}>
           <div className="px-6 py-4 whitespace-normal space-y-4">
-            <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12">
+            <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12 items-center">
 
               <div className="col-span-5 md:col-span-3">
                 <div className="flex gap-4 items-center">
