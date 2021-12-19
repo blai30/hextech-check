@@ -9,6 +9,7 @@ const DarkToggle = () => {
 
   // Delay display until mounted to client, this will ensure initial state.
   useEffect(() => setMounted(true), [])
+
   if (!mounted) {
     return null
   }
@@ -23,12 +24,12 @@ const DarkToggle = () => {
         id="dark-toggle"
         checked={currentTheme === 'light'}
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        className={`bg-gray-600 dark:bg-gray-300 relative inline-flex items-center h-6 transition ease-in-out duration-200 rounded-full w-11 focus:outline-none`}
+        className="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent bg-gray-600 dark:bg-gray-300 transition-colors ease-in-out duration-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
-        <span className="sr-only">Enable dark mode</span>
+        <span className="sr-only">Toggle dark mode</span>
         <span
           aria-hidden="true"
-          className={`dark:translate-x-6 dark:bg-gray-900 translate-x-1 bg-white pointer-events-none inline-block w-4 h-4 transform ring-0 transition ease-in-out duration-200 rounded-full`}
+          className="translate-x-0 dark:translate-x-5 bg-white dark:bg-gray-900 pointer-events-none inline-block w-5 h-5 rounded-full transition ease-in-out duration-200"
         />
       </Switch>
       {/* Moon icon. */}
