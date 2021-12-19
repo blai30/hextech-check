@@ -56,7 +56,7 @@ const ChampionMasteriesTable = ({
                   </div>
 
                   <div className="flex flex-col space-y-1">
-                    <span className="text-black dark:text-white">
+                    <span className="text-left text-black dark:text-white">
                       {champion && champion.name}
                     </span>
                     <div className="flex md:hidden rounded-md">
@@ -106,10 +106,10 @@ const ChampionMasteriesTable = ({
                 )}
               </div>
 
-              <div className="col-span-4 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
+              <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
                 <button className="relative group">
                   <span
-                    className="text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
+                    className="text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted"
                   >
                     <span className="block md:hidden">
                       Last played {formatDistanceToNow(date) + ' ago'}
