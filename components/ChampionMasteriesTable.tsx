@@ -3,6 +3,22 @@ import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
+enum SortBy {
+  Champion = 'champion',
+  Points = 'points',
+  Chest = 'chest',
+  LastPlayed = 'lastPlayed',
+}
+
+const sortedBy = (sortBy: SortBy) => (a: ChampionMastery, b: ChampionMastery) => {
+  return {
+    [SortBy.Champion]: a.championId - b.championId,
+    [SortBy.Points]: b.championPoints - a.championPoints,
+    [SortBy.Chest]: a.chestGranted - b.chestGranted,
+    [SortBy.LastPlayed]: a.lastPlayTime - b.lastPlayTime,
+  }[sortBy] ?? SortBy.Points
+}
+
 const tagClasses = (tag: Tag) => ({
   [Tag.Fighter]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
   [Tag.Tank]: 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900',
@@ -28,13 +44,26 @@ const ChampionMasteriesTable = ({
   championMasteries: ChampionMastery[] | undefined
 }) => {
   const [table, setTable] = useState<JSX.Element[]>([])
+  const [query, setQuery] = useState<string>('')
+  const [filterChest, setFilterChest] = useState<boolean>(false)
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.Points)
+
+  const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value)
+  }
 
   useEffect(() => {
     if (!champions || !championMasteries) {
       return
     }
 
-    const table = championMasteries.map((championMastery) => {
+    const table = championMasteries.sort(sortedBy(sortBy)).filter((championMastery) => {
+      const champion = champions[championMastery.championId]
+      return (
+        (!filterChest || !championMastery.chestGranted) &&
+        champion.name.toLowerCase().includes(query?.toLowerCase())
+      )
+    }).map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
 
@@ -134,7 +163,7 @@ const ChampionMasteriesTable = ({
     })
 
     setTable(table)
-  }, [championMasteries, champions, latestVersion])
+  }, [championMasteries, champions, filterChest, latestVersion, query])
 
   if (table.length === 0) {
     return (
@@ -147,7 +176,30 @@ const ChampionMasteriesTable = ({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col space-y-6">
+      <div className="flex items-center">
+        <input
+          id="search"
+          name="search"
+          placeholder="Find champion..."
+          value={query}
+          onChange={handleQuery}
+          className="inline-flex items-center px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+        />
+
+        <label htmlFor="filterChest">
+          Chest available
+        </label>
+        <input
+          id="filterChest"
+          name="filterChest"
+          type="checkbox"
+          className="ml-2"
+          checked={filterChest}
+          onChange={() => setFilterChest(!filterChest)}
+        />
+      </div>
+
       <div className="flex-col md:block">
         <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg">
           <div className="flex md:hidden px-6 py-3">
