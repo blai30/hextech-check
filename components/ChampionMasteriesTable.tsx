@@ -15,7 +15,7 @@ const sortedBy = (sortBy: SortBy) => (a: ChampionMastery, b: ChampionMastery) =>
     [SortBy.Champion]: a.championId - b.championId,
     [SortBy.Points]: b.championPoints - a.championPoints,
     [SortBy.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
-    [SortBy.LastPlayed]: a.lastPlayTime.getTime() - b.lastPlayTime.getTime(),
+    [SortBy.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
   }[sortBy] ?? SortBy.Points
 }
 
