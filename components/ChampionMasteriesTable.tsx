@@ -163,7 +163,7 @@ const ChampionMasteriesTable = ({
     })
 
     setTable(table)
-  }, [championMasteries, champions, filterChest, latestVersion, query])
+  }, [championMasteries, champions, filterChest, latestVersion, query, sortBy])
 
   if (table.length === 0) {
     return (
