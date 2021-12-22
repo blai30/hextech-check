@@ -19,20 +19,20 @@ const sortedBy = (sortBy: SortBy) => (a: ChampionMastery, b: ChampionMastery) =>
   }[sortBy] ?? SortBy.Points
 }
 
-const tagClasses = (tag: Tag) => ({
+const tagClasses: Readonly<Record<Tag, string>> = {
   [Tag.Fighter]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
   [Tag.Tank]: 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900',
   [Tag.Mage]: 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900',
   [Tag.Assassin]: 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900',
   [Tag.Support]: 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900',
   [Tag.Marksman]: 'text-green-800 dark:text-green-300 bg-green-100 dark:bg-green-900',
-})[tag] ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+} ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
 
-const masteryClasses = (level: number): string => ({
+const masteryClasses: Readonly<Record<number, string>> = {
   5: 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900',
   6: 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900',
   7: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900',
-})[level] ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+} ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
 
 const ChampionMasteriesTable = ({
   latestVersion,
@@ -89,7 +89,7 @@ const ChampionMasteriesTable = ({
                       {champion && champion.name}
                     </span>
                     <div className="flex md:hidden rounded-md">
-                      <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
+                      <span className={`${masteryClasses[championMastery.championLevel]} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
                         {championMastery && championMastery.championLevel}
                       </span>
                       <span className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
@@ -103,7 +103,7 @@ const ChampionMasteriesTable = ({
               <div className="col-span-2 col-start-6 md:row-start-auto md:col-start-auto">
                 <div className="flex flex-col items-end md:items-start space-y-1">
                   {champion && champion.tags && champion.tags.map((tag) => (
-                    <div key={tag} className={`${tagClasses(tag)} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
+                    <div key={tag} className={`${tagClasses[tag]} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
                       {Tag[tag]}
                     </div>
                   ))}
@@ -112,7 +112,7 @@ const ChampionMasteriesTable = ({
 
               <div className="hidden md:block col-span-3">
                 <div className="flex rounded-md">
-                  <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                  <span className={`${masteryClasses[championMastery.championLevel]} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
                     {championMastery && championMastery.championLevel}
                   </span>
                   <span className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
