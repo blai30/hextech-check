@@ -4,10 +4,10 @@ import { format, formatDistanceToNow } from 'date-fns'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
 enum Column {
-  Champion = 'champion',
-  Points = 'points',
-  Chest = 'chest',
-  LastPlayed = 'lastPlayed',
+  Champion,
+  Points,
+  Chest,
+  LastPlayed,
 }
 
 const sortColumn = (sortBy: Column) => (a: ChampionMastery, b: ChampionMastery) => {
@@ -33,6 +33,75 @@ const masteryClasses: Readonly<Record<number, string>> = {
   6: 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900',
   7: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900',
 } ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+
+const loadingTable = (index: number) => (
+  <li key={index}>
+    <div className="px-6 py-4 whitespace-normal space-y-4">
+      <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12 md:items-center">
+
+        <div className="col-span-5 md:col-span-3">
+          <div className="flex gap-4 items-center">
+            <div className="h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Avatar */}
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <div className="h-4 w-20 lg:w-32 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                {/* Champion name */}
+              </div>
+              <div className="flex md:hidden rounded-md">
+                <div className="h-4 w-20 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                  {/* Mastery */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-2 col-start-6 md:row-start-auto md:col-start-auto">
+          <div className="flex flex-col items-end md:items-start space-y-1">
+            <div className="h-4 w-16 lg:w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Class */}
+            </div>
+            <div className="h-4 w-16 lg:w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Class */}
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden md:block col-span-3">
+          <div className="flex rounded-md">
+            <div className="h-4 w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Mastery */}
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-1 row-start-2 col-start-6 md:row-start-auto md:col-start-auto self-end md:self-auto justify-self-end md:justify-self-auto">
+          <div className="h-10 w-10 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+            {/* Chest */}
+          </div>
+        </div>
+
+        <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
+          <button className="relative group">
+            <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
+              <div className="h-4 w-44 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                {/* Last played */}
+              </div>
+            </span>
+            <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
+              <div className="h-4 w-32 lg:w-40 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                {/* Last played */}
+              </div>
+            </span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </li>
+)
 
 const ChampionMasteriesTable = ({
   latestVersion,
@@ -161,16 +230,6 @@ const ChampionMasteriesTable = ({
     setTable(table)
   }, [championMasteries, champions, filterChest, latestVersion, query, sortedColumn])
 
-  if (table.length === 0) {
-    return (
-      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-800 rounded-lg shadow">
-        <div className="flex flex-row items-center">
-          Loading champion masteries...
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="flex flex-col space-y-6">
       {/* Filter and sort */}
@@ -226,7 +285,7 @@ const ChampionMasteriesTable = ({
         </div>
         <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-            {table}
+            {table.length > 0 ? table : Array.from(Array(10).keys()).map((index) => loadingTable(index))}
           </ul>
         </div>
       </div>

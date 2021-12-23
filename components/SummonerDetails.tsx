@@ -31,9 +31,37 @@ const SummonerDetails = ({
 }) => {
   if (!summoner || !leagues) {
     return (
-      <div className="p-6 text-black dark:text-white bg-white dark:bg-gray-800 rounded-lg shadow">
-        <div className="flex flex-row items-center">
-          Loading summoner details...
+      <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="sm:flex sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-6 items-center space-y-2 sm:space-y-0">
+            <div className="inline-block h-16 w-16 lg:h-20 lg:w-20 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Avatar */}
+            </div>
+            <div className="flex flex-col items-center sm:items-start space-y-2">
+              <div className="inline-block h-4 w-32 lg:h-6 lg:w-40 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                {/* Summoner name */}
+              </div>
+              <div className="inline-block h-4 w-24 lg:h-6 lg:w-36 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+                {/* Rank and level */}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <div className="h-4 w-24 lg:h-6 lg:w-32 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Total mastery label */}
+            </div>
+            <div className="h-4 w-28 lg:h-6 lg:w-36 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Total mastery value */}
+            </div>
+          </div>
+          <div className="flex flex-col items-center sm:items-end space-y-2">
+            <div className="h-4 w-28 lg:h-6 lg:w-40 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Last modified */}
+            </div>
+            <div className="h-4 w-24 lg:h-6 lg:w-32 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
+              {/* Date */}
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -43,14 +71,16 @@ const SummonerDetails = ({
 
   return (
     <>
-      <Head>
-        <title key="page-title">{summoner.name} - Hextech Check</title>
-        <meta key="title" name="title" content={`${summoner.name} - Summoner`} />
-        <meta key="og:title" property="og:title" content={`${summoner.name} - Summoner`} />
-        <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-        <meta key="twitter:title" property="twitter:title" content={`${summoner.name} - Summoner`} />
-        <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-      </Head>
+      {latestVersion && summoner &&
+        <Head>
+          <title key="page-title">{summoner.name} - Hextech Check</title>
+          <meta key="title" name="title" content={`${summoner.name} - Summoner`} />
+          <meta key="og:title" property="og:title" content={`${summoner.name} - Summoner`} />
+          <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
+          <meta key="twitter:title" property="twitter:title" content={`${summoner.name} - Summoner`} />
+          <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
+        </Head>
+      }
       <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="sm:flex sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-6 items-center space-y-2 sm:space-y-0">
@@ -59,21 +89,23 @@ const SummonerDetails = ({
               src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
               alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
             />
-            <div className="flex-col items-center space-y-2">
+            <div className="flex flex-col space-y-2">
               <p className="text-xl lg:text-2xl text-center sm:text-left">{summoner.name}</p>
-              <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-                {`${leagues[0].tier} ${leagues[0].rank}`}
-              </span>
-              <span className="inline-flex items-center px-3 text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
-                {summoner.level}
-              </span>
+              <div className="flex flex-row">
+                <span className={`${leagueClasses(leagues[0])} inline-flex items-center px-3 text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                  {`${leagues[0].tier} ${leagues[0].rank}`}
+                </span>
+                <span className="inline-flex items-center px-3 text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
+                  {summoner.level}
+                </span>
+              </div>
             </div>
           </div>
-          <div className="flex-col items-center">
+          <div className="flex flex-col items-center">
             <p className="text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
             <p className="text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
           </div>
-          <div className="flex-col items-center">
+          <div className="flex flex-col items-center">
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
           </div>
