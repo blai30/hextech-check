@@ -3,20 +3,20 @@ import { useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
-enum SortBy {
+enum Column {
   Champion = 'champion',
   Points = 'points',
   Chest = 'chest',
   LastPlayed = 'lastPlayed',
 }
 
-const sortedBy = (sortBy: SortBy) => (a: ChampionMastery, b: ChampionMastery) => {
+const sortColumn = (sortBy: Column) => (a: ChampionMastery, b: ChampionMastery) => {
   return {
-    [SortBy.Champion]: a.championId - b.championId,
-    [SortBy.Points]: b.championPoints - a.championPoints,
-    [SortBy.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
-    [SortBy.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
-  }[sortBy] ?? SortBy.Points
+    [Column.Champion]: a.championId - b.championId,
+    [Column.Points]: b.championPoints - a.championPoints,
+    [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
+    [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
+  }[sortBy] ?? Column.Points
 }
 
 const tagClasses: Readonly<Record<Tag, string>> = {
@@ -46,7 +46,7 @@ const ChampionMasteriesTable = ({
   const [table, setTable] = useState<JSX.Element[]>([])
   const [query, setQuery] = useState<string>('')
   const [filterChest, setFilterChest] = useState<boolean>(false)
-  const [sortBy, setSortBy] = useState<SortBy>(SortBy.Points)
+  const [sortedColumn, setSortedColumn] = useState<Column>(Column.Points)
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
@@ -57,7 +57,7 @@ const ChampionMasteriesTable = ({
       return
     }
 
-    const table = championMasteries.sort(sortedBy(sortBy)).filter((championMastery) => {
+    const table = championMasteries.sort(sortColumn(sortedColumn)).filter((championMastery) => {
       const champion = champions[championMastery.championId]
       return (
         (!filterChest || !championMastery.chestGranted) &&
@@ -138,10 +138,10 @@ const ChampionMasteriesTable = ({
               <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
                 <button className="relative group">
                   <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-                    Last played {formatDistanceToNow(date) + ' ago'}
+                    {`Last played ${formatDistanceToNow(date)} ago`}
                   </span>
                   <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-                    {formatDistanceToNow(date) + ' ago'}
+                    {`${formatDistanceToNow(date)} ago`}
                   </span>
                   <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 -translate-x-2 md:-translate-x-6 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
@@ -159,7 +159,7 @@ const ChampionMasteriesTable = ({
     })
 
     setTable(table)
-  }, [championMasteries, champions, filterChest, latestVersion, query, sortBy])
+  }, [championMasteries, champions, filterChest, latestVersion, query, sortedColumn])
 
   if (table.length === 0) {
     return (
@@ -173,27 +173,28 @@ const ChampionMasteriesTable = ({
 
   return (
     <div className="flex flex-col space-y-6">
-      <div className="flex items-center">
+      {/* Filter and sort */}
+      <div className="flex flex-col md:flex-row md:items-center gap-4">
         <input
           id="search"
           name="search"
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="inline-flex items-center px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+          className="md:inline-flex items-center px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
         />
 
         <label htmlFor="filterChest">
           Chest available
+          <input
+            id="filterChest"
+            name="filterChest"
+            type="checkbox"
+            className="ml-4"
+            checked={filterChest}
+            onChange={() => setFilterChest(!filterChest)}
+          />
         </label>
-        <input
-          id="filterChest"
-          name="filterChest"
-          type="checkbox"
-          className="ml-2"
-          checked={filterChest}
-          onChange={() => setFilterChest(!filterChest)}
-        />
       </div>
 
       <div className="flex-col md:block">
