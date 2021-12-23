@@ -16,7 +16,7 @@ const sortColumn = (sortBy: Column) => (a: ChampionMastery, b: ChampionMastery) 
     [Column.Points]: b.championPoints - a.championPoints,
     [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
     [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
-  }[sortBy] ?? Column.Points
+  }[sortBy]
 }
 
 const tagClasses: Readonly<Record<Tag, string>> = {
@@ -34,73 +34,27 @@ const masteryClasses: Readonly<Record<number, string>> = {
   7: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900',
 } ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
 
-const loadingTable = (index: number) => (
-  <li key={index}>
-    <div className="px-6 py-4 whitespace-normal space-y-4">
-      <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-12 md:items-center">
-
-        <div className="col-span-5 md:col-span-3">
-          <div className="flex gap-4 items-center">
-            <div className="h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse">
-              {/* Avatar */}
-            </div>
-
-            <div className="flex flex-col space-y-1">
-              <div className="h-4 w-20 lg:w-32 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-                {/* Champion name */}
-              </div>
-              <div className="flex md:hidden rounded-md">
-                <div className="h-4 w-20 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-                  {/* Mastery */}
-                </div>
-              </div>
+const loadingItem = (
+  <div className="px-6 py-4">
+    <div className="flex gap-4 items-center">
+      <div className="hidden md:inline-flex h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+      <div className="w-full flex-1">
+        <div className="flex flex-col md:flex-row md:gap-4 lg:gap-6 md:items-center space-y-4 md:space-y-0">
+          <div className="md:hidden flex flex-row items-center gap-4">
+            <div className="md:hidden h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+            <div className="flex-1 space-y-4">
+              <div className="h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+              <div className="h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
             </div>
           </div>
+          <div className="md:hidden md:w-4/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+          <div className="hidden md:inline-flex md:w-4/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+          <div className="hidden md:inline-flex md:w-3/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+          <div className="hidden md:inline-flex md:w-5/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
         </div>
-
-        <div className="col-span-2 col-start-6 md:row-start-auto md:col-start-auto">
-          <div className="flex flex-col items-end md:items-start space-y-1">
-            <div className="h-4 w-16 lg:w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-              {/* Class */}
-            </div>
-            <div className="h-4 w-16 lg:w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-              {/* Class */}
-            </div>
-          </div>
-        </div>
-
-        <div className="hidden md:block col-span-3">
-          <div className="flex rounded-md">
-            <div className="h-4 w-24 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-              {/* Mastery */}
-            </div>
-          </div>
-        </div>
-
-        <div className="col-span-1 row-start-2 col-start-6 md:row-start-auto md:col-start-auto self-end md:self-auto justify-self-end md:justify-self-auto">
-          <div className="h-10 w-10 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-            {/* Chest */}
-          </div>
-        </div>
-
-        <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
-          <button className="relative group">
-            <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-              <div className="h-4 w-44 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-                {/* Last played */}
-              </div>
-            </span>
-            <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-              <div className="h-4 w-32 lg:w-40 rounded bg-gray-300 dark:bg-gray-600 animate-pulse">
-                {/* Last played */}
-              </div>
-            </span>
-          </button>
-        </div>
-
       </div>
     </div>
-  </li>
+  </div>
 )
 
 const ChampionMasteriesTable = ({
@@ -112,10 +66,10 @@ const ChampionMasteriesTable = ({
   champions: { [key: number]: Champion } | undefined
   championMasteries: ChampionMastery[] | undefined
 }) => {
-  const [table, setTable] = useState<JSX.Element[]>([])
+  const [table, setTable] = useState<JSX.Element[]>()
   const [query, setQuery] = useState<string>('')
   const [filterChest, setFilterChest] = useState<boolean>(false)
-  const [sortedColumn, setSortedColumn] = useState<Column>(Column.Points)
+  const [byColumn, setByColumn] = useState<Column>(Column.Points)
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
@@ -126,7 +80,7 @@ const ChampionMasteriesTable = ({
       return
     }
 
-    const table = championMasteries.sort(sortColumn(sortedColumn)).filter((championMastery) => {
+    const table = championMasteries.sort(sortColumn(byColumn)).filter((championMastery) => {
       const champion = champions[championMastery.championId]
       return (
         (!filterChest || !championMastery.chestGranted) &&
@@ -228,7 +182,7 @@ const ChampionMasteriesTable = ({
     })
 
     setTable(table)
-  }, [championMasteries, champions, filterChest, latestVersion, query, sortedColumn])
+  }, [championMasteries, champions, filterChest, latestVersion, query, byColumn])
 
   return (
     <div className="flex flex-col space-y-6">
@@ -285,7 +239,7 @@ const ChampionMasteriesTable = ({
         </div>
         <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-            {table.length > 0 ? table : Array.from(Array(10).keys()).map((index) => loadingTable(index))}
+            {table ?? [...Array(10)].map((value, index) => (<li key={index}>{loadingItem}</li>))}
           </ul>
         </div>
       </div>
