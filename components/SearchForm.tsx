@@ -46,7 +46,7 @@ const SearchForm = () => {
                 Select region
               </Listbox.Label>
               <div className="relative">
-                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-50 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                   <span className="flex items-center">
                     <span className="block">{region.value}</span>
                   </span>
@@ -109,7 +109,7 @@ const SearchForm = () => {
           placeholder="Summoner name"
           value={summoner}
           onChange={handleChangeName}
-          className="inline-flex w-full items-center px-3 py-2 transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="inline-flex w-full items-center px-3 py-2 transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
         <button className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">

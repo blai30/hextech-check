@@ -231,7 +231,7 @@ const ChampionMasteriesTable = ({
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="md:inline-flex items-center md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="md:inline-flex items-center md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
         <div className="flex flex-row gap-4">
@@ -264,7 +264,7 @@ const ChampionMasteriesTable = ({
                   Sort by column
                 </Listbox.Label>
                 <div className="relative flex-1">
-                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-50 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
                     </span>
