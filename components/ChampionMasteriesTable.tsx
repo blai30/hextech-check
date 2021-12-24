@@ -1,23 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
+import { Listbox, Transition } from '@headlessui/react'
 import { Champion, ChampionMastery, Tag } from '@/models'
 
 enum Column {
-  Champion,
-  Points,
-  Chest,
-  LastPlayed,
+  Champion = 'Champion',
+  Points = 'Mastery',
+  Chest = 'Chest Obtained',
+  LastPlayed = 'Last Played',
 }
 
-const sortColumn = (sortBy: Column) => (a: ChampionMastery, b: ChampionMastery) => {
+const allColumns = [
+  Column.Champion,
+  Column.Points,
+  Column.Chest,
+  Column.LastPlayed,
+]
+
+const sortColumn = (sortBy: Column, ascending: Boolean, champions: { [key: number]: Champion }) => (a: ChampionMastery, b: ChampionMastery) => {
   return {
-    [Column.Champion]: a.championId - b.championId,
-    [Column.Points]: b.championPoints - a.championPoints,
+    [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
+    [Column.Points]: a.championPoints - b.championPoints,
     [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
     [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
-  }[sortBy]
+  }[sortBy] * (ascending ? 1 : -1)
 }
+
+const allTags = [
+  Tag.Fighter,
+  Tag.Tank,
+  Tag.Mage,
+  Tag.Assassin,
+  Tag.Support,
+  Tag.Marksman,
+]
 
 const tagClasses: Readonly<Record<Tag, string>> = {
   [Tag.Fighter]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
@@ -68,11 +85,25 @@ const ChampionMasteriesTable = ({
 }) => {
   const [table, setTable] = useState<JSX.Element[]>()
   const [query, setQuery] = useState<string>('')
+  const [filterTags, setFilterTags] = useState<Tag[]>([])
   const [filterChest, setFilterChest] = useState<boolean>(false)
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
+  const [ascending, setAscending] = useState<boolean>(false)
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
+  }
+
+  const handleSortOrder = () => {
+    setAscending(!ascending)
+  }
+
+  const handleSetFilterTag = (tag: Tag) => {
+    if (filterTags.includes(tag)) {
+      setFilterTags(filterTags.filter(t => t !== tag))
+    } else {
+      setFilterTags([...filterTags, tag])
+    }
   }
 
   useEffect(() => {
@@ -80,13 +111,18 @@ const ChampionMasteriesTable = ({
       return
     }
 
-    const table = championMasteries.sort(sortColumn(byColumn)).filter((championMastery) => {
+    const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
+    
+    const filtered = sorted.filter((championMastery) => {
       const champion = champions[championMastery.championId]
       return (
         (!filterChest || !championMastery.chestGranted) &&
-        champion.name.toLowerCase().includes(query?.toLowerCase())
+        champion.name.toLowerCase().includes(query?.toLowerCase()) &&
+        filterTags.every((tag) => champion.tags.includes(tag))
       )
-    }).map((championMastery) => {
+    })
+
+    const table = filtered.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
 
@@ -182,31 +218,44 @@ const ChampionMasteriesTable = ({
     })
 
     setTable(table)
-  }, [championMasteries, champions, filterChest, latestVersion, query, byColumn])
+  }, [championMasteries, champions, filterChest, latestVersion, query, byColumn, ascending, filterTags])
 
   return (
     <div className="flex flex-col space-y-6">
       {/* Filter and sort */}
-      <div className="flex flex-col md:flex-row md:items-center gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <input
-          id="search"
-          name="search"
+          id="filterChampion"
+          name="filterChampion"
+          type="text"
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
           className="md:inline-flex items-center md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
-        <label htmlFor="filterChest">
-          Chest available
+        <div className="flex flex-row gap-4">
+          {
+            allTags.map((tag) => (
+              <input
+                key={tag}
+                id={`filterTag${tag}`}
+                name={`filterTag${tag}`}
+                type="checkbox"
+                checked={filterTags.includes(tag)}
+                onChange={() => handleSetFilterTag(tag)}
+              />
+            ))
+          }
           <input
             id="filterChest"
             name="filterChest"
             type="checkbox"
-            className="ml-4"
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
           />
+        </div>
+
         <div className="flex flex-row">
           <Listbox value={byColumn} onChange={setByColumn}>
             {({ open }) => (
