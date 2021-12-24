@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
-import { Listbox, Transition } from '@headlessui/react'
+import { Listbox, Switch, Transition } from '@headlessui/react'
 import { Champion, ChampionMastery, Tag } from '@/models'
+import ClassIcon from '@/components/ClassIcon'
+import ChestIcon from '@/components/ChestIcon'
 
 enum Column {
   Champion = 'Champion',
@@ -182,15 +184,9 @@ const ChampionMasteriesTable = ({
 
               <div className="col-span-1 row-start-2 col-start-6 md:row-start-auto md:col-start-auto self-end md:self-auto justify-self-end md:justify-self-auto">
                 {championMastery && (
-                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 ${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-300' : 'text-gray-200 dark:text-gray-700'}`} viewBox="0 0 64 64" fill="currentColor" stroke="currentColor" fillRule="evenodd" clipRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="1.5">
-                    <g transform="matrix(0.875,0,0,0.912446,4,2.80171)">
-                      <path d="M64,7.365C64,3.3 60.559,0 56.32,0L7.68,0C3.441,0 0,3.3 0,7.365L0,56.635C0,60.7 3.441,64 7.68,64L56.32,64C60.559,64 64,60.7 64,56.635L64,7.365ZM57.143,7.365L57.143,56.635C57.143,57.071 56.774,57.424 56.32,57.424L7.68,57.424C7.226,57.424 6.857,57.071 6.857,56.635C6.857,56.635 6.857,7.365 6.857,7.365C6.857,6.929 7.226,6.576 7.68,6.576C7.68,6.576 56.32,6.576 56.32,6.576C56.774,6.576 57.143,6.929 57.143,7.365Z" />
-                    </g>
-                    <path d="M32,6L18,16L18,40L32,50L46,40L46,16L32,6ZM32,15.831L38,20.117C38,20.117 38,35.883 38,35.883C38,35.883 32,40.169 32,40.169C32,40.169 26,35.883 26,35.883C26,35.883 26,20.117 26,20.117L32,15.831Z" />
-                    <g transform="matrix(1,0,0,1,-3.55271e-15,2)">
-                      <path d="M8,6L20,18L32,6L44,18L56,6L8,6Z" strokeWidth="5px" />
-                    </g>
-                  </svg>
+                  <div className={`${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-300' : 'text-gray-200 dark:text-gray-700'}`}>
+                    <ChestIcon /> 
+                  </div>
                 )}
               </div>
 
@@ -223,7 +219,7 @@ const ChampionMasteriesTable = ({
   return (
     <div className="flex flex-col space-y-6">
       {/* Filter and sort */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col lg:flex-row items-center md:justify-between gap-4">
         <input
           id="filterChampion"
           name="filterChampion"
@@ -231,32 +227,39 @@ const ChampionMasteriesTable = ({
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="md:inline-flex items-center md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="items-center w-full lg:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
-        <div className="flex flex-row gap-4">
-          {
-            allTags.map((tag) => (
-              <input
-                key={tag}
-                id={`filterTag${tag}`}
-                name={`filterTag${tag}`}
-                type="checkbox"
-                checked={filterTags.includes(tag)}
-                onChange={() => handleSetFilterTag(tag)}
-              />
-            ))
-          }
-          <input
+        <div className="inline-flex gap-2">
+          {allTags.map((tag) => (
+            <Switch
+              key={tag}
+              id={`filterTag-${tag}`}
+              checked={filterTags.includes(tag)}
+              onChange={() => handleSetFilterTag(tag)}
+              className={`${filterTags.includes(tag) ? 'opacity-85 hover:opacity-100' : 'opacity-40 hover:opacity-75 '} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+              // className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500'} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+            >
+              <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
+              <span>
+                <ClassIcon tag={tag} />
+              </span>
+            </Switch>
+          ))}
+          <Switch
             id="filterChest"
-            name="filterChest"
-            type="checkbox"
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
-          />
+            className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500'} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+          >
+            <span className="sr-only">Filter chest</span>
+            <span>
+              <ChestIcon />
+            </span>
+          </Switch>
         </div>
 
-        <div className="flex flex-row md:w-52">
+        <div className="inline-flex w-full lg:w-52">
           <Listbox value={byColumn} onChange={setByColumn}>
             {({ open }) => (
               <>
@@ -362,7 +365,7 @@ const ChampionMasteriesTable = ({
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {
               table.length === 0 && filterTags.length === 0 && !filterChest ? (
-                [...Array(10)].map((value, index) => (<li key={index}>{loadingItem}</li>))
+                [...Array(20)].map((value, index) => (<li key={index}>{loadingItem}</li>))
               ) : (
                 table
               )
