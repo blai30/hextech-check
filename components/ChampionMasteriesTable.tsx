@@ -194,7 +194,7 @@ const ChampionMasteriesTable = ({
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="md:inline-flex items-center px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+          className="md:inline-flex items-center md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
         <label htmlFor="filterChest">
@@ -207,7 +207,79 @@ const ChampionMasteriesTable = ({
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
           />
-        </label>
+        <div className="flex flex-row">
+          <Listbox value={byColumn} onChange={setByColumn}>
+            {({ open }) => (
+              <>
+                <Listbox.Label className="sr-only">
+                  Sort by column
+                </Listbox.Label>
+                <div className="relative">
+                  <Listbox.Button className="inline-flex items-center w-48 rounded-l-md transition-colors text-black dark:text-white bg-gray-50 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    <span className="flex items-center">
+                      <span className="block">{byColumn}</span>
+                    </span>
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                      </svg>
+                    </span>
+                  </Listbox.Button>
+
+                  <Transition
+                    show={open}
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Listbox.Options className="absolute z-10 mt-1 w-48 left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                      {allColumns.map((column) => (
+                        <Listbox.Option
+                          key={column}
+                          className={({ active }) =>
+                            `${active ? 'text-white dark:text-black bg-indigo-600 dark:bg-indigo-400' : 'text-gray-900 dark:text-gray-100'}
+                            cursor-default select-none relative py-2 pl-3 pr-9`}
+                          value={column}
+                        >
+                          {({ selected, active }) => (
+                            <>
+                              <div className="flex items-center">
+                                <span className={`${selected ? 'font-semibold' : 'font-normal'} ml-2 block`}>
+                                  {column}
+                                </span>
+                              </div>
+
+                              {selected ? (
+                                <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-4`}>
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </>
+            )}
+          </Listbox>
+
+          <button onClick={handleSortOrder} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+            {ascending ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       <div className="flex-col md:block">
