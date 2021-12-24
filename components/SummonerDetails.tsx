@@ -87,7 +87,7 @@ const SummonerDetails = ({
             <p className="text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
             <p className="text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center sm:items-end">
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
           </div>

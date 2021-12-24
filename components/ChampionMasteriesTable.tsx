@@ -7,7 +7,7 @@ import { Champion, ChampionMastery, Tag } from '@/models'
 enum Column {
   Champion = 'Champion',
   Points = 'Mastery',
-  Chest = 'Chest Obtained',
+  Chest = 'Chest',
   LastPlayed = 'Last Played',
 }
 
@@ -83,7 +83,7 @@ const ChampionMasteriesTable = ({
   champions: { [key: number]: Champion } | undefined
   championMasteries: ChampionMastery[] | undefined
 }) => {
-  const [table, setTable] = useState<JSX.Element[]>()
+  const [table, setTable] = useState<JSX.Element[]>([])
   const [query, setQuery] = useState<string>('')
   const [filterTags, setFilterTags] = useState<Tag[]>([])
   const [filterChest, setFilterChest] = useState<boolean>(false)
@@ -112,7 +112,7 @@ const ChampionMasteriesTable = ({
     }
 
     const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
-    
+
     const filtered = sorted.filter((championMastery) => {
       const champion = champions[championMastery.championId]
       return (
@@ -256,15 +256,15 @@ const ChampionMasteriesTable = ({
           />
         </div>
 
-        <div className="flex flex-row">
+        <div className="flex flex-row md:w-52">
           <Listbox value={byColumn} onChange={setByColumn}>
             {({ open }) => (
               <>
                 <Listbox.Label className="sr-only">
                   Sort by column
                 </Listbox.Label>
-                <div className="relative">
-                  <Listbox.Button className="inline-flex items-center w-48 rounded-l-md transition-colors text-black dark:text-white bg-gray-50 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <div className="relative flex-1">
+                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-50 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
                     </span>
@@ -282,7 +282,7 @@ const ChampionMasteriesTable = ({
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Listbox.Options className="absolute z-10 mt-1 w-48 left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                    <Listbox.Options className="absolute z-10 mt-1 w-full left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                       {allColumns.map((column) => (
                         <Listbox.Option
                           key={column}
@@ -360,7 +360,13 @@ const ChampionMasteriesTable = ({
         </div>
         <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-            {table ?? [...Array(10)].map((value, index) => (<li key={index}>{loadingItem}</li>))}
+            {
+              table.length === 0 && filterTags.length === 0 && !filterChest ? (
+                [...Array(10)].map((value, index) => (<li key={index}>{loadingItem}</li>))
+              ) : (
+                table
+              )
+            }
           </ul>
         </div>
       </div>
