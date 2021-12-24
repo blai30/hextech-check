@@ -64,20 +64,39 @@ class MyDocument extends Document {
             href="/icons/icon-180x180.png"
           /> */}
 
-          <link rel="canonical" href="https://www.bhlai.com/hextech-check" />
-          <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-          <link rel="icon" href="favicon.png" type="image/x-icon" />
-          <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-          <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+          <link
+            rel="canonical"
+            href="https://www.bhlai.com/hextech-check"
+          />
+          <link
+            rel="icon"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.svg`}
+            type="image/svg+xml"
+          />
+          <link
+            rel="icon"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
+            type="image/x-icon"
+          />
+          <link
+            rel="shortcut icon"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.ico`}
+            type="image/x-icon"
+          />
+          <link
+            rel="shortcut icon"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
+            type="image/x-icon"
+          />
           <link
             rel="mask-icon"
-            href="favicon.svg"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.svg`}
             type="image/svg+xml"
             color="#002137"
           />
           <link
             rel="apple-touch-icon"
-            href="favicon.png"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
             type="image/x-icon"
           />
           {/* <link rel="manifest" href="/manifest.json" /> */}
