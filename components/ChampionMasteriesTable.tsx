@@ -191,14 +191,14 @@ const ChampionMasteriesTable = ({
               </div>
 
               <div className="col-span-5 md:col-span-3 row-start-2 col-start-1 md:row-start-auto md:col-start-auto self-end md:self-auto">
-                <button className="relative group">
+                <button className="relative group flex flex-col items-start">
                   <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`Last played ${formatDistanceToNow(date)} ago`}
                   </span>
                   <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`${formatDistanceToNow(date)} ago`}
                   </span>
-                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 -translate-x-2 md:-translate-x-6 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
                       <p>{format(date, 'PPPP')}</p>
                       <p>{format(date, 'pppp')}</p>
@@ -237,25 +237,35 @@ const ChampionMasteriesTable = ({
               id={`filterTag-${tag}`}
               checked={filterTags.includes(tag)}
               onChange={() => handleSetFilterTag(tag)}
-              className={`${filterTags.includes(tag) ? 'opacity-85 hover:opacity-100' : 'opacity-40 hover:opacity-75 '} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+              className={`${filterTags.includes(tag) ? 'opacity-85' : 'opacity-40'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors hover:opacity-100 focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               // className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500'} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
               <span>
                 <ClassIcon tag={tag} />
               </span>
+              <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-12 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                <div className="flex flex-col items-center space-y-1">
+                  <p>{Tag[tag]}</p>
+                </div>
+              </div>
             </Switch>
           ))}
           <Switch
             id="filterChest"
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
-            className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500'} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+            className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
           >
             <span className="sr-only">Filter chest</span>
             <span>
               <ChestIcon />
             </span>
+            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-12 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+              <div className="flex flex-col items-center space-y-1">
+                <p>Chest available</p>
+              </div>
+            </div>
           </Switch>
         </div>
 
