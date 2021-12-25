@@ -227,18 +227,17 @@ const ChampionMasteriesTable = ({
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="items-center w-full md:w-52 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="items-center w-full md:w-3/12 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
-        <div className="inline-flex w-full md:w-auto justify-evenly gap-2">
+        <div className="flex flex-wrap w-full md:w-auto justify-evenly gap-2">
           {allTags.map((tag) => (
             <Switch
               key={tag}
               id={`filterTag-${tag}`}
               checked={filterTags.includes(tag)}
               onChange={() => handleSetFilterTag(tag)}
-              className={`${filterTags.includes(tag) ? 'opacity-85' : 'opacity-40'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors hover:opacity-100 focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-              // className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500'} relative p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+              className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                 <div className="flex flex-col items-center space-y-1">
@@ -257,8 +256,8 @@ const ChampionMasteriesTable = ({
             onChange={() => setFilterChest(!filterChest)}
             className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
           >
-            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
-              <div className="flex flex-col items-center space-y-1">
+            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-14 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+              <div className="flex flex-col items-center space-y-1 whitespace-normal">
                 <p>Chest available</p>
               </div>
             </div>
@@ -269,7 +268,7 @@ const ChampionMasteriesTable = ({
           </Switch>
         </div>
 
-        <div className="inline-flex w-full md:w-52">
+        <div className="inline-flex w-full md:w-3/12">
           <Listbox value={byColumn} onChange={setByColumn}>
             {({ open }) => (
               <>
@@ -277,7 +276,7 @@ const ChampionMasteriesTable = ({
                   Sort by column
                 </Listbox.Label>
                 <div className="relative flex-1">
-                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
                     </span>
@@ -301,7 +300,7 @@ const ChampionMasteriesTable = ({
                           key={column}
                           className={({ active }) =>
                             `${active ? 'text-white dark:text-black bg-indigo-600 dark:bg-indigo-400' : 'text-gray-900 dark:text-gray-100'}
-                            cursor-default select-none relative py-2 pl-3 pr-9 transition-colors ease-in-out duration-75`}
+                            cursor-default select-none relative py-2 pl-2 pr-8 transition-colors ease-in-out duration-75`}
                           value={column}
                         >
                           {({ selected, active }) => (
@@ -313,7 +312,7 @@ const ChampionMasteriesTable = ({
                               </div>
 
                               {selected ? (
-                                <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-4`}>
+                                <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-2`}>
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                   </svg>

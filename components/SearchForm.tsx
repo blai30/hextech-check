@@ -47,7 +47,7 @@ const SearchForm = () => {
                 Select region
               </Listbox.Label>
               <div className="relative">
-                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-10 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                   <span className="flex items-center">
                     <span className="block">{region.value}</span>
                   </span>
@@ -71,7 +71,7 @@ const SearchForm = () => {
                         key={region.value}
                         className={({ active }) =>
                           `${active ? 'text-white dark:text-black bg-indigo-600 dark:bg-indigo-400' : 'text-gray-900 dark:text-gray-100'}
-                          cursor-default select-none relative py-2 pl-3 pr-9 transition-colors ease-in-out duration-75`}
+                          cursor-default select-none relative py-2 pl-2 pr-8 transition-colors ease-in-out duration-75`}
                         value={region}
                       >
                         {({ selected, active }) => (
@@ -86,7 +86,7 @@ const SearchForm = () => {
                             </div>
 
                             {selected ? (
-                              <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-4`}>
+                              <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-2`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
