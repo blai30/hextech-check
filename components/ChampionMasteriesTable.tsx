@@ -38,19 +38,19 @@ const allTags = [
 ]
 
 const tagClasses: Readonly<Record<Tag, string>> = {
-  [Tag.Fighter]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
-  [Tag.Tank]: 'text-indigo-800 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900',
-  [Tag.Mage]: 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900',
-  [Tag.Assassin]: 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900',
-  [Tag.Support]: 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900',
-  [Tag.Marksman]: 'text-green-800 dark:text-green-300 bg-green-100 dark:bg-green-900',
-} ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+  [Tag.Fighter]: 'text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900',
+  [Tag.Tank]: 'text-indigo-800 dark:text-indigo-200 bg-indigo-100 dark:bg-indigo-900',
+  [Tag.Mage]: 'text-sky-800 dark:text-sky-200 bg-sky-100 dark:bg-sky-900',
+  [Tag.Assassin]: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
+  [Tag.Support]: 'text-teal-800 dark:text-teal-200 bg-teal-100 dark:bg-teal-900',
+  [Tag.Marksman]: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
+} ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
 
 const masteryClasses: Readonly<Record<number, string>> = {
-  5: 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900',
-  6: 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-900',
-  7: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900',
-} ?? 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900'
+  5: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
+  6: 'text-fuchsia-800 dark:text-fuchsia-200 bg-fuchsia-100 dark:bg-fuchsia-900',
+  7: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
+} ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
 
 const loadingItem = (
   <div className="px-6 py-4">
@@ -130,7 +130,7 @@ const ChampionMasteriesTable = ({
       )
     })
 
-    const table = filtered.map((championMastery) => {
+    const finalTable = filtered.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
 
@@ -168,10 +168,10 @@ const ChampionMasteriesTable = ({
               </div>
 
               <div className="md:px-6 md:py-4 col-span-3 col-start-5 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-center place-self-end md:place-self-auto">
-                <div className="flex items-end md:items-start gap-2">
-                  {champion && champion.tags && champion.tags.map((tag) => (
-                    <button key={tag} className={`${tagClasses[tag]} relative group flex flex-col items-center p-1 transition-colors rounded-full focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}>
-                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                <div className="flex items-end md:items-start -space-x-2">
+                  {champion && champion.tags && champion.tags.map((tag, index) => (
+                    <button key={tag} className={`${tagClasses[tag]} ${`z-${10 - index * 10}`} relative group flex flex-col items-center p-1 transition-colors rounded-full ring-2 ring-white dark:ring-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}>
+                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
                         <div className="flex flex-col items-center space-y-1">
                           <p>{Tag[tag]}</p>
                         </div>
@@ -209,7 +209,7 @@ const ChampionMasteriesTable = ({
                   <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`${formatDistanceToNow(date)} ago`}
                   </span>
-                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
                       <p>{format(date, 'PPPP')}</p>
                       <p>{format(date, 'pppp')}</p>
@@ -224,7 +224,7 @@ const ChampionMasteriesTable = ({
       )
     })
 
-    setTable(table)
+    setTable(finalTable)
   }, [championMasteries, champions, filterChest, latestVersion, query, byColumn, ascending, filterTags])
 
   return (
@@ -249,9 +249,9 @@ const ChampionMasteriesTable = ({
                 id={`filterTag-${tag}`}
                 checked={filterTags.includes(tag)}
                 onChange={() => handleSetFilterTag(tag)}
-                className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}
+                className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500`}
               >
-                <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
                   <div className="flex flex-col items-center space-y-1">
                     <p>{Tag[tag]}</p>
                   </div>
@@ -269,7 +269,7 @@ const ChampionMasteriesTable = ({
             onChange={() => setFilterChest(!filterChest)}
             className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}
           >
-            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-14 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-14 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
               <div className="flex flex-col items-center space-y-1 whitespace-normal">
                 <p>Chest available</p>
               </div>
@@ -357,7 +357,7 @@ const ChampionMasteriesTable = ({
       </div>
 
       <div className="flex-col md:block">
-        <div className="overflow-hidden border-b border-gray-200 dark:border-gray-700 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow dark:shadow-gray-700/30">
+        <div className="overflow-hidden border-b border-gray-200 dark:border-gray-900 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow dark:shadow-gray-700/30">
           <div className="flex md:hidden px-6 py-3">
             <span className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Champion Masteries
@@ -384,7 +384,7 @@ const ChampionMasteriesTable = ({
           </div>
         </div>
         <div className="transition-colors bg-white dark:bg-gray-800 shadow dark:shadow-gray-700/30 overflow-visible rounded-b-lg">
-          <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+          <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-900">
             {
               !resultsTimeout && table.length === 0 && filterTags.length === 0 && !filterChest ? (
                 [...Array(20)].map((value, index) => (<li key={index}>{loadingItem}</li>))
