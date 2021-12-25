@@ -24,7 +24,7 @@ const DarkToggle = () => {
         id="dark-toggle"
         checked={currentTheme === 'light'}
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        className="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent bg-gray-700 dark:bg-gray-200 transition-colors ease-in-out duration-200 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-50 focus:dark:ring-offset-gray-900"
+        className="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent bg-gray-500 dark:bg-gray-400 hover:bg-black dark:hover:bg-white transition-colors ease-in-out duration-200 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-50 focus:dark:ring-offset-gray-900"
       >
         <span className="sr-only">Toggle dark mode</span>
         <span
