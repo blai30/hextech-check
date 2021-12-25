@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Tag } from '@/models'
 
-const icons: Readonly<Record<Tag, JSX.Element>> = {
+const ClassIcon: Readonly<Record<Tag, JSX.Element>> = {
   [Tag.Fighter]: (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="currentColor" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" clipRule="evenodd" viewBox="0 0 64 64">
       <path fill="none" d="M-.0002 0h63.9999v64H-.0002z"/>
@@ -44,10 +44,6 @@ const icons: Readonly<Record<Tag, JSX.Element>> = {
       <path d="M32.21574966 6.081 27.99975625 17.5l4.21599341 5 4.2839933-5-4.2839933-11.419ZM17.99977187 11.5l2.4999961 8h3.99999375l.99999844-3.5-7.49998829-4.5ZM46.49947202 11.5l-2.49999609 8h-3.99999375l-.99999844-3.5 7.49998828-4.5Z"/>
     </svg>
   ),
-}
-
-const ClassIcon = ({ tag }: { tag: Tag }) => {
-  return icons[tag]
 }
 
 export default ClassIcon

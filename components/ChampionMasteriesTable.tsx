@@ -176,7 +176,7 @@ const ChampionMasteriesTable = ({
                           <p>{Tag[tag]}</p>
                         </div>
                       </div>
-                      <ClassIcon tag={tag} />
+                      {ClassIcon[tag]}
                     </button>
                   ))}
                 </div>
@@ -258,7 +258,7 @@ const ChampionMasteriesTable = ({
                 </div>
                 <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
                 <span>
-                  <ClassIcon tag={tag} />
+                  {ClassIcon[tag]}
                 </span>
               </Switch>
             ))}
