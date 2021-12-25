@@ -20,6 +20,10 @@ module.exports = {
         '18': 'repeat(18, minmax(0, 1fr))',
       },
     },
+    screens: {
+      'xs': '475px',
+      ...defaultTheme.screens,
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
