@@ -85,6 +85,7 @@ const ChampionMasteriesTable = ({
   champions: { [key: number]: Champion } | undefined
   championMasteries: ChampionMastery[] | undefined
 }) => {
+  const [resultsTimeout, setResultsTimeout] = useState<boolean>(false)
   const [table, setTable] = useState<JSX.Element[]>([])
   const [query, setQuery] = useState<string>('')
   const [filterTags, setFilterTags] = useState<Tag[]>([])
@@ -107,6 +108,12 @@ const ChampionMasteriesTable = ({
       setFilterTags([...filterTags, tag])
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setResultsTimeout(true)
+    }, 4000)
+  }, [])
 
   useEffect(() => {
     if (!champions || !championMasteries) {
@@ -162,11 +169,16 @@ const ChampionMasteriesTable = ({
               </div>
 
               <div className="md:px-6 md:py-4 col-span-3 col-start-5 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-center place-self-end md:place-self-auto">
-                <div className="flex flex-col items-end md:items-start space-y-1">
+                <div className="flex items-end md:items-start gap-2">
                   {champion && champion.tags && champion.tags.map((tag) => (
-                    <div key={tag} className={`${tagClasses[tag]} px-2 inline-flex transition-colors text-xs leading-5 font-semibold rounded-full`}>
-                      {Tag[tag]}
-                    </div>
+                    <button key={tag} className={`${tagClasses[tag]} relative group flex flex-col items-center p-1 transition-colors rounded-full focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}>
+                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                        <div className="flex flex-col items-center space-y-1">
+                          <p>{Tag[tag]}</p>
+                        </div>
+                      </div>
+                      <ClassIcon tag={tag} />
+                    </button>
                   ))}
                 </div>
               </div>
@@ -198,7 +210,7 @@ const ChampionMasteriesTable = ({
                   <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`${formatDistanceToNow(date)} ago`}
                   </span>
-                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
                       <p>{format(date, 'PPPP')}</p>
                       <p>{format(date, 'pppp')}</p>
@@ -230,26 +242,28 @@ const ChampionMasteriesTable = ({
           className="items-center w-full md:w-3/12 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
         />
 
-        <div className="flex flex-wrap w-full md:w-auto justify-evenly gap-2">
-          {allTags.map((tag) => (
-            <Switch
-              key={tag}
-              id={`filterTag-${tag}`}
-              checked={filterTags.includes(tag)}
-              onChange={() => handleSetFilterTag(tag)}
-              className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-            >
-              <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
-                <div className="flex flex-col items-center space-y-1">
-                  <p>{Tag[tag]}</p>
+        <div className="flex flex-wrap w-full md:w-auto justify-center gap-2">
+          <div className="grid grid-cols-3 grid-rows-2 xs:grid-cols-6 xs:grid-rows-1 gap-2">
+            {allTags.map((tag) => (
+              <Switch
+                key={tag}
+                id={`filterTag-${tag}`}
+                checked={filterTags.includes(tag)}
+                onChange={() => handleSetFilterTag(tag)}
+                className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+              >
+                <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                  <div className="flex flex-col items-center space-y-1">
+                    <p>{Tag[tag]}</p>
+                  </div>
                 </div>
-              </div>
-              <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
-              <span>
-                <ClassIcon tag={tag} />
-              </span>
-            </Switch>
-          ))}
+                <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
+                <span>
+                  <ClassIcon tag={tag} />
+                </span>
+              </Switch>
+            ))}
+          </div>
           <Switch
             id="filterChest"
             checked={filterChest}
@@ -373,7 +387,7 @@ const ChampionMasteriesTable = ({
         <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {
-              table.length === 0 && filterTags.length === 0 && !filterChest ? (
+              !resultsTimeout && table.length === 0 && filterTags.length === 0 && !filterChest ? (
                 [...Array(20)].map((value, index) => (<li key={index}>{loadingItem}</li>))
               ) : (
                 table
