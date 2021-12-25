@@ -43,9 +43,9 @@ const SummonerDetails = ({
   latestVersion: string | undefined
   leagues: League[] | undefined
   summoner: Summoner | undefined
-  totalMastery: number
+  totalMastery: number | undefined
 }) => {
-  if (!summoner || !leagues) {
+  if (!summoner || !leagues || !totalMastery || !latestVersion) {
     return loadingItem
   }
 
@@ -55,11 +55,11 @@ const SummonerDetails = ({
     <>
       {latestVersion && summoner &&
         <Head>
-          <title key="page-title">{summoner.name} - Hextech Check</title>
-          <meta key="title" name="title" content={`${summoner.name} - Summoner`} />
-          <meta key="og:title" property="og:title" content={`${summoner.name} - Summoner`} />
+          <title key="page-title">{summoner && summoner.name} - Hextech Check</title>
+          <meta key="title" name="title" content={`${summoner && summoner.name} - Summoner`} />
+          <meta key="og:title" property="og:title" content={`${summoner && summoner.name} - Summoner`} />
           <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-          <meta key="twitter:title" property="twitter:title" content={`${summoner.name} - Summoner`} />
+          <meta key="twitter:title" property="twitter:title" content={`${summoner && summoner.name} - Summoner`} />
           <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
         </Head>
       }
@@ -78,14 +78,14 @@ const SummonerDetails = ({
                   {leagues[0] ? `${leagues[0].tier} ${leagues[0].rank}` : Tier.UNRANKED}
                 </span>
                 <span className="inline-flex items-center px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
-                  {summoner.level}
+                  {summoner && summoner.level}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <p className="text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
-            <p className="text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
+            <p className="font-light text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
+            <p className="font-semibold text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery && totalMastery.toLocaleString()}</p>
           </div>
           <div className="flex flex-col items-center sm:items-end">
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
