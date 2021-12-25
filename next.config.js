@@ -1,5 +1,5 @@
-import * as withPWA from 'next-pwa'
-import * as runtimeCaching from 'next-pwa/runtime-caching'
+const withPWA = require('next-pwa')
+const runtimeCaching = require('next-pwa/cache')
 
 const pathPrefix = process.env.NODE_ENV === 'production'
   ? '/hextech-check'
