@@ -4,10 +4,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import api from '@/lib/api'
 import { Summoner, League, Champion, ChampionMastery } from '@/models'
-import ChampionMasteriesTable from '@/components/ChampionMasteriesTable'
-import Header from '@/components/Header'
-import SearchForm from '@/components/SearchForm'
-import SummonerDetails from '@/components/SummonerDetails'
+import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
+import { Header } from '@/components/shared'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {

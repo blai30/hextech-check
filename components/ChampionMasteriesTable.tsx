@@ -3,8 +3,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import { Listbox, Switch, Transition } from '@headlessui/react'
 import { Champion, ChampionMastery, Tag } from '@/models'
-import ClassIcon from '@/components/ClassIcon'
-import ChestIcon from '@/components/ChestIcon'
+import { ClassIcon, ChestIcon } from '@/components'
 
 enum Column {
   Champion = 'Champion',

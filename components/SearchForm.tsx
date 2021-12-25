@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox, Transition } from '@headlessui/react'
 
 const regions = [
   { value: 'NA', label: 'North America' },

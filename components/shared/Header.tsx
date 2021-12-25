@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import DarkToggle from './DarkToggle'
+import { DarkToggle } from '@/components/shared'
 
 const Header = () => {
   return (
