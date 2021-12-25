@@ -2,11 +2,11 @@
   "name": "Hextech Check",
   "short_name": "Hextech Check",
   "theme_color": "#002137",
-  "background_color": "#111827",
+  "background_color": "#FCD34D",
   "display": "fullscreen",
   "orientation": "portrait",
-  "scope": "/",
-  "start_url": "/",
+  "scope": ".",
+  "start_url": ".",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
