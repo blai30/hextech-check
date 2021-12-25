@@ -19,15 +19,6 @@ const allColumns = [
   Column.LastPlayed,
 ]
 
-const sortColumn = (sortBy: Column, ascending: Boolean, champions: { [key: number]: Champion }) => (a: ChampionMastery, b: ChampionMastery) => {
-  return {
-    [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
-    [Column.Points]: a.championPoints - b.championPoints,
-    [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
-    [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
-  }[sortBy] * (ascending ? 1 : -1)
-}
-
 const allTags = [
   Tag.Fighter,
   Tag.Tank,
@@ -36,6 +27,15 @@ const allTags = [
   Tag.Support,
   Tag.Marksman,
 ]
+
+const sortColumn = (sortBy: Column, ascending: Boolean, champions: { [key: number]: Champion }) => (a: ChampionMastery, b: ChampionMastery) => {
+  return {
+    [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
+    [Column.Points]: a.championPoints - b.championPoints,
+    [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
+    [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
+  }[sortBy] * (ascending ? 1 : -1)
+}
 
 const tagClasses = (tag: Tag) => ({
   [Tag.Fighter]: 'text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900',
