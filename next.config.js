@@ -1,9 +1,12 @@
+import withPWA from 'next-pwa'
+import runtimeCaching from 'next-pwa/runtime-caching'
+
 const pathPrefix = process.env.NODE_ENV === 'production'
   ? '/hextech-check'
   : ''
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+export default withPWA({
   reactStrictMode: true,
   basePath: pathPrefix,
   assetPrefix: pathPrefix,
@@ -13,4 +16,8 @@ module.exports = {
       'blai30hextechcheck.azurewebsites.net',
     ],
   },
-}
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
+  },
+})

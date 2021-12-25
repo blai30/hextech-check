@@ -28,7 +28,7 @@ class MyDocument extends Document {
             name="keywords"
             content="League of Legends, Hextech Chest, Mastery, Champion, Summoner, Riot Games API, Open Source, React, NextJS, Tailwind, HTML, CSS, JavaScript, TypeScript, PWA, C#, .NET, Docker, Cloud, Node, GitHub, Full, Stack, Front, Back, End"
           />
-          <meta key="theme-color" name="theme-color" content="#E3BA3D" />
+          <meta key="theme-color" name="theme-color" content="#002137" />
 
           {/* Open Graph. */}
           <meta
@@ -50,19 +50,17 @@ class MyDocument extends Document {
 
           {/* Apple meta. */}
           <meta key="apple-mobile-web-app-capable" name="apple-mobile-web-app-capable" content="yes" />
-          <meta key="apple-mobile-web-app-status-bar-style" name="apple-mobile-web-app-status-bar-style" content="black" />
+          <meta key="apple-mobile-web-app-status-bar-style" name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta key="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Hextech Check" />
-          {/* <link rel="apple-touch-icon" href="/icons/icon-128x128.png" />
           <link
             rel="apple-touch-icon"
-            sizes="152x152"
-            href="/icons/icon-152x152.png"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/icon-128x128.png`}
           />
           <link
             rel="apple-touch-icon"
-            sizes="180x180"
-            href="/icons/icon-180x180.png"
-          /> */}
+            sizes="152x152"
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/icon-152x152.png`}
+          />
 
           <link
             rel="canonical"
@@ -99,7 +97,7 @@ class MyDocument extends Document {
             href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
             type="image/x-icon"
           />
-          {/* <link rel="manifest" href="/manifest.json" /> */}
+          <link rel="manifest" href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}manifest.json`} />
 
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
           <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" />
