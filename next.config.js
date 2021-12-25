@@ -6,7 +6,7 @@ const pathPrefix = process.env.NODE_ENV === 'production'
   : ''
 
 /** @type {import('next').NextConfig} */
-export default withPWA({
+module.exports = withPWA({
   reactStrictMode: true,
   basePath: pathPrefix,
   assetPrefix: pathPrefix,
