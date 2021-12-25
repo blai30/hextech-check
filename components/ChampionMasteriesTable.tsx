@@ -37,20 +37,20 @@ const allTags = [
   Tag.Marksman,
 ]
 
-const tagClasses: Readonly<Record<Tag, string>> = {
+const tagClasses = (tag: Tag) => ({
   [Tag.Fighter]: 'text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900',
   [Tag.Tank]: 'text-indigo-800 dark:text-indigo-200 bg-indigo-100 dark:bg-indigo-900',
   [Tag.Mage]: 'text-sky-800 dark:text-sky-200 bg-sky-100 dark:bg-sky-900',
   [Tag.Assassin]: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
   [Tag.Support]: 'text-teal-800 dark:text-teal-200 bg-teal-100 dark:bg-teal-900',
   [Tag.Marksman]: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
-} ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
+})[tag] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
 
-const masteryClasses: Readonly<Record<number, string>> = {
+const masteryClasses = (level: number) => ({
   5: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
   6: 'text-fuchsia-800 dark:text-fuchsia-200 bg-fuchsia-100 dark:bg-fuchsia-900',
   7: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
-} ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
+})[level] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
 
 const loadingItem = (
   <div className="px-6 py-4">
@@ -156,7 +156,7 @@ const ChampionMasteriesTable = ({
                       {champion && champion.name}
                     </span>
                     <div className="flex md:hidden rounded-md">
-                      <span className={`${masteryClasses[championMastery.championLevel]} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
+                      <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
                         {championMastery && championMastery.championLevel}
                       </span>
                       <span className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
@@ -170,7 +170,7 @@ const ChampionMasteriesTable = ({
               <div className="md:px-6 md:py-4 col-span-3 col-start-5 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-center place-self-end md:place-self-auto">
                 <div className="flex items-end md:items-start -space-x-2">
                   {champion && champion.tags && champion.tags.map((tag, index) => (
-                    <button key={tag} className={`${tagClasses[tag]} ${`z-${10 - index * 10}`} relative group flex flex-col items-center p-1 transition-colors rounded-full ring-2 ring-white dark:ring-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}>
+                    <button key={tag} className={`${tagClasses(tag)} ${`z-${10 - index * 10}`} relative group flex flex-col items-center p-1 transition-colors rounded-full ring-2 ring-white dark:ring-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}>
                       <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
                         <div className="flex flex-col items-center space-y-1">
                           <p>{Tag[tag]}</p>
@@ -184,7 +184,7 @@ const ChampionMasteriesTable = ({
 
               <div className="md:px-6 md:py-4 col-span-4 hidden md:inline-flex h-full items-end md:items-center">
                 <div className="flex rounded-md">
-                  <span className={`${masteryClasses[championMastery.championLevel]} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                  <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
                     {championMastery && championMastery.championLevel}
                   </span>
                   <span className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
