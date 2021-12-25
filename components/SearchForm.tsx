@@ -47,7 +47,7 @@ const SearchForm = () => {
                 Select region
               </Listbox.Label>
               <div className="relative">
-                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <Listbox.Button className="inline-flex items-center w-24 rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500">
                   <span className="flex items-center">
                     <span className="block">{region.value}</span>
                   </span>
@@ -65,7 +65,7 @@ const SearchForm = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Listbox.Options className="absolute z-10 mt-1 w-72 left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute z-20 mt-1 w-72 left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                     {regions.map((region) => (
                       <Listbox.Option
                         key={region.value}
@@ -86,7 +86,7 @@ const SearchForm = () => {
                             </div>
 
                             {selected ? (
-                              <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-2`}>
+                              <span className={`${active ? 'text-white' : 'text-indigo-600 dark:text-indigo-300'} absolute inset-y-0 right-0 flex items-center pr-2 transition-colors`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
@@ -110,10 +110,10 @@ const SearchForm = () => {
           placeholder="Summoner name"
           value={summoner}
           onChange={handleChangeName}
-          className="inline-flex w-full items-center px-3 py-2 transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="inline-flex w-full items-center px-3 py-2 transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-300 focus:dark:border-gray-600 focus:ring-inset focus:ring-2 focus:ring-indigo-500"
         />
 
-        <button disabled={!region || !summoner} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:text-gray-400 disabled:dark:text-gray-500 disabled:hover:bg-gray-100 disabled:dark:hover:bg-gray-800">
+        <button disabled={!region || !summoner} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-inset focus:ring-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:text-gray-400 disabled:dark:text-gray-500 disabled:hover:bg-gray-100 disabled:dark:hover:bg-gray-800">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
           </svg>

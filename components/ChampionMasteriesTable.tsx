@@ -170,8 +170,8 @@ const ChampionMasteriesTable = ({
               <div className="md:px-6 md:py-4 col-span-3 col-start-5 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-center place-self-end md:place-self-auto">
                 <div className="flex items-end md:items-start gap-2">
                   {champion && champion.tags && champion.tags.map((tag) => (
-                    <button key={tag} className={`${tagClasses[tag]} relative group flex flex-col items-center p-1 transition-colors rounded-full focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}>
-                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                    <button key={tag} className={`${tagClasses[tag]} relative group flex flex-col items-center p-1 transition-colors rounded-full focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}>
+                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                         <div className="flex flex-col items-center space-y-1">
                           <p>{Tag[tag]}</p>
                         </div>
@@ -202,14 +202,14 @@ const ChampionMasteriesTable = ({
               </div>
 
               <div className="md:px-6 md:py-4 col-span-5 md:col-span-4 row-start-2 col-start-1 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-end md:items-center self-end md:self-auto">
-                <button className="relative group flex flex-col items-start">
+                <button className="relative group flex flex-col items-start focus:outline-none">
                   <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`Last played ${formatDistanceToNow(date)} ago`}
                   </span>
                   <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
                     {`${formatDistanceToNow(date)} ago`}
                   </span>
-                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                     <div className="flex flex-col items-center space-y-1">
                       <p>{format(date, 'PPPP')}</p>
                       <p>{format(date, 'pppp')}</p>
@@ -238,10 +238,10 @@ const ChampionMasteriesTable = ({
           placeholder="Find champion..."
           value={query}
           onChange={handleQuery}
-          className="items-center w-full md:w-3/12 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-inset focus:ring-indigo-500 focus:border-indigo-500"
+          className="items-center w-full md:w-3/12 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-300 focus:dark:border-gray-600 focus:ring-inset focus:ring-2 focus:ring-indigo-500"
         />
 
-        <div className="flex flex-wrap w-full md:w-auto justify-center gap-2">
+        <div className="flex flex-wrap w-full md:w-auto items-center justify-center gap-2">
           <div className="grid grid-cols-3 grid-rows-2 xs:grid-cols-6 xs:grid-rows-1 gap-2">
             {allTags.map((tag) => (
               <Switch
@@ -249,9 +249,9 @@ const ChampionMasteriesTable = ({
                 id={`filterTag-${tag}`}
                 checked={filterTags.includes(tag)}
                 onChange={() => handleSetFilterTag(tag)}
-                className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}
               >
-                <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+                <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
                   <div className="flex flex-col items-center space-y-1">
                     <p>{Tag[tag]}</p>
                   </div>
@@ -267,9 +267,9 @@ const ChampionMasteriesTable = ({
             id="filterChest"
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
-            className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:ring-inset focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+            className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500`}
           >
-            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-14 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
+            <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-14 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg dark:shadow-gray-700/30 shadow-xl">
               <div className="flex flex-col items-center space-y-1 whitespace-normal">
                 <p>Chest available</p>
               </div>
@@ -289,7 +289,7 @@ const ChampionMasteriesTable = ({
                   Sort by column
                 </Listbox.Label>
                 <div className="relative flex-1">
-                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus:outline-none focus:ring-inset focus:ring-2 focus:ring-indigo-500">
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
                     </span>
@@ -307,7 +307,7 @@ const ChampionMasteriesTable = ({
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Listbox.Options className="absolute z-10 mt-1 w-full left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                    <Listbox.Options className="absolute z-20 mt-1 w-full left-0 backdrop-blur-lg bg-white/50 dark:bg-gray-700/50 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                       {allColumns.map((column) => (
                         <Listbox.Option
                           key={column}
@@ -342,7 +342,7 @@ const ChampionMasteriesTable = ({
             )}
           </Listbox>
 
-          <button onClick={handleSortOrder} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-inset focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+          <button onClick={handleSortOrder} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:border-gray-300 focus:dark:border-gray-600 focus:ring-inset focus:ring-2 focus:ring-indigo-500">
             {ascending ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -357,7 +357,7 @@ const ChampionMasteriesTable = ({
       </div>
 
       <div className="flex-col md:block">
-        <div className="shadow overflow-hidden border border-gray-200 dark:border-gray-700 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg">
+        <div className="overflow-hidden border-b border-gray-200 dark:border-gray-700 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow dark:shadow-gray-700/30">
           <div className="flex md:hidden px-6 py-3">
             <span className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Champion Masteries
@@ -383,7 +383,7 @@ const ChampionMasteriesTable = ({
             </div>
           </div>
         </div>
-        <div className="transition-colors bg-white dark:bg-gray-800 shadow overflow-visible rounded-b-lg">
+        <div className="transition-colors bg-white dark:bg-gray-800 shadow dark:shadow-gray-700/30 overflow-visible rounded-b-lg">
           <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
             {
               !resultsTimeout && table.length === 0 && filterTags.length === 0 && !filterChest ? (

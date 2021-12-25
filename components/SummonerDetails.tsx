@@ -63,7 +63,7 @@ const SummonerDetails = ({
           <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
         </Head>
       }
-      <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow">
+      <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30">
         <div className="sm:flex sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-6 items-center space-y-2 sm:space-y-0">
             <img
