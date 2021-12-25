@@ -80,6 +80,8 @@ const Home: NextPage = () => {
     getChampionMasteries()
   }, [summonerName, region])
 
+  const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
+
   return (
     <>
       <Head>
@@ -108,7 +110,7 @@ const Home: NextPage = () => {
                 latestVersion={latestVersion}
                 leagues={leagues}
                 summoner={summoner}
-                totalMastery={championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)}
+                totalMastery={totalMastery}
               />
             </div>
             <div>
