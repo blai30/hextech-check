@@ -171,7 +171,7 @@ const ChampionMasteriesTable = ({
                 <div className="flex items-end md:items-start -space-x-2">
                   {champion && champion.tags && champion.tags.map((tag, index) => (
                     <button key={tag} className={`${tagClasses(tag)} ${`z-${10 - index * 10}`} relative group flex flex-col items-center p-1 transition-colors rounded-full ring-2 ring-white dark:ring-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}>
-                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
+                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
                         <div className="flex flex-col items-center space-y-1">
                           <p>{Tag[tag]}</p>
                         </div>
@@ -343,15 +343,17 @@ const ChampionMasteriesTable = ({
           </Listbox>
 
           <button onClick={handleSortOrder} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus-visible:outline-none focus-visible:border-gray-300 focus-visible:dark:border-gray-600 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-indigo-500">
-            {ascending ? (
+            {ascending ? (<>
+              <span className="sr-only">Sort ascending</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
-            ) : (
+            </>) : (<>
+              <span className="sr-only">Sort descending</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
-            )}
+            </>)}
           </button>
         </div>
       </div>
@@ -365,20 +367,30 @@ const ChampionMasteriesTable = ({
           </div>
           <div className="hidden md:flex">
             <div className="flex-1 grid grid-rows-1 grid-cols-18">
-              <div className="col-span-5 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Champion
+              <div className="col-span-5 px-6 py-3">
+                <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Champion
+                </p>
               </div>
-              <div className="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Class
+              <div className="col-span-3 px-6 py-3">
+                <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Class
+                </p>
               </div>
-              <div className="col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Mastery
+              <div className="col-span-4 px-6 py-3">
+                <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Mastery
+                </p>
               </div>
-              <div className="col-span-2 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Chest
+              <div className="col-span-2 px-6 py-3">
+                <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Chest
+                </p>
               </div>
-              <div className="col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Last Played
+              <div className="col-span-4 px-6 py-3">
+                <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Last Played
+                </p>
               </div>
             </div>
           </div>
