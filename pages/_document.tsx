@@ -28,7 +28,7 @@ class MyDocument extends Document {
             name="keywords"
             content="League of Legends, Hextech Chest, Mastery, Champion, Summoner, Riot Games API, Open Source, React, NextJS, Tailwind, HTML, CSS, JavaScript, TypeScript, PWA, C#, .NET, Docker, Cloud, Node, GitHub, Full, Stack, Front, Back, End"
           />
-          <meta key="theme-color" name="theme-color" content="#002137" />
+          <meta key="theme-color" name="theme-color" content="#FCD34D" />
 
           {/* Open Graph. */}
           <meta
