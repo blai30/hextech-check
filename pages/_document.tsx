@@ -54,12 +54,12 @@ class MyDocument extends Document {
           <meta key="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Hextech Check" />
           <link
             rel="apple-touch-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/icon-128x128.png`}
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/icon-152x152.png`}
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
           />
 
           <link
@@ -88,13 +88,13 @@ class MyDocument extends Document {
           />
           <link
             rel="mask-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.svg`}
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/safari-pinned-tab.svg`}
             type="image/svg+xml"
             color="#FCD34D"
           />
           <link
             rel="apple-touch-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
+            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
             type="image/x-icon"
           />
           <link rel="manifest" href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}manifest.json`} />

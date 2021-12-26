@@ -1,6 +1,8 @@
 {
   "name": "Hextech Check",
   "short_name": "Hextech Check",
+  "theme_color": "transparent",
+  "background_color": "transparent",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": ".",
