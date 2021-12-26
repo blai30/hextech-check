@@ -98,7 +98,7 @@ const Home: NextPage = () => {
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`} />
       </Head>
-      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6  justify-between">
+      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6 justify-between">
         <Header />
         {region && summonerName ? (<>
           <SearchForm />

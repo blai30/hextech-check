@@ -40,8 +40,8 @@ const ChampionRow = ({
 
         <div className="md:px-6 md:py-4 col-span-4 md:col-span-5 md:inline-flex h-full items-center">
           <div className="flex gap-4 items-center">
-            <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full">
-              <div className="relative h-14 w-14">
+            <div className="overflow-hidden flex-shrink-0 h-10 w-10 lg:h-12 lg:w-12 rounded-full">
+              <div className="relative h-12 lg:h-14 w-12 lg:w-14">
                 <img
                   id={`champion-image-${champion.id}`}
                   className="absolute -inset-1"
@@ -52,14 +52,14 @@ const ChampionRow = ({
             </div>
 
             <div className="flex flex-col space-y-1">
-              <span id={`champion-name-${champion.id}`} className="text-left text-black dark:text-white">
+              <span id={`champion-name-${champion.id}`} className="text-sm lg:text-base text-left text-black dark:text-white">
                 {champion.name}
               </span>
               <div className="flex md:hidden rounded-md">
-                <span id={`m-champion-level-${champion.id}`} className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
+                <span id={`m-champion-level-${champion.id}`} className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-2.5 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
                   {championMastery.championLevel}
                 </span>
-                <span id={`m-champion-points-${champion.id}`} className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
+                <span id={`m-champion-points-${champion.id}`} className="inline-flex items-center px-2.5 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
                   {championMastery.championPoints.toLocaleString()}
                 </span>
               </div>
@@ -76,7 +76,7 @@ const ChampionRow = ({
                     <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
                   </div>
                 </div>
-                {ClassIcon[tag]}
+                {ClassIcon(tag)({ className: "h-6 w-6 lg:h-8 lg:w-8" })}
               </button>
             ))}
           </div>
@@ -84,10 +84,10 @@ const ChampionRow = ({
 
         <div className="md:px-6 md:py-4 col-span-4 hidden md:inline-flex h-full items-end md:items-center">
           <div className="flex rounded-md">
-            <span id={`champion-level-${champion.id}`} className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+            <span id={`champion-level-${champion.id}`} className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-2.5 lg:px-3 rounded-l-md text-sm lg:text-base border border-r-0 border-gray-300 dark:border-gray-600`}>
               {championMastery.championLevel}
             </span>
-            <span id={`champion-points-${champion.id}`} className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
+            <span id={`champion-points-${champion.id}`} className="inline-flex items-center px-2.5 lg:px-3 rounded-r-md text-sm lg:text-base text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
               {championMastery.championPoints.toLocaleString()}
             </span>
           </div>
@@ -95,16 +95,16 @@ const ChampionRow = ({
 
         <div className="md:px-6 md:py-4 col-span-1 md:col-span-2 row-start-2 col-start-6 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-end md:items-center md:self-auto justify-self-end md:justify-self-auto">
           <div id={`champion-chest-${champion.id}`} className={`${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-300' : 'text-gray-200 dark:text-gray-700'}`}>
-            <ChestIcon /> 
+            <ChestIcon className="h-6 w-6 lg:h-8 lg:w-8" /> 
           </div>
         </div>
 
         <div className="md:px-6 md:py-4 col-span-5 md:col-span-4 row-start-2 col-start-1 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-end md:items-center self-end md:self-auto">
           <button className="relative group flex flex-col items-start focus:outline-none">
-            <span id={`m-champion-lastplayed-${champion.id}`} className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
+            <span id={`m-champion-lastplayed-${champion.id}`} className="block md:hidden text-sm text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
               {`Last played ${formatDistanceToNow(lastPlayed)} ago`}
             </span>
-            <span id={`champion-lastplayed-${champion.id}`} className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
+            <span id={`champion-lastplayed-${champion.id}`} className="hidden md:block text-sm lg:text-base text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
               {`${formatDistanceToNow(lastPlayed)} ago`}
             </span>
             <div id={`champion-lastplayed-tooltip-${champion.id}`} className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
