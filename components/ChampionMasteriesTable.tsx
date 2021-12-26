@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useEffect, useState } from 'react'
-import { format, formatDistanceToNow } from 'date-fns'
 import { Listbox, Switch, Transition } from '@headlessui/react'
 import { Champion, ChampionMastery, Tag } from '@/models'
-import { ClassIcon, ChestIcon } from '@/components'
+import { ChampionRow, LoadingChampionRow } from '@/components'
+import { ChestIcon, ClassIcon } from '@/components/common'
 
 enum Column {
   Champion = 'Champion',
@@ -28,52 +28,19 @@ const allTags = [
   Tag.Marksman,
 ]
 
-const sortColumn = (sortBy: Column, ascending: Boolean, champions: { [key: number]: Champion }) => (a: ChampionMastery, b: ChampionMastery) => {
-  return {
-    [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
-    [Column.Points]: a.championPoints - b.championPoints,
-    [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
-    [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
-  }[sortBy] * (ascending ? 1 : -1)
-}
-
-const tagClasses = (tag: Tag) => ({
-  [Tag.Fighter]: 'text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900',
-  [Tag.Tank]: 'text-indigo-800 dark:text-indigo-200 bg-indigo-100 dark:bg-indigo-900',
-  [Tag.Mage]: 'text-sky-800 dark:text-sky-200 bg-sky-100 dark:bg-sky-900',
-  [Tag.Assassin]: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
-  [Tag.Support]: 'text-teal-800 dark:text-teal-200 bg-teal-100 dark:bg-teal-900',
-  [Tag.Marksman]: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
-})[tag] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
-
-const masteryClasses = (level: number) => ({
-  5: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
-  6: 'text-fuchsia-800 dark:text-fuchsia-200 bg-fuchsia-100 dark:bg-fuchsia-900',
-  7: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
-})[level] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
-
-const loadingItem = (
-  <div className="px-6 py-4">
-    <div className="flex gap-4 items-center">
-      <div className="hidden md:inline-flex h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-      <div className="w-full flex-1">
-        <div className="flex flex-col md:flex-row md:gap-4 lg:gap-6 md:items-center space-y-4 md:space-y-0">
-          <div className="md:hidden flex flex-row items-center gap-4">
-            <div className="md:hidden h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-            <div className="flex-1 space-y-4">
-              <div className="h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-              <div className="h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-            </div>
-          </div>
-          <div className="md:hidden md:w-4/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-          <div className="hidden md:inline-flex md:w-4/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-          <div className="hidden md:inline-flex md:w-3/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-          <div className="hidden md:inline-flex md:w-5/12 h-4 lg:h-6 rounded bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-)
+const sortColumn = (
+  sortBy: Column,
+  ascending: Boolean,
+  champions: { [key: number]: Champion }
+) => (
+  a: ChampionMastery,
+  b: ChampionMastery
+) => ({
+  [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
+  [Column.Points]: a.championPoints - b.championPoints,
+  [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
+  [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
+})[sortBy] * (ascending ? 1 : -1)
 
 const ChampionMasteriesTable = ({
   latestVersion,
@@ -91,14 +58,6 @@ const ChampionMasteriesTable = ({
   const [filterChest, setFilterChest] = useState<boolean>(false)
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
   const [ascending, setAscending] = useState<boolean>(false)
-
-  const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
-  }
-
-  const handleSortOrder = () => {
-    setAscending(!ascending)
-  }
 
   const handleSetFilterTag = (tag: Tag) => {
     if (filterTags.includes(tag)) {
@@ -133,93 +92,16 @@ const ChampionMasteriesTable = ({
     const finalTable = filtered.map((championMastery) => {
       const date = new Date(championMastery.lastPlayTime + 'Z')
       const champion = champions[championMastery.championId]
+      const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
 
       return (
         <li key={championMastery.championId}>
-          <div className="px-6 py-4 md:p-0 whitespace-normal space-y-4">
-            <div className="grid grid-rows-2 md:grid-rows-1 grid-cols-6 md:grid-cols-18 items-center">
-
-              <div className="md:px-6 md:py-4 col-span-4 md:col-span-5 md:inline-flex h-full items-center">
-                <div className="flex gap-4 items-center">
-                  <div className="overflow-hidden flex-shrink-0 h-12 w-12 rounded-full">
-                    <div className="relative h-14 w-14">
-                      <img
-                        className="absolute -inset-1"
-                        src={latestVersion && champion && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`}
-                        alt={`Champion icon ${champion && champion.name}`}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-1">
-                    <span className="text-left text-black dark:text-white">
-                      {champion && champion.name}
-                    </span>
-                    <div className="flex md:hidden rounded-md">
-                      <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md text-sm border border-r-0 border-gray-300 dark:border-gray-600`}>
-                        {championMastery && championMastery.championLevel}
-                      </span>
-                      <span className="inline-flex items-center px-3 rounded-r-md text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
-                        {championMastery && championMastery.championPoints.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:px-6 md:py-4 col-span-3 col-start-5 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-center place-self-end md:place-self-auto">
-                <div className="flex items-end md:items-start -space-x-2">
-                  {champion && champion.tags && champion.tags.map((tag, index) => (
-                    <button key={tag} className={`${tagClasses(tag)} ${`z-${10 - index * 10}`} relative group flex flex-col items-center p-1 transition-colors rounded-full ring-2 ring-white dark:ring-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}>
-                      <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap -top-10 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
-                        <div className="flex flex-col items-center space-y-1">
-                          <p>{Tag[tag]}</p>
-                        </div>
-                      </div>
-                      {ClassIcon[tag]}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="md:px-6 md:py-4 col-span-4 hidden md:inline-flex h-full items-end md:items-center">
-                <div className="flex rounded-md">
-                  <span className={`${masteryClasses(championMastery.championLevel)} inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-                    {championMastery && championMastery.championLevel}
-                  </span>
-                  <span className="inline-flex items-center px-3 rounded-r-md text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600">
-                    {championMastery && championMastery.championPoints.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              <div className="md:px-6 md:py-4 col-span-1 md:col-span-2 row-start-2 col-start-6 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-end md:items-center md:self-auto justify-self-end md:justify-self-auto">
-                {championMastery && (
-                  <div className={`${championMastery.chestGranted ? 'text-amber-400 dark:text-amber-300' : 'text-gray-200 dark:text-gray-700'}`}>
-                    <ChestIcon /> 
-                  </div>
-                )}
-              </div>
-
-              <div className="md:px-6 md:py-4 col-span-5 md:col-span-4 row-start-2 col-start-1 md:row-start-auto md:col-start-auto flex md:inline-flex h-full items-end md:items-center self-end md:self-auto">
-                <button className="relative group flex flex-col items-start focus:outline-none">
-                  <span className="block md:hidden text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-                    {`Last played ${formatDistanceToNow(date)} ago`}
-                  </span>
-                  <span className="hidden md:block text-left text-gray-600 dark:text-gray-300 underline underline-offset-2 decoration-gray-400 decoration-dotted group-focus:decoration-2 group-focus:decoration-solid group-focus:decoration-indigo-500">
-                    {`${formatDistanceToNow(date)} ago`}
-                  </span>
-                  <div className="absolute hidden group-hover:block group-focus:block whitespace-nowrap z-10 -top-16 md:-translate-x-8 px-4 py-2 font-medium text-xs text-black dark:text-white bg-white/60 dark:bg-black/60 backdrop-blur-lg rounded dark:shadow-gray-700/30 shadow-xl">
-                    <div className="flex flex-col items-center space-y-1">
-                      <p>{format(date, 'PPPP')}</p>
-                      <p>{format(date, 'pppp')}</p>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-            </div>
-          </div>
+          <ChampionRow
+            champion={champion}
+            championMastery={championMastery}
+            imageUrl={imageUrl}
+            lastPlayed={date}
+          />
         </li>
       )
     })
@@ -232,12 +114,12 @@ const ChampionMasteriesTable = ({
       {/* Filter and sort */}
       <div className="flex flex-col md:flex-row items-center md:justify-between gap-4">
         <input
-          id="filterChampion"
-          name="filterChampion"
-          type="text"
+          id="filter-champion"
+          name="filter-champion"
+          type="search"
           placeholder="Find champion..."
           value={query}
-          onChange={handleQuery}
+          onChange={(event) => setQuery(event.target.value)}
           className="items-center w-full md:w-3/12 px-3 py-2 rounded-md transition-colors text-black dark:text-white bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-300 focus:dark:border-gray-600 focus:ring-inset focus:ring-2 focus:ring-indigo-500"
         />
 
@@ -246,7 +128,7 @@ const ChampionMasteriesTable = ({
             {allTags.map((tag) => (
               <Switch
                 key={tag}
-                id={`filterTag-${tag}`}
+                id={`filter-tag-${tag}`}
                 checked={filterTags.includes(tag)}
                 onChange={() => handleSetFilterTag(tag)}
                 className={`${filterTags.includes(tag) ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group col-span-1 flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500`}
@@ -264,7 +146,7 @@ const ChampionMasteriesTable = ({
             ))}
           </div>
           <Switch
-            id="filterChest"
+            id="filter-chest"
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
             className={`${filterChest ? 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white' : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400'} relative group flex flex-col items-center p-1 rounded-full cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus:ring-indigo-500`}
@@ -289,7 +171,7 @@ const ChampionMasteriesTable = ({
                   Sort by column
                 </Listbox.Label>
                 <div className="relative flex-1">
-                  <Listbox.Button className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-indigo-500">
+                  <Listbox.Button id="sort-column-select" className="inline-flex items-center w-full rounded-l-md transition-colors text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-r-0 border-gray-300 dark:border-gray-600 pl-3 pr-8 py-2 cursor-default focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-indigo-500">
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
                     </span>
@@ -342,7 +224,11 @@ const ChampionMasteriesTable = ({
             )}
           </Listbox>
 
-          <button onClick={handleSortOrder} className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus-visible:outline-none focus-visible:border-gray-300 focus-visible:dark:border-gray-600 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-indigo-500">
+          <button
+            id="sort-direction"
+            onClick={() => setAscending(!ascending)}
+            className="inline-flex items-center px-3 py-2 rounded-r-md transition-colors bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 focus-visible:outline-none focus-visible:border-gray-300 focus-visible:dark:border-gray-600 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-indigo-500"
+          >
             {ascending ? (<>
               <span className="sr-only">Sort ascending</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -360,12 +246,12 @@ const ChampionMasteriesTable = ({
 
       <div className="flex-col md:block">
         <div className="overflow-hidden border-b border-gray-200 dark:border-gray-900 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow dark:shadow-gray-700/30">
-          <div className="flex md:hidden px-6 py-3">
+          <div id="m-table-header" className="flex md:hidden px-6 py-3">
             <span className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Champion Masteries
             </span>
           </div>
-          <div className="hidden md:flex">
+          <div id="table-header" className="hidden md:flex">
             <div className="flex-1 grid grid-rows-1 grid-cols-18">
               <div className="col-span-5 px-6 py-3">
                 <p className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -396,10 +282,12 @@ const ChampionMasteriesTable = ({
           </div>
         </div>
         <div className="transition-colors bg-white dark:bg-gray-800 shadow dark:shadow-gray-700/30 overflow-visible rounded-b-lg">
-          <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-900">
+          <ul id="champion-masteries-table" role="list" className="divide-y divide-gray-200 dark:divide-gray-900">
             {
               !resultsTimeout && table.length === 0 && filterTags.length === 0 && !filterChest ? (
-                [...Array(20)].map((value, index) => (<li key={index}>{loadingItem}</li>))
+                [...Array(20)].map((value, index) => (
+                  <li key={index}><LoadingChampionRow /></li>
+                ))
               ) : (
                 table
               )

@@ -1,13 +1,15 @@
 import ChampionMasteriesTable from './ChampionMasteriesTable'
-import ChestIcon from './ChestIcon'
-import ClassIcon from './ClassIcon'
+import ChampionRow from './ChampionRow'
+import LoadingChampionRow from './LoadingChampionRow'
+import LoadingSummoner from './LoadingSummoner'
 import SearchForm from './SearchForm'
 import SummonerDetails from './SummonerDetails'
 
 export {
   ChampionMasteriesTable,
-  ChestIcon,
-  ClassIcon,
+  ChampionRow,
+  LoadingChampionRow,
+  LoadingSummoner,
   SearchForm,
   SummonerDetails
 }

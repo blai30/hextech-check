@@ -84,6 +84,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title key="page-title">Hextech Check</title>
+
         {/* Standard meta. */}
         <meta key="title" name="title" content="Hextech Check" />
 
@@ -100,15 +101,8 @@ const Home: NextPage = () => {
       <div className="h-full flex flex-col">
         <div className="container mx-auto my-2 p-4 h-3/5 flex flex-col space-y-6">
           <Header />
-          <div className={`${!region && !summonerName ? 'md:px-8 justify-center' : ''} h-full flex flex-col space-y-10`}>
-            {!region && !summonerName && (
-              <div className="flex flex-col items-center">
-                <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">Enter a summoner name and region.</p>
-              </div>
-            )}
+          {region && summonerName ? (<>
             <SearchForm />
-          </div>
-          {region && summonerName && (<>
             <div>
               <SummonerDetails
                 latestVersion={latestVersion}
@@ -124,7 +118,16 @@ const Home: NextPage = () => {
                 championMasteries={championMasteries}
               />
             </div>
-          </>)}
+          </>) : (
+            <div className="h-full flex flex-col space-y-10 md:px-8 justify-center">
+              {!region && !summonerName && (
+                <div className="flex flex-col items-center">
+                  <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">Enter a summoner name and region.</p>
+                </div>
+              )}
+              <SearchForm />
+            </div>
+          )}
         </div>
       </div>
     </>
