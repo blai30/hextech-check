@@ -50,7 +50,7 @@ class MyDocument extends Document {
 
           {/* Apple meta. */}
           <meta key="apple-mobile-web-app-capable" name="apple-mobile-web-app-capable" content="yes" />
-          <meta key="apple-mobile-web-app-status-bar-style" name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta key="apple-mobile-web-app-status-bar-style" name="apple-mobile-web-app-status-bar-style" content="black" />
           <meta key="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Hextech Check" />
           <link
             rel="apple-touch-icon"
