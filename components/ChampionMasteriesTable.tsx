@@ -128,7 +128,7 @@ const ChampionMasteriesTable = ({
         />
 
         <div className="flex flex-wrap w-full md:w-auto items-center justify-center gap-2">
-          <div className="grid grid-cols-3 grid-rows-2 xs:grid-cols-6 xs:grid-rows-1 gap-2">
+          <div className="grid grid-cols-3 grid-rows-2 2xs:grid-cols-6 2xs:grid-rows-1 gap-2">
             {allTags.map((tag) => (
               <Switch
                 key={tag}
