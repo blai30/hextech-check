@@ -78,35 +78,39 @@ const ChampionMasteriesTable = ({
       return
     }
 
-    const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
+    const buildTable = () => {
+      const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
 
-    const filtered = sorted.filter((championMastery) => {
-      const champion = champions[championMastery.championId]
-      return (
-        (!filterChest || !championMastery.chestGranted) &&
-        champion.name.toLowerCase().includes(query?.toLowerCase()) &&
-        filterTags.every((tag) => champion.tags.includes(tag))
-      )
-    })
+      const filtered = sorted.filter((championMastery) => {
+        const champion = champions[championMastery.championId]
+        return (
+          (!filterChest || !championMastery.chestGranted) &&
+          champion.name.toLowerCase().includes(query?.toLowerCase()) &&
+          filterTags.every((tag) => champion.tags.includes(tag))
+        )
+      })
 
-    const finalTable = filtered.map((championMastery) => {
-      const date = new Date(championMastery.lastPlayTime + 'Z')
-      const champion = champions[championMastery.championId]
-      const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
+      const finalTable = filtered.map((championMastery) => {
+        const date = new Date(championMastery.lastPlayTime + 'Z')
+        const champion = champions[championMastery.championId]
+        const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
 
-      return (
-        <li key={championMastery.championId}>
-          <ChampionRow
-            champion={champion}
-            championMastery={championMastery}
-            imageUrl={imageUrl}
-            lastPlayed={date}
-          />
-        </li>
-      )
-    })
+        return (
+          <li key={championMastery.championId}>
+            <ChampionRow
+              champion={champion}
+              championMastery={championMastery}
+              imageUrl={imageUrl}
+              lastPlayed={date}
+            />
+          </li>
+        )
+      })
 
-    setTable(finalTable)
+      setTable(finalTable)
+    }
+
+    buildTable()
   }, [championMasteries, champions, filterChest, latestVersion, query, byColumn, ascending, filterTags])
 
   return (
