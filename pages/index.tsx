@@ -5,7 +5,7 @@ import axios from 'axios'
 import api from '@/lib/api'
 import { Summoner, League, Champion, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
-import { Header } from '@/components/shared'
+import { Footer, Header } from '@/components/shared'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
@@ -98,38 +98,37 @@ const Home: NextPage = () => {
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`} />
       </Head>
-      <div className="h-full flex flex-col">
-        <div className="container mx-auto my-2 p-4 h-3/5 flex flex-col space-y-6">
-          <Header />
-          {region && summonerName ? (<>
+      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6  justify-between">
+        <Header />
+        {region && summonerName ? (<>
+          <SearchForm />
+          <div>
+            <SummonerDetails
+              latestVersion={latestVersion}
+              leagues={leagues}
+              summoner={summoner}
+              totalMastery={totalMastery}
+            />
+          </div>
+          <div>
+            <ChampionMasteriesTable
+              latestVersion={latestVersion}
+              champions={champions}
+              championMasteries={championMasteries}
+            />
+          </div>
+        </>) : (
+          <div className="h-3/5 flex flex-col space-y-10 md:px-8 justify-center">
+            {!region && !summonerName && (
+              <div className="flex flex-col items-center">
+                <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">Enter a summoner name and region.</p>
+              </div>
+            )}
             <SearchForm />
-            <div>
-              <SummonerDetails
-                latestVersion={latestVersion}
-                leagues={leagues}
-                summoner={summoner}
-                totalMastery={totalMastery}
-              />
-            </div>
-            <div>
-              <ChampionMasteriesTable
-                latestVersion={latestVersion}
-                champions={champions}
-                championMasteries={championMasteries}
-              />
-            </div>
-          </>) : (
-            <div className="h-full flex flex-col space-y-10 md:px-8 justify-center">
-              {!region && !summonerName && (
-                <div className="flex flex-col items-center">
-                  <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">Enter a summoner name and region.</p>
-                </div>
-              )}
-              <SearchForm />
-            </div>
-          )}
-        </div>
-      </div>
+          </div>
+        )}
+        <Footer />
+      </main>
     </>
   )
 }

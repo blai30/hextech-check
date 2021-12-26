@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
   #__next {
-    @apply h-full
+    @apply flex flex-col min-h-screen
   }
 }
