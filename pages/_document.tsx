@@ -90,7 +90,7 @@ class MyDocument extends Document {
             rel="mask-icon"
             href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.svg`}
             type="image/svg+xml"
-            color="#002137"
+            color="#FCD34D"
           />
           <link
             rel="apple-touch-icon"
