@@ -32,7 +32,7 @@ const Footer = () => {
         </div> */}
         <div className="md:order-1">
           <p className="text-center text-base text-gray-400">
-            &copy; {year} Brian Lai - Hextech Check
+            &copy; {year} <a href="https://github.com/blai30" className="transition-colors text-rose-700 dark:text-rose-200 hover:text-rose-600 dark:hover:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">blai30</a> - Hextech Check
           </p>
         </div>
       </div>

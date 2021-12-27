@@ -144,7 +144,7 @@ const ChampionMasteriesTable = ({
                 </div>
                 <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
                 <span>
-                  {ClassIcon(tag)({ className: "h-8 w-8" })}
+                  <ClassIcon className="h-8 w-8" tag={tag} />
                 </span>
               </Switch>
             ))}
@@ -250,34 +250,34 @@ const ChampionMasteriesTable = ({
 
       <div className="flex-col md:block">
         <div className="overflow-hidden border-b border-gray-200 dark:border-gray-900 transition-colors bg-gray-50 dark:bg-gray-700 rounded-t-lg shadow dark:shadow-gray-700/30">
-          <div id="m-table-header" className="flex md:hidden px-6 py-3">
+          <div id="m-table-header" className="flex md:hidden px-6 py-2">
             <span className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Champion Masteries
             </span>
           </div>
           <div id="table-header" className="hidden md:flex">
             <div className="flex-1 grid grid-rows-1 grid-cols-18">
-              <div className="col-span-5 px-6 py-3">
+              <div className="col-span-5 px-6 py-2 lg:py-3">
                 <p className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Champion
                 </p>
               </div>
-              <div className="col-span-3 px-6 py-3">
+              <div className="col-span-3 px-6 py-2 lg:py-3">
                 <p className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Class
                 </p>
               </div>
-              <div className="col-span-4 px-6 py-3">
+              <div className="col-span-4 px-6 py-2 lg:py-3">
                 <p className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Mastery
                 </p>
               </div>
-              <div className="col-span-2 px-6 py-3">
+              <div className="col-span-2 px-6 py-2 lg:py-3">
                 <p className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Chest
                 </p>
               </div>
-              <div className="col-span-4 px-6 py-3">
+              <div className="col-span-4 px-6 py-2 lg:py-3">
                 <p className="text-left text-[0.65rem] lg:text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Last Played
                 </p>

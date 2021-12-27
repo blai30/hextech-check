@@ -76,7 +76,7 @@ const ChampionRow = ({
                     <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
                   </div>
                 </div>
-                {ClassIcon(tag)({ className: "h-6 w-6 lg:h-8 lg:w-8" })}
+                <ClassIcon className="h-6 w-6 lg:h-8 lg:w-8" tag={tag} />
               </button>
             ))}
           </div>

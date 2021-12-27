@@ -58,10 +58,10 @@ const SummonerDetails = ({
             <div className="flex flex-col space-y-2">
               <p className="text-xl lg:text-2xl text-center sm:text-left">{summoner.name}</p>
               <div className="flex flex-row">
-                <span id={`summoner-rank-${summoner.id}`} className={`${leagueClasses[leagues[0]?.tier || Tier.UNRANKED]} inline-flex items-center px-3 transition-colors text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                <span id={`summoner-rank-${summoner.id}`} className={`${leagueClasses[leagues[0]?.tier || Tier.UNRANKED]} inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
                   {leagues[0] ? `${leagues[0].tier} ${leagues[0].rank}` : Tier.UNRANKED}
                 </span>
-                <span id={`summoner-level-${summoner.id}`} className="inline-flex items-center px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
+                <span id={`summoner-level-${summoner.id}`} className="inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
                   {summoner && summoner.level}
                 </span>
               </div>
