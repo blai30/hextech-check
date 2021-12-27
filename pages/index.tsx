@@ -98,33 +98,29 @@ const Home: NextPage = () => {
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`} />
       </Head>
-      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6 justify-between">
+      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6">
         <Header />
-        {region && summonerName ? (<>
+        <div className={`${!region && !summonerName ? 'grow justify-center space-y-10 md:px-8' : ''} flex flex-col`}>
+          {!region && !summonerName && (
+            <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">
+              Enter a summoner name and region.
+            </p>
+          )}
           <SearchForm />
-          <div>
+        </div>
+        {region && summonerName && (
+          <div className="flex flex-col grow space-y-6">
             <SummonerDetails
               latestVersion={latestVersion}
               leagues={leagues}
               summoner={summoner}
               totalMastery={totalMastery}
             />
-          </div>
-          <div>
             <ChampionMasteriesTable
               latestVersion={latestVersion}
               champions={champions}
               championMasteries={championMasteries}
             />
-          </div>
-        </>) : (
-          <div className="h-3/5 flex flex-col space-y-10 md:px-8 justify-center">
-            {!region && !summonerName && (
-              <div className="flex flex-col items-center">
-                <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">Enter a summoner name and region.</p>
-              </div>
-            )}
-            <SearchForm />
           </div>
         )}
         <Footer />
