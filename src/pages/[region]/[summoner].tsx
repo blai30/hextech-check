@@ -80,23 +80,6 @@ const SummonerPage = ({
     getChampionMasteries()
   }, [summonerName, region])
 
-  if (!summoner) {
-    return (
-      <>
-        <Head>
-          <title key="page-title">Not Found - Hextech Check</title>
-          <meta key="title" name="title" content="Not Found - Hextech Check" />
-          <meta key="og:title" property="og:title" content="Not Found - Hextech Check" />
-          <meta key="twitter:title" property="twitter:title" content="Not Found - Hextech Check" />
-        </Head>
-        <div className="flex flex-col grow space-y-6">
-          <SearchForm />
-          <h1 className="text-2xl">Summoner not found.</h1>
-        </div>
-      </>
-    )
-  }
-
   const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
 
   return (
