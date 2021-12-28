@@ -54,12 +54,12 @@ class MyDocument extends Document {
           <meta key="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Hextech Check" />
           <link
             rel="apple-touch-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
+            href="icons/apple-touch-icon.png"
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
+            href="icons/apple-touch-icon.png"
           />
 
           <link
@@ -68,39 +68,38 @@ class MyDocument extends Document {
           />
           <link
             rel="icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.svg`}
+            href="favicon.svg"
             type="image/svg+xml"
           />
           <link
             rel="icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
+            href="favicon.png"
             type="image/x-icon"
           />
           <link
             rel="shortcut icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.ico`}
+            href="favicon.ico"
             type="image/x-icon"
           />
           <link
             rel="shortcut icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`}
+            href="favicon.png"
             type="image/x-icon"
           />
           <link
             rel="mask-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/safari-pinned-tab.svg`}
+            href="icons/safari-pinned-tab.svg"
             type="image/svg+xml"
             color="#FCD34D"
           />
           <link
             rel="apple-touch-icon"
-            href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}icons/apple-touch-icon.png`}
+            href="icons/apple-touch-icon.png"
             type="image/x-icon"
           />
-          <link rel="manifest" href={`${process.env.NEXT_PUBLIC_PATH_PREFIX}manifest.json`} />
+          <link rel="manifest" href="manifest.json" />
 
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
-          <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" />
         </Head>
         <body className="subpixel-antialiased transition-colors bg-gray-50 dark:bg-gray-900">
           <Main />

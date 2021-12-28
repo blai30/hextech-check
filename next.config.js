@@ -1,15 +1,9 @@
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 
-const pathPrefix = process.env.NODE_ENV === 'production'
-  ? '/hextech-check'
-  : ''
-
 /** @type {import('next').NextConfig} */
 module.exports = withPWA({
   reactStrictMode: true,
-  basePath: pathPrefix,
-  assetPrefix: pathPrefix,
   images: {
     domains: [
       'ddragon.leagueoflegends.com',

@@ -1,4 +1,4 @@
-Demo: https://blai30.github.io/hextech-check
+Demo: https://hextech-check.bhlai.com/
 
 API: https://github.com/blai30/HextechCheck-Functions
 

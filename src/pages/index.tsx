@@ -91,12 +91,12 @@ const Home: NextPage = () => {
         {/* Open Graph. */}
         <meta key="og:title" property="og:title" content="Hextech Check - League of Legends" />
         <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
-        <meta key="og:image" property="og:image" content={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`} />
+        <meta key="og:image" property="og:image" content="favicon.png" />
 
         {/* Twitter meta. */}
         <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
-        <meta key="twitter:image" property="twitter:image" content={`${process.env.NEXT_PUBLIC_PATH_PREFIX}favicon.png`} />
+        <meta key="twitter:image" property="twitter:image" content="favicon.png" />
       </Head>
       <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6">
         <Header />
