@@ -18,7 +18,7 @@ const Home = () => {
         <meta key="og:image" property="og:image" content="/favicon.png" />
 
         {/* Twitter meta. */}
-        <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
+        <meta key="twitter:card" name="twitter:card" content="summary" />
         <meta key="twitter:title" property="twitter:title" content="Home - Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content="/favicon.png" />
       </Head>
