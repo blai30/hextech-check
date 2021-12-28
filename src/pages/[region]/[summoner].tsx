@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import api from '@/lib/api'
@@ -5,9 +6,13 @@ import { Summoner, League, Champion, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
 import { getLayout } from '@/components/shared'
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { NextSeo } from 'next-seo'
 
-const SummonerPage = ({ region, summonerName }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const SummonerPage = ({
+  region,
+  summonerName,
+  imageUrl,
+}: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
   const [latestVersion, setLatestVersion] = useState<string>()
   const [summoner, setSummoner] = useState<Summoner>()
   const [leagues, setLeagues] = useState<League[]>()
@@ -75,26 +80,35 @@ const SummonerPage = ({ region, summonerName }: InferGetServerSidePropsType<type
     getChampionMasteries()
   }, [summonerName, region])
 
+  if (!summoner) {
+    return (
+      <>
+        <Head>
+          <title key="page-title">Not Found - Hextech Check</title>
+          <meta key="title" name="title" content="Not Found - Hextech Check" />
+          <meta key="og:title" property="og:title" content="Not Found - Hextech Check" />
+          <meta key="twitter:title" property="twitter:title" content="Not Found - Hextech Check" />
+        </Head>
+        <div className="flex flex-col grow space-y-6">
+          <SearchForm />
+          <h1 className="text-2xl">Summoner not found.</h1>
+        </div>
+      </>
+    )
+  }
+
   const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
 
   return (
     <>
-      <NextSeo
-        title={`${summonerName} (${region}) - Hextech Check`}
-        openGraph={{
-          url: `https://hextech-check.bhlai.com/${region}/${summonerName}`,
-          title: `${summonerName} (${region}) - Hextech Check`,
-          // images: [
-          //   {
-          //     url: `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`,
-              // width: 128,
-              // height: 128,
-          //     alt: "Summoner avatar",
-          //   },
-          // ],
-          site_name: `${summonerName} (${region}) - Hextech Check`,
-        }}
-      />
+      <Head>
+        <title key="page-title">{summonerName} (${region}) - Hextech Check</title>
+        <meta key="title" name="title" content={`${summonerName} (${region})`} />
+        <meta key="og:title" property="og:title" content={`${summonerName} (${region})`} />
+        <meta key="og:image" property="og:image" content={imageUrl} />
+        <meta key="twitter:title" property="twitter:title" content={`${summonerName} (${region})`} />
+        <meta key="twitter:image" property="twitter:image" content={imageUrl} />
+      </Head>
       <div className="flex flex-col grow space-y-6">
         <SearchForm />
         <SummonerDetails
@@ -116,10 +130,28 @@ const SummonerPage = ({ region, summonerName }: InferGetServerSidePropsType<type
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { region, summoner: summonerName } = context.query as { region: string, summoner: string }
 
+  const summoner = await api
+    .get<Summoner>(`/Summoners/${region}/${summonerName}`)
+    .then((response) => response.data)
+    .catch(() => null)
+
+  if (!summoner) {
+    return {
+      props: {}
+    }
+  }
+
+  const latestVersion = await axios
+    .get<string>('https://ddragon.leagueoflegends.com/api/versions.json')
+    .then((response) => response.data[0])
+
+  const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`
+
   return {
     props: {
       region,
-      summonerName,
+      summonerName: summoner.name,
+      imageUrl,
     }
   }
 }

@@ -38,6 +38,7 @@ class MyDocument extends Document {
           />
           <meta key="og:url" property="og:url" content="https://www.bhlai.com/hextech-check" />
           <meta key="og:type" property="og:type" content="website" />
+          <meta key="og:locale" property="og:locale" content="en_US" />
 
           {/* Twitter meta. */}
           <meta
@@ -54,12 +55,12 @@ class MyDocument extends Document {
           <meta key="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Hextech Check" />
           <link
             rel="apple-touch-icon"
-            href="icons/apple-touch-icon.png"
+            href="/icons/apple-touch-icon.png"
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
-            href="icons/apple-touch-icon.png"
+            href="/icons/apple-touch-icon.png"
           />
 
           <link
@@ -68,36 +69,36 @@ class MyDocument extends Document {
           />
           <link
             rel="icon"
-            href="favicon.svg"
+            href="/favicon.svg"
             type="image/svg+xml"
           />
           <link
             rel="icon"
-            href="favicon.png"
+            href="/favicon.png"
             type="image/x-icon"
           />
           <link
             rel="shortcut icon"
-            href="favicon.ico"
+            href="/favicon.ico"
             type="image/x-icon"
           />
           <link
             rel="shortcut icon"
-            href="favicon.png"
+            href="/favicon.png"
             type="image/x-icon"
           />
           <link
             rel="mask-icon"
-            href="icons/safari-pinned-tab.svg"
+            href="/icons/safari-pinned-tab.svg"
             type="image/svg+xml"
             color="#FCD34D"
           />
           <link
             rel="apple-touch-icon"
-            href="icons/apple-touch-icon.png"
+            href="/icons/apple-touch-icon.png"
             type="image/x-icon"
           />
-          <link rel="manifest" href="manifest.json" />
+          <link rel="manifest" href="/manifest.webmanifest" />
 
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
         </Head>
