@@ -17,9 +17,9 @@ const regions = [
 ]
 
 const SearchForm = () => {
+  const router = useRouter()
   const [summoner, setName] = useState('')
   const [region, setRegion] = useState(regions[0])
-  const router = useRouter()
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)

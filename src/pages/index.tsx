@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import { SearchForm } from '@/components'
-import { Footer, Header } from '@/components/shared'
+import { getLayout } from '@/components/shared'
 import type { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -22,18 +22,16 @@ const Home: NextPage = () => {
         <meta key="twitter:title" property="twitter:title" content="Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content="favicon.png" />
       </Head>
-      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6">
-        <Header />
-        <div className="grow justify-center space-y-10 md:px-8 flex flex-col">
-          <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">
-            Enter a summoner name and region.
-          </p>
-          <SearchForm />
-        </div>
-        <Footer />
-      </main>
+      <div className="flex flex-col grow items-center justify-center space-y-10 md:px-8">
+        <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">
+          Enter a summoner name and region.
+        </p>
+        <SearchForm />
+      </div>
     </>
   )
 }
+
+Home.getLayout = (page: NextPage) => getLayout(page)
 
 export default Home

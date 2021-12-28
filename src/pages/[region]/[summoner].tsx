@@ -5,10 +5,10 @@ import axios from 'axios'
 import api from '@/lib/api'
 import { Summoner, League, Champion, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
-import { Footer, Header } from '@/components/shared'
+import { getLayout } from '@/components/shared'
 import type { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const SummonerPage = () => {
   const router = useRouter()
   const { region, summoner: summonerName } = router.query as { region: string, summoner: string }
   const [latestVersion, setLatestVersion] = useState<string>()
@@ -90,28 +90,24 @@ const Home: NextPage = () => {
         <meta key="twitter:title" property="twitter:title" content={`${summoner && summoner.name} - Summoner`} />
         <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
       </Head>
-      <main className="flex flex-col grow container mx-auto my-2 p-4 space-y-6">
-        <Header />
-        <div className="flex flex-col">
-          <SearchForm />
-        </div>
-        <div className="flex flex-col grow space-y-6">
-          <SummonerDetails
-            latestVersion={latestVersion}
-            leagues={leagues}
-            summoner={summoner}
-            totalMastery={totalMastery}
-          />
-          <ChampionMasteriesTable
-            latestVersion={latestVersion}
-            champions={champions}
-            championMasteries={championMasteries}
-          />
-        </div>
-        <Footer />
-      </main>
+      <div className="flex flex-col grow space-y-6">
+        <SearchForm />
+        <SummonerDetails
+          latestVersion={latestVersion}
+          leagues={leagues}
+          summoner={summoner}
+          totalMastery={totalMastery}
+        />
+        <ChampionMasteriesTable
+          latestVersion={latestVersion}
+          champions={champions}
+          championMasteries={championMasteries}
+        />
+      </div>
     </>
   )
 }
 
-export default Home
+SummonerPage.getLayout = (page: NextPage) => getLayout(page)
+
+export default SummonerPage
