@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import axios from 'axios'
 import api from '@/lib/api'
 import { Summoner, League, Champion, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
 import { getLayout } from '@/components/shared'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 
-const SummonerPage = () => {
-  const router = useRouter()
-  const { region, summoner: summonerName } = router.query as { region: string, summoner: string }
+const SummonerPage = ({ region, summonerName }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [latestVersion, setLatestVersion] = useState<string>()
   const [summoner, setSummoner] = useState<Summoner>()
   const [leagues, setLeagues] = useState<League[]>()
@@ -82,14 +79,22 @@ const SummonerPage = () => {
 
   return (
     <>
-      <Head>
-        <title key="page-title">{summoner && summoner.name} - Hextech Check</title>
-        <meta key="title" name="title" content={`${summoner && summoner.name} - Summoner`} />
-        <meta key="og:title" property="og:title" content={`${summoner && summoner.name} - Summoner`} />
-        <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-        <meta key="twitter:title" property="twitter:title" content={`${summoner && summoner.name} - Summoner`} />
-        <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-      </Head>
+      <NextSeo
+        title={`${summonerName} (${region}) - Hextech Check`}
+        openGraph={{
+          url: `https://hextech-check.bhlai.com/${region}/${summonerName}`,
+          title: `${summonerName} (${region}) - Hextech Check`,
+          // images: [
+          //   {
+          //     url: `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`,
+              // width: 128,
+              // height: 128,
+          //     alt: "Summoner avatar",
+          //   },
+          // ],
+          site_name: `${summonerName} (${region}) - Hextech Check`,
+        }}
+      />
       <div className="flex flex-col grow space-y-6">
         <SearchForm />
         <SummonerDetails
@@ -106,6 +111,17 @@ const SummonerPage = () => {
       </div>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { region, summoner: summonerName } = context.query as { region: string, summoner: string }
+
+  return {
+    props: {
+      region,
+      summonerName,
+    }
+  }
 }
 
 SummonerPage.getLayout = (page: NextPage) => getLayout(page)

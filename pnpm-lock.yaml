@@ -14,6 +14,7 @@ specifiers:
   eslint-config-next: ^12.0.7
   next: ^12.0.7
   next-pwa: ^5.4.4
+  next-seo: ^4.28.1
   next-themes: ^0.0.15
   postcss: ^8.4.5
   react: ^17.0.2
@@ -27,6 +28,7 @@ dependencies:
   date-fns: 2.27.0
   next: 12.0.7_react-dom@17.0.2+react@17.0.2
   next-pwa: 5.4.4_next@12.0.7
+  next-seo: 4.28.1_d837ce8f3acb2f60f8b7454672a9bcea
   next-themes: 0.0.15_d837ce8f3acb2f60f8b7454672a9bcea
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -3716,6 +3718,18 @@ packages:
       - supports-color
       - uglify-js
       - webpack
+    dev: false
+
+  /next-seo/4.28.1_d837ce8f3acb2f60f8b7454672a9bcea:
+    resolution: {integrity: sha512-WZgwdM+UhpNF3A37zFllzmPhnOVJ9vYeYlc0n3Z/kYfz/QQgy8NEdncNNggS9dU4JD8xriaCcyknhy5OsrFsJw==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || >=9.0.0
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      next: 12.0.7_react-dom@17.0.2+react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /next-themes/0.0.15_d837ce8f3acb2f60f8b7454672a9bcea:
