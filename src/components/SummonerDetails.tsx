@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Head from 'next/head'
 import { format, formatDistanceToNow } from 'date-fns'
 import { League, Summoner, Tier } from '@/models'
 import { LoadingSummoner } from '@/components'
@@ -36,16 +35,6 @@ const SummonerDetails = ({
 
   return (
     <>
-      {latestVersion && summoner &&
-        <Head>
-          <title key="page-title">{summoner && summoner.name} - Hextech Check</title>
-          <meta key="title" name="title" content={`${summoner && summoner.name} - Summoner`} />
-          <meta key="og:title" property="og:title" content={`${summoner && summoner.name} - Summoner`} />
-          <meta key="og:image" property="og:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-          <meta key="twitter:title" property="twitter:title" content={`${summoner && summoner.name} - Summoner`} />
-          <meta key="twitter:image" property="twitter:image" content={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`} />
-        </Head>
-      }
       <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30">
         <div className="sm:flex sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-6 items-center space-y-2 sm:space-y-0">

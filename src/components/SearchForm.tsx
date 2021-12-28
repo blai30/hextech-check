@@ -28,7 +28,7 @@ const SearchForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     router.push({
-      // pathname: `${region.value}/${summoner}`,
+      pathname: `/[region]/[summoner]`,
       query: {
         summoner,
         region: region.value
