@@ -36,6 +36,7 @@ class MyDocument extends Document {
             property="og:description"
             content="View champion masteries and claimed hextech chests for your League of Legends summoner."
           />
+          <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
           <meta key="og:url" property="og:url" content="https://www.bhlai.com/hextech-check" />
           <meta key="og:type" property="og:type" content="website" />
           <meta key="og:locale" property="og:locale" content="en_US" />
@@ -46,6 +47,7 @@ class MyDocument extends Document {
             property="twitter:description"
             content="View champion masteries and claimed hextech chests for your League of Legends summoner."
           />
+          <meta key="twitter:card" name="twitter:card" content="summary" />
           <meta key="twitter:url" property="twitter:url" content="https://www.bhlai.com/hextech-check" />
           <meta key="twitter:creator" property="twitter:creator" content="@blai30" />
 

@@ -85,11 +85,10 @@ const SummonerPage = ({
   return (
     <>
       <Head>
-        <title key="page-title">{summonerName} (${region}) - Hextech Check</title>
+        <title key="page-title">{summonerName} ({region}) - Hextech Check</title>
         <meta key="title" name="title" content={`${summonerName} (${region})`} />
         <meta key="og:title" property="og:title" content={`${summonerName} (${region})`} />
         <meta key="og:image" property="og:image" content={imageUrl} />
-        <meta key="twitter:card" name="twitter:card" content="summary" />
         <meta key="twitter:title" property="twitter:title" content={`${summonerName} (${region})`} />
         <meta key="twitter:image" property="twitter:image" content={imageUrl} />
       </Head>

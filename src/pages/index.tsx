@@ -14,11 +14,9 @@ const Home = () => {
 
         {/* Open Graph. */}
         <meta key="og:title" property="og:title" content="Home - Hextech Check" />
-        <meta key="og:site_name" property="og:site_name" content="Hextech Check" />
         <meta key="og:image" property="og:image" content="/favicon.png" />
 
         {/* Twitter meta. */}
-        <meta key="twitter:card" name="twitter:card" content="summary" />
         <meta key="twitter:title" property="twitter:title" content="Home - Hextech Check" />
         <meta key="twitter:image" property="twitter:image" content="/favicon.png" />
       </Head>
