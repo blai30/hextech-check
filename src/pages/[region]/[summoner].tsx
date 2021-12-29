@@ -78,7 +78,7 @@ const SummonerPage = ({
         <meta key="og:title" name="og:title" property="og:title" content={`${summonerName} (${region})`} />
         <meta key="og:image" name="og:image" property="og:image" content={imageUrl} />
         <meta key="twitter:url" name="twitter:url" property="twitter:url" content={`https://hextech-check.bhlai.com/${region}/${summonerName}/`} />
-        <meta key="twitter:title" name="twitter:title" property="twitter:title" content={`${summonerName} (${region})`} />
+        <meta key="twitter:title" name="twitter:title" property="twitter:title" content={`${summonerName} (${region}) - Hextech Check`} />
         <meta key="twitter:image" name="twitter:image" property="twitter:image" content={imageUrl} />
       </Head>
       <div className="flex flex-col grow space-y-6">

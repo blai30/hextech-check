@@ -66,6 +66,10 @@ const ChampionMasteriesTable = ({
   }, [])
 
   useEffect(() => {
+    if (!championMasteries || !champions) {
+      return
+    }
+
     const buildTable = () => {
       const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
 
