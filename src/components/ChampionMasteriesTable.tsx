@@ -47,9 +47,9 @@ const ChampionMasteriesTable = ({
   champions,
   championMasteries
 }: {
-  latestVersion: string | undefined
-  champions: { [key: number]: Champion } | undefined
-  championMasteries: ChampionMastery[] | undefined
+  latestVersion: string
+  champions: { [key: number]: Champion }
+  championMasteries: ChampionMastery[]
 }) => {
   const [resultsTimeout, setResultsTimeout] = useState<boolean>(false)
   const [table, setTable] = useState<JSX.Element[]>([])
@@ -59,14 +59,6 @@ const ChampionMasteriesTable = ({
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
   const [ascending, setAscending] = useState<boolean>(false)
 
-  const handleSetFilterTag = (tag: Tag) => {
-    if (filterTags.includes(tag)) {
-      setFilterTags(filterTags.filter(t => t !== tag))
-    } else {
-      setFilterTags([...filterTags, tag])
-    }
-  }
-
   useEffect(() => {
     setTimeout(() => {
       setResultsTimeout(true)
@@ -74,10 +66,6 @@ const ChampionMasteriesTable = ({
   }, [])
 
   useEffect(() => {
-    if (!champions || !championMasteries) {
-      return
-    }
-
     const buildTable = () => {
       const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
 
@@ -111,7 +99,15 @@ const ChampionMasteriesTable = ({
     }
 
     buildTable()
-  }, [championMasteries, champions, filterChest, latestVersion, query, byColumn, ascending, filterTags])
+  }, [ascending, byColumn, championMasteries, champions, filterChest, filterTags, latestVersion, query])
+
+  const handleSetFilterTag = (tag: Tag) => {
+    if (filterTags.includes(tag)) {
+      setFilterTags(filterTags.filter(t => t !== tag))
+    } else {
+      setFilterTags([...filterTags, tag])
+    }
+  }
 
   return (
     <div className="flex flex-col space-y-6">

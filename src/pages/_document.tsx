@@ -48,7 +48,6 @@ class MyDocument extends Document {
             content="View champion masteries and claimed hextech chests for your League of Legends summoner."
           />
           <meta key="twitter:card" name="twitter:card" content="summary" />
-          <meta key="twitter:url" property="twitter:url" content="https://www.bhlai.com/hextech-check" />
           <meta key="twitter:creator" property="twitter:creator" content="@blai30" />
 
           {/* Apple meta. */}

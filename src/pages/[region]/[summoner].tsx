@@ -29,10 +29,6 @@ const SummonerPage = ({
   }, [])
 
   useEffect(() => {
-    if (!region || !summonerName) {
-      return
-    }
-
     const getSummoner = async () => {
       const response = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
       setSummoner(response.data)
@@ -42,10 +38,6 @@ const SummonerPage = ({
   }, [region, summonerName])
 
   useEffect(() => {
-    if (!region || !summonerName) {
-      return
-    }
-
     const getLeagues = async () => {
       if (!summoner) {
         return
@@ -56,7 +48,7 @@ const SummonerPage = ({
     }
 
     getLeagues()
-  }, [region, summoner, summonerName])
+  }, [region, summoner])
 
   useEffect(() => {
     const getChampions = async () => {
@@ -68,17 +60,13 @@ const SummonerPage = ({
   }, [])
 
   useEffect(() => {
-    if (!region || !summonerName) {
-      return
-    }
-
     const getChampionMasteries = async () => {
       const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
       setChampionMasteries(response.data)
     }
 
     getChampionMasteries()
-  }, [summonerName, region])
+  }, [region, summonerName])
 
   const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
 
@@ -86,24 +74,25 @@ const SummonerPage = ({
     <>
       <Head>
         <title key="page-title">{summonerName} ({region}) - Hextech Check</title>
-        <meta key="title" name="title" content={`${summonerName} (${region})`} />
-        <meta key="og:title" property="og:title" content={`${summonerName} (${region})`} />
-        <meta key="og:image" property="og:image" content={imageUrl} />
-        <meta key="twitter:title" property="twitter:title" content={`${summonerName} (${region})`} />
-        <meta key="twitter:image" property="twitter:image" content={imageUrl} />
+        <meta key="title" name="title" property="title" content={`${summonerName} (${region})`} />
+        <meta key="og:title" name="og:title" property="og:title" content={`${summonerName} (${region})`} />
+        <meta key="og:image" name="og:image" property="og:image" content={imageUrl} />
+        <meta key="twitter:url" name="twitter:url" property="twitter:url" content={`https://hextech-check.bhlai.com/${region}/${summonerName}/`} />
+        <meta key="twitter:title" name="twitter:title" property="twitter:title" content={`${summonerName} (${region})`} />
+        <meta key="twitter:image" name="twitter:image" property="twitter:image" content={imageUrl} />
       </Head>
       <div className="flex flex-col grow space-y-6">
         <SearchForm />
         <SummonerDetails
-          latestVersion={latestVersion}
-          leagues={leagues}
-          summoner={summoner}
-          totalMastery={totalMastery}
+          latestVersion={latestVersion as string}
+          leagues={leagues as League[]}
+          summoner={summoner as Summoner}
+          totalMastery={totalMastery as number}
         />
         <ChampionMasteriesTable
-          latestVersion={latestVersion}
-          champions={champions}
-          championMasteries={championMasteries}
+          latestVersion={latestVersion as string}
+          champions={champions as { [key: number]: Champion }}
+          championMasteries={championMasteries as ChampionMastery[]}
         />
       </div>
     </>

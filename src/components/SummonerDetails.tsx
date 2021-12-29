@@ -22,16 +22,17 @@ const SummonerDetails = ({
   summoner,
   totalMastery
 }: {
-  latestVersion: string | undefined
-  leagues: League[] | undefined
-  summoner: Summoner | undefined
-  totalMastery: number | undefined
+  latestVersion: string
+  leagues: League[]
+  summoner: Summoner
+  totalMastery: number
 }) => {
   if (!summoner || !leagues || totalMastery === undefined || !latestVersion) {
     return <LoadingSummoner />
   }
 
   const date = new Date(summoner.revisionDate + 'Z')
+  const league = leagues.sort((a, b) => a.tier < b.tier ? -1 : 1)[0]
 
   return (
     <>
@@ -47,8 +48,8 @@ const SummonerDetails = ({
             <div className="flex flex-col space-y-2">
               <p className="text-xl lg:text-2xl text-center sm:text-left">{summoner.name}</p>
               <div className="flex flex-row">
-                <span id={`summoner-rank-${summoner.id}`} className={`${leagueClasses[leagues[0]?.tier || Tier.UNRANKED]} inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
-                  {leagues[0] ? `${leagues[0].tier} ${leagues[0].rank}` : Tier.UNRANKED}
+                <span id={`summoner-rank-${summoner.id}`} className={`${leagueClasses[league?.tier || Tier.UNRANKED]} inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                  {league ? `${league.tier} ${league.rank}` : Tier.UNRANKED}
                 </span>
                 <span id={`summoner-level-${summoner.id}`} className="inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
                   {summoner && summoner.level}
