@@ -63,13 +63,13 @@ const ChampionMasteriesTable = ({
     setTimeout(() => {
       setResultsTimeout(true)
     }, 4000)
+
+    return () => {
+      setResultsTimeout(false)
+    }
   }, [])
 
   useEffect(() => {
-    if (!championMasteries || !champions) {
-      return
-    }
-
     const buildTable = () => {
       const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
 
@@ -103,6 +103,10 @@ const ChampionMasteriesTable = ({
     }
 
     buildTable()
+
+    return () => {
+      setTable([])
+    }
   }, [ascending, byColumn, championMasteries, champions, filterChest, filterTags, latestVersion, query])
 
   const handleSetFilterTag = (tag: Tag) => {

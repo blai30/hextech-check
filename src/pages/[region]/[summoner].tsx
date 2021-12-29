@@ -10,23 +10,14 @@ import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from '
 const SummonerPage = ({
   region,
   summonerName,
+  latestVersion,
   imageUrl,
+  champions,
 }: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
-  const [latestVersion, setLatestVersion] = useState<string>()
   const [summoner, setSummoner] = useState<Summoner>()
   const [leagues, setLeagues] = useState<League[]>()
-  const [champions, setChampions] = useState<{ [key: number]: Champion }>({})
   const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
-
-  useEffect(() => {
-    const getLatestVersion = async () => {
-      const response = await axios.get<string[]>('https://ddragon.leagueoflegends.com/api/versions.json')
-      setLatestVersion(response.data[0])
-    }
-
-    getLatestVersion()
-  }, [])
 
   useEffect(() => {
     const getSummoner = async () => {
@@ -35,6 +26,10 @@ const SummonerPage = ({
     }
 
     getSummoner()
+
+    return () => {
+      setSummoner(undefined)
+    }
   }, [region, summonerName])
 
   useEffect(() => {
@@ -48,16 +43,11 @@ const SummonerPage = ({
     }
 
     getLeagues()
-  }, [region, summoner])
-
-  useEffect(() => {
-    const getChampions = async () => {
-      const response = await api.get<{ [key: number]: Champion }>('/Champions')
-      setChampions(response.data)
+    
+    return () => {
+      setLeagues([])
     }
-
-    getChampions()
-  }, [])
+  }, [region, summoner])
 
   useEffect(() => {
     const getChampionMasteries = async () => {
@@ -66,6 +56,10 @@ const SummonerPage = ({
     }
 
     getChampionMasteries()
+
+    return () => {
+      setChampionMasteries([])
+    }
   }, [region, summonerName])
 
   const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
@@ -84,7 +78,7 @@ const SummonerPage = ({
       <div className="flex flex-col grow space-y-6">
         <SearchForm />
         <SummonerDetails
-          latestVersion={latestVersion as string}
+          imageUrl={imageUrl}
           leagues={leagues as League[]}
           summoner={summoner as Summoner}
           totalMastery={totalMastery as number}
@@ -119,11 +113,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`
 
+  const champions = await api.get<{ [key: number]: Champion }>('/Champions').then((response) => response.data)
+
   return {
     props: {
       region,
       summonerName: summoner.name,
+      latestVersion,
       imageUrl,
+      champions,
     }
   }
 }

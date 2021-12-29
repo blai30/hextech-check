@@ -17,17 +17,17 @@ const leagueClasses: Readonly<Record<Tier, string>> = {
 }
 
 const SummonerDetails = ({
-  latestVersion,
+  imageUrl,
   leagues,
   summoner,
   totalMastery
 }: {
-  latestVersion: string
+  imageUrl: string
   leagues: League[]
   summoner: Summoner
   totalMastery: number
 }) => {
-  if (!summoner || !leagues || totalMastery === undefined || !latestVersion) {
+  if (!summoner || !leagues || totalMastery === undefined) {
     return <LoadingSummoner />
   }
 
@@ -42,8 +42,8 @@ const SummonerDetails = ({
             <img
               id={`summoner-icon-${summoner.id}`}
               className="inline-block h-16 w-16 lg:h-20 lg:w-20 rounded-full"
-              src={latestVersion && summoner && `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`}
-              alt={`Summoner profile icon ${summoner && summoner.profileIconId}`}
+              src={imageUrl}
+              alt={`Summoner profile icon ${summoner.profileIconId}`}
             />
             <div className="flex flex-col space-y-2">
               <p className="text-xl lg:text-2xl text-center sm:text-left">{summoner.name}</p>
@@ -52,14 +52,14 @@ const SummonerDetails = ({
                   {league ? `${league.tier} ${league.rank}` : Tier.UNRANKED}
                 </span>
                 <span id={`summoner-level-${summoner.id}`} className="inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
-                  {summoner && summoner.level}
+                  {summoner.level}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center">
             <p className="font-light text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
-            <p id={`summoner-totalmastery-${summoner.id}`} className="font-semibold text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery && totalMastery.toLocaleString()}</p>
+            <p id={`summoner-totalmastery-${summoner.id}`} className="font-semibold text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
           </div>
           <div className="flex flex-col items-center sm:items-end">
             <p className="text-center text-sm lg:text-base sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
