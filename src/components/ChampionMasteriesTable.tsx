@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Switch, Transition } from '@headlessui/react'
+import api from '@/lib/api'
 import { Champion, ChampionMastery, Tag } from '@/models'
 import { ChampionRow, LoadingChampionRow } from '@/components'
 import { ChestIcon, ClassIcon } from '@/components/common'
@@ -44,13 +45,12 @@ const sortColumn = (
 
 const ChampionMasteriesTable = ({
   latestVersion,
-  champions,
-  championMasteries
+  championMasteries,
 }: {
   latestVersion: string
-  champions: { [key: number]: Champion }
   championMasteries: ChampionMastery[]
 }) => {
+  const [champions, setChampions] = useState<{ [key: number]: Champion }>()
   const [resultsTimeout, setResultsTimeout] = useState<boolean>(false)
   const [table, setTable] = useState<JSX.Element[]>([])
   const [query, setQuery] = useState<string>('')
@@ -58,6 +58,19 @@ const ChampionMasteriesTable = ({
   const [filterChest, setFilterChest] = useState<boolean>(false)
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
   const [ascending, setAscending] = useState<boolean>(false)
+
+  useEffect(() => {
+    const getChampions = async () => {
+      const { data } = await api.get<{ [key: number]: Champion }>('/Champions')
+      setChampions(data)
+    }
+
+    getChampions()
+
+    return () => {
+      setChampions(undefined)
+    }
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
@@ -71,6 +84,10 @@ const ChampionMasteriesTable = ({
 
   useEffect(() => {
     const buildTable = () => {
+      if (!champions) {
+        return
+      }
+
       const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
 
       const filtered = sorted.filter((championMastery) => {

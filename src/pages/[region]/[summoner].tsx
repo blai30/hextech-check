@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import api from '@/lib/api'
-import { Summoner, League, Champion, ChampionMastery } from '@/models'
+import { Summoner, League, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
 import { getLayout } from '@/components/shared'
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
@@ -12,7 +12,6 @@ const SummonerPage = ({
   summonerName,
   latestVersion,
   imageUrl,
-  champions,
 }: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const [summoner, setSummoner] = useState<Summoner>()
@@ -21,8 +20,8 @@ const SummonerPage = ({
 
   useEffect(() => {
     const getSummoner = async () => {
-      const response = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
-      setSummoner(response.data)
+      const { data } = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
+      setSummoner(data)
     }
 
     getSummoner()
@@ -38,8 +37,8 @@ const SummonerPage = ({
         return
       }
 
-      const response = await api.get<League[]>(`/Leagues/${region}/${summoner.id}`)
-      setLeagues(response.data)
+      const { data } = await api.get<League[]>(`/Leagues/${region}/${summoner.id}`)
+      setLeagues(data)
     }
 
     getLeagues()
@@ -51,8 +50,8 @@ const SummonerPage = ({
 
   useEffect(() => {
     const getChampionMasteries = async () => {
-      const response = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
-      setChampionMasteries(response.data)
+      const { data } = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
+      setChampionMasteries(data)
     }
 
     getChampionMasteries()
@@ -85,7 +84,6 @@ const SummonerPage = ({
         />
         <ChampionMasteriesTable
           latestVersion={latestVersion as string}
-          champions={champions as { [key: number]: Champion }}
           championMasteries={championMasteries as ChampionMastery[]}
         />
       </div>
@@ -113,15 +111,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${summoner.profileIconId}.png`
 
-  const champions = await api.get<{ [key: number]: Champion }>('/Champions').then((response) => response.data)
-
   return {
     props: {
       region,
       summonerName: summoner.name,
       latestVersion,
       imageUrl,
-      champions,
     }
   }
 }
