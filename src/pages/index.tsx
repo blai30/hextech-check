@@ -1,17 +1,9 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import { SearchForm } from '@/components'
 import { getLayout } from '@/components/shared'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 
 const Home = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.prefetch('/[region]/[summonerName]')
-  }, [router])
-
   return (
     <>
       <Head>
