@@ -1,11 +1,12 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
 import axios from 'axios'
 import api from '@/lib/api'
 import { Summoner, League, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
 import { getLayout } from '@/components/shared'
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import useSWR from 'swr'
+import { fetcher } from '@/hooks/useGet'
 
 const SummonerPage = ({
   region,
@@ -14,54 +15,26 @@ const SummonerPage = ({
   imageUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
-  const [summoner, setSummoner] = useState<Summoner>()
-  const [leagues, setLeagues] = useState<League[]>()
-  const [championMasteries, setChampionMasteries] = useState<ChampionMastery[]>([])
+  const {
+    data: summoner,
+    error: summonerError,
+  } = useSWR<Summoner>(`/Summoners/${region}/${summonerName}`, fetcher)
 
-  useEffect(() => {
-    const getSummoner = async () => {
-      const { data } = await api.get<Summoner>(`/Summoners/${region}/${summonerName}`)
-      setSummoner(data)
-    }
+  const {
+    data: leagues,
+    error: leaguesError,
+  } = useSWR<League[]>(() => `/Leagues/${region}/${summoner!.id}`, fetcher)
 
-    getSummoner()
+  const {
+    data: championMasteries,
+    error: championMasteriesError,
+  } = useSWR<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`, fetcher)
 
-    return () => {
-      setSummoner(undefined)
-    }
-  }, [region, summonerName])
+  if ((!summonerError && !summoner) || (!leaguesError && !leagues) || (!championMasteriesError && !championMasteries)) {
+    return <p>Loading...</p>
+  }
 
-  useEffect(() => {
-    const getLeagues = async () => {
-      if (!summoner) {
-        return
-      }
-
-      const { data } = await api.get<League[]>(`/Leagues/${region}/${summoner.id}`)
-      setLeagues(data)
-    }
-
-    getLeagues()
-    
-    return () => {
-      setLeagues([])
-    }
-  }, [region, summoner])
-
-  useEffect(() => {
-    const getChampionMasteries = async () => {
-      const { data } = await api.get<ChampionMastery[]>(`/ChampionMasteries/${region}/${summonerName}`)
-      setChampionMasteries(data)
-    }
-
-    getChampionMasteries()
-
-    return () => {
-      setChampionMasteries([])
-    }
-  }, [region, summonerName])
-
-  const totalMastery = championMasteries.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
+  const totalMastery = championMasteries!.reduce((previousValue, currentValue) => previousValue + currentValue.championPoints, 0)
 
   return (
     <>

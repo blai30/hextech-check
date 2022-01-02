@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Listbox, Transition } from '@headlessui/react'
-import useRouterLoading from '@/lib/useRouterLoading'
+import useRouterLoading from '@/hooks/useRouterLoading'
 
 const regions: Readonly<Record<string, string>> = {
   'NA': 'North America',
