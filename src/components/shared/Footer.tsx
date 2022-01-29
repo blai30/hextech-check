@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <div className="max-w-7xl mx-auto mt-8 transition-colors border-t border-gray-200 dark:border-gray-700 py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between space-y-8 md:space-y-0">
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col space-y-8 border-t border-gray-200 py-12 px-4 transition-colors dark:border-gray-700 sm:px-6 md:flex-row md:items-center md:justify-between md:space-y-0 lg:px-8">
         {/* <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
@@ -32,7 +32,14 @@ const Footer = () => {
         </div> */}
         <div className="md:order-1">
           <p className="text-center text-base text-gray-400">
-            &copy; {year} <a href="https://github.com/blai30" className="transition-colors text-rose-700 dark:text-rose-200 hover:text-rose-600 dark:hover:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">blai30</a> - Hextech Check
+            &copy; {year}{' '}
+            <a
+              href="https://github.com/blai30"
+              className="text-rose-700 transition-colors hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 dark:text-rose-200 dark:hover:text-rose-300"
+            >
+              blai30
+            </a>{' '}
+            - Hextech Check
           </p>
         </div>
       </div>

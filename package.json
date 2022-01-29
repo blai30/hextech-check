@@ -2,33 +2,36 @@
   "name": "hextech-check",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "build:prod": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.4.3",
     "axios": "^0.24.0",
-    "date-fns": "^2.27.0",
-    "next": "^12.0.7",
+    "date-fns": "^2.28.0",
+    "next": "^12.0.9",
     "next-pwa": "^5.4.4",
     "next-themes": "^0.0.15",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "swr": "^1.2.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.0",
-    "@types/node": "^16.11.14",
-    "@types/react": "^17.0.37",
-    "autoprefixer": "^10.4.0",
+    "@tailwindcss/typography": "^0.5.1",
+    "@types/node": "^16.11.21",
+    "@types/react": "^17.0.38",
+    "autoprefixer": "^10.4.2",
     "cross-env": "^7.0.3",
-    "eslint": "^8.4.1",
-    "eslint-config-next": "^12.0.7",
+    "eslint": "^8.8.0",
+    "eslint-config-next": "^12.0.9",
     "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.5",
-    "typescript": "^4.5.4"
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.4",
+    "tailwindcss": "^3.0.18",
+    "typescript": "^4.5.5"
   }
 }

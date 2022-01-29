@@ -11,5 +11,5 @@ export {
   LoadingChampionRow,
   LoadingSummoner,
   SearchForm,
-  SummonerDetails
+  SummonerDetails,
 }

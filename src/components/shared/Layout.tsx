@@ -4,7 +4,7 @@ import { Footer, Header } from '@/components/shared'
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <main id="layout" className="">
-      <div className="flex flex-col grow min-h-screen container mx-auto my-2 p-4 space-y-6">
+      <div className="container mx-auto my-2 flex min-h-screen grow flex-col space-y-6 p-4">
         <Header />
         {children}
         <Footer />

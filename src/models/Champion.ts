@@ -49,3 +49,5 @@ export interface Info {
   difficulty: number
   magic: number
 }
+
+export type ChampionList = { [key: string]: Champion }
