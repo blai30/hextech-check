@@ -2,7 +2,7 @@
   "name": "hextech-check",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "build:prod": "next build && next export",
     "start": "next start",

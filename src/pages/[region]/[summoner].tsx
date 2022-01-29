@@ -32,19 +32,23 @@ const SummonerPage = ({
     fetcher
   )
 
-  const { data: championMasteries, error: championMasteriesError } = useSWR<
-    ChampionMastery[]
-  >(`/ChampionMasteries/${region}/${summonerName}`, fetcher)
+  const { data: masteries, error: masteriesError } = useSWR<ChampionMastery[]>(
+    `/ChampionMasteries/${region}/${summonerName}`,
+    fetcher
+  )
 
   if (
-    (!summonerError && !summoner) ||
-    (!leaguesError && !leagues) ||
-    (!championMasteriesError && !championMasteries)
+    summonerError ||
+    !summoner ||
+    leaguesError ||
+    !leagues ||
+    masteriesError ||
+    !masteries
   ) {
     return <p>Loading...</p>
   }
 
-  const totalMastery = championMasteries!.reduce(
+  const totalMastery = masteries.reduce(
     (previousValue, currentValue) =>
       previousValue + currentValue.championPoints,
     0
@@ -103,7 +107,7 @@ const SummonerPage = ({
         />
         <ChampionMasteriesTable
           latestVersion={latestVersion as string}
-          championMasteries={championMasteries as ChampionMastery[]}
+          masteries={masteries as ChampionMastery[]}
         />
       </div>
     </>

@@ -28,7 +28,7 @@ const SummonerDetails = ({
   summoner: Summoner
   totalMastery: number
 }) => {
-  if (!summoner || !leagues || totalMastery === undefined) {
+  if (!summoner || !leagues || !totalMastery || totalMastery === undefined) {
     return <LoadingSummoner />
   }
 

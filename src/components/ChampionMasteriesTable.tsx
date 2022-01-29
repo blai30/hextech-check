@@ -47,10 +47,10 @@ const sortColumn = (
 
 const ChampionMasteriesTable = ({
   latestVersion,
-  championMasteries,
+  masteries,
 }: {
   latestVersion: string
-  championMasteries: ChampionMastery[]
+  masteries: ChampionMastery[]
 }) => {
   const [resultsTimeout, setResultsTimeout] = useState<boolean>(false)
   const [table, setTable] = useState<JSX.Element[]>([])
@@ -92,7 +92,7 @@ const ChampionMasteriesTable = ({
       }
 
       // Sort champion masteries by the selected column.
-      const sorted = championMasteries.sort(
+      const sorted = masteries.sort(
         sortColumn(byColumn, ascending, champions)
       )
 
@@ -127,7 +127,7 @@ const ChampionMasteriesTable = ({
   }, [
     ascending,
     byColumn,
-    championMasteries,
+    masteries,
     champions,
     filterChest,
     filterTags,

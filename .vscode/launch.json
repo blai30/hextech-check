@@ -9,7 +9,7 @@
     },
     {
       "name": "Next.js: debug client-side",
-      "type": "msedge",
+      "type": "pwa-msedge",
       "request": "launch",
       "url": "http://localhost:3000"
     },
