@@ -10,6 +10,6 @@ export const useGet = <T = any>(route: string, ...args: string[]) => {
   return {
     data,
     isLoading: !error && !data,
-    isError: error
+    isError: error,
   }
 }

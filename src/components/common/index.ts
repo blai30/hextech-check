@@ -3,5 +3,5 @@ import ClassIcon from './ClassIcon'
 
 export {
   ChestIcon,
-  ClassIcon
+  ClassIcon,
 }

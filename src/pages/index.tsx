@@ -32,8 +32,8 @@ const Home = () => {
           content="/favicon.png"
         />
       </Head>
-      <div className="flex flex-col grow items-center justify-center space-y-10 md:px-8">
-        <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">
+      <div className="flex grow flex-col items-center justify-center space-y-10 md:px-8">
+        <p className="whitespace-normal px-8 text-center text-xl font-light text-gray-700 dark:text-gray-200">
           Enter a summoner name and region.
         </p>
         <SearchForm />

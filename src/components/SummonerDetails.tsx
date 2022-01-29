@@ -3,6 +3,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import { League, Summoner, Tier } from '@/models'
 import { LoadingSummoner } from '@/components'
 
+// prettier-ignore
 const leagueClasses: Readonly<Record<Tier, string>> = {
   [Tier.UNRANKED]: 'text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-900',
   [Tier.IRON]: 'text-slate-800 dark:text-slate-300 bg-slate-100 dark:bg-slate-900',
@@ -20,7 +21,7 @@ const SummonerDetails = ({
   imageUrl,
   leagues,
   summoner,
-  totalMastery
+  totalMastery,
 }: {
   imageUrl: string
   leagues: League[]
@@ -32,38 +33,62 @@ const SummonerDetails = ({
   }
 
   const date = new Date(summoner.revisionDate + 'Z')
-  const league = leagues.sort((a, b) => a.tier < b.tier ? -1 : 1)[0]
+  const league = leagues.sort((a, b) => (a.tier < b.tier ? -1 : 1))[0]
 
   return (
     <>
-      <div className="p-6 transition-colors bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30">
-        <div className="sm:flex sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-          <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-6 items-center space-y-2 sm:space-y-0">
+      <div className="rounded-lg bg-white p-6 shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30">
+        <div className="space-y-4 sm:flex sm:items-center sm:justify-between sm:space-y-0">
+          <div className="flex flex-col items-center space-y-2 sm:flex-row sm:gap-4 sm:space-y-0 lg:gap-6">
             <img
               id={`summoner-icon-${summoner.id}`}
-              className="inline-block h-16 w-16 lg:h-20 lg:w-20 rounded-full"
+              className="inline-block h-16 w-16 rounded-full lg:h-20 lg:w-20"
               src={imageUrl}
               alt={`Summoner profile icon ${summoner.profileIconId}`}
             />
             <div className="flex flex-col space-y-2">
-              <p className="text-xl lg:text-2xl text-center sm:text-left">{summoner.name}</p>
+              <p className="text-center text-xl sm:text-left lg:text-2xl">
+                {summoner.name}
+              </p>
               <div className="flex flex-row">
-                <span id={`summoner-rank-${summoner.id}`} className={`${leagueClasses[league?.tier || Tier.UNRANKED]} inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600`}>
+                <span
+                  id={`summoner-rank-${summoner.id}`}
+                  className={`${
+                    leagueClasses[league?.tier || Tier.UNRANKED]
+                  } inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg`}
+                >
                   {league ? `${league.tier} ${league.rank}` : Tier.UNRANKED}
                 </span>
-                <span id={`summoner-level-${summoner.id}`} className="inline-flex items-center px-2.5 lg:px-3 transition-colors text-sm lg:text-lg rounded-r-md border border-gray-300 dark:border-gray-600">
+                <span
+                  id={`summoner-level-${summoner.id}`}
+                  className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg"
+                >
                   {summoner.level}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <p className="font-light text-center text-md lg:text-lg text-gray-600 dark:text-gray-300">Total mastery</p>
-            <p id={`summoner-totalmastery-${summoner.id}`} className="font-semibold text-center text-xl lg:text-2xl text-amber-900 dark:text-amber-100">{totalMastery.toLocaleString()}</p>
+            <p className="text-md text-center font-light text-gray-600 dark:text-gray-300 lg:text-lg">
+              Total mastery
+            </p>
+            <p
+              id={`summoner-totalmastery-${summoner.id}`}
+              className="text-center text-xl font-semibold text-amber-900 dark:text-amber-100 lg:text-2xl"
+            >
+              {totalMastery.toLocaleString()}
+            </p>
           </div>
           <div className="flex flex-col items-center sm:items-end">
-            <p className="text-center text-sm lg:text-base sm:text-right text-gray-600 dark:text-gray-300">Last modified {formatDistanceToNow(date)} ago</p>
-            <p id={`summoner-revisiondate-${summoner.id}`} className="text-center text-sm lg:text-base sm:text-right text-gray-500 dark:text-gray-400">{format(date, 'Pp')}</p>
+            <p className="text-center text-sm text-gray-600 dark:text-gray-300 sm:text-right lg:text-base">
+              Last modified {formatDistanceToNow(date)} ago
+            </p>
+            <p
+              id={`summoner-revisiondate-${summoner.id}`}
+              className="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right lg:text-base"
+            >
+              {format(date, 'Pp')}
+            </p>
           </div>
         </div>
       </div>
