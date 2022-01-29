@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import axios from 'axios'
+import useSWR from 'swr'
 import api from '@/lib/api'
+import { fetcher } from '@/hooks/useGet'
 import { Summoner, League, ChampionMastery } from '@/models'
 import { ChampionMasteriesTable, SearchForm, SummonerDetails } from '@/components'
 import { getLayout } from '@/components/shared'
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import useSWR from 'swr'
-import { fetcher } from '@/hooks/useGet'
 
 const SummonerPage = ({
   region,

@@ -13,12 +13,24 @@ const Home = () => {
         <meta key="title" name="title" content="Home - Hextech Check" />
 
         {/* Open Graph. */}
-        <meta key="og:title" property="og:title" content="Home - Hextech Check" />
+        <meta
+          key="og:title"
+          property="og:title"
+          content="Home - Hextech Check"
+        />
         <meta key="og:image" property="og:image" content="/favicon.png" />
 
         {/* Twitter meta. */}
-        <meta key="twitter:title" property="twitter:title" content="Home - Hextech Check" />
-        <meta key="twitter:image" property="twitter:image" content="/favicon.png" />
+        <meta
+          key="twitter:title"
+          property="twitter:title"
+          content="Home - Hextech Check"
+        />
+        <meta
+          key="twitter:image"
+          property="twitter:image"
+          content="/favicon.png"
+        />
       </Head>
       <div className="flex flex-col grow items-center justify-center space-y-10 md:px-8">
         <p className="px-8 whitespace-normal font-light text-center text-xl text-gray-700 dark:text-gray-200">

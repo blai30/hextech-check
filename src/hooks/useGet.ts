@@ -1,8 +1,8 @@
 import useSWR from 'swr'
 import api from '@/lib/api'
 
-export const fetcher = async <T = any>(url: string) =>
-  await api.get<T>(url).then((response) => response.data)
+export const fetcher = async (url: string) =>
+  await api.get(url).then((response) => response.data)
 
 export const useGet = <T = any>(route: string, ...args: string[]) => {
   const { data, error } = useSWR<T>(`/${route}/${args.join('/')}`, fetcher)

@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { Listbox, Switch, Transition } from '@headlessui/react'
-import api from '@/lib/api'
 import { Champion, ChampionMastery, Tag } from '@/models'
+import { fetcher } from '@/hooks/useGet'
 import { ChampionRow, LoadingChampionRow } from '@/components'
 import { ChestIcon, ClassIcon } from '@/components/common'
 
@@ -50,7 +51,6 @@ const ChampionMasteriesTable = ({
   latestVersion: string
   championMasteries: ChampionMastery[]
 }) => {
-  const [champions, setChampions] = useState<{ [key: number]: Champion }>()
   const [resultsTimeout, setResultsTimeout] = useState<boolean>(false)
   const [table, setTable] = useState<JSX.Element[]>([])
   const [query, setQuery] = useState<string>('')
@@ -59,18 +59,10 @@ const ChampionMasteriesTable = ({
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
   const [ascending, setAscending] = useState<boolean>(false)
 
-  useEffect(() => {
-    const getChampions = async () => {
-      const { data } = await api.get<{ [key: number]: Champion }>('/Champions')
-      setChampions(data)
-    }
-
-    getChampions()
-
-    return () => {
-      setChampions(undefined)
-    }
-  }, [])
+  const {
+    data: champions,
+    error: championsError,
+  } = useSWR<{ [key: number]: Champion }>(`/Champions`, fetcher)
 
   useEffect(() => {
     setTimeout(() => {
@@ -88,24 +80,29 @@ const ChampionMasteriesTable = ({
         return
       }
 
-      const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
-
-      const filtered = sorted.filter((championMastery) => {
+      // Function to determine if a champion is filtered out.
+      const filtered = (championMastery: ChampionMastery) => {
         const champion = champions[championMastery.championId]
         return (
           (!filterChest || !championMastery.chestGranted) &&
           champion.name.toLowerCase().includes(query?.toLowerCase()) &&
           filterTags.every((tag) => champion.tags.includes(tag))
         )
-      })
+      }
 
-      const finalTable = filtered.map((championMastery) => {
+      // Sort champion masteries by the selected column.
+      const sorted = championMasteries.sort(sortColumn(byColumn, ascending, champions))
+
+      const finalTable = sorted.map((championMastery) => {
         const date = new Date(championMastery.lastPlayTime + 'Z')
         const champion = champions[championMastery.championId]
         const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
 
         return (
-          <li key={championMastery.championId}>
+          <li
+            key={championMastery.championId}
+            className={`${filtered(championMastery) ? 'block' : 'hidden'}`}
+          >
             <ChampionRow
               champion={champion}
               championMastery={championMastery}
