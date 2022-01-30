@@ -8,6 +8,7 @@ const DarkToggle = () => {
   return (
     <Switch
       id="dark-toggle"
+      title="Toggle dark mode"
       checked={currentTheme === 'light'}
       onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       className="group relative inline-flex items-center rounded-full bg-gray-500 px-2 py-1 transition hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 dark:bg-gray-400 dark:hover:bg-gray-100 focus-visible:dark:ring-offset-gray-900"

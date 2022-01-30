@@ -10,6 +10,7 @@ const Header = () => {
           <Link href="/">
             <a
               id="home-link"
+              title="Homepage"
               className="rounded-full text-gray-500 transition-colors hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-400 dark:hover:text-gray-50"
             >
               <span className="sr-only">Home</span>
@@ -19,6 +20,7 @@ const Header = () => {
           <Link href="https://github.com/blai30/hextech-check">
             <a
               id="github-link"
+              title="GitHub repository"
               className="rounded-full text-gray-500 transition-colors hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-gray-400 dark:hover:text-gray-50"
             >
               <span className="sr-only">GitHub</span>

@@ -23,16 +23,16 @@ const masteryClasses = (level: number) => ({
 
 const ChampionRow = ({
   champion,
-  championMastery,
+  mastery,
   imageUrl,
   lastPlayed,
 }: {
   champion: Champion | undefined
-  championMastery: ChampionMastery | undefined
+  mastery: ChampionMastery | undefined
   imageUrl: string
   lastPlayed: Date
 }) => {
-  if (!champion || !championMastery) {
+  if (!champion || !mastery) {
     return <LoadingChampionRow />
   }
 
@@ -62,17 +62,19 @@ const ChampionRow = ({
               <div className="flex rounded-md md:hidden">
                 <span
                   id={`m-champion-level-${champion.id}`}
+                  title="Mastery level"
                   className={`${masteryClasses(
-                    championMastery.championLevel
+                    mastery.championLevel
                   )} inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm dark:border-gray-600`}
                 >
-                  {championMastery.championLevel}
+                  {mastery.championLevel}
                 </span>
                 <span
                   id={`m-champion-points-${champion.id}`}
+                  title="Mastery points"
                   className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm text-gray-900 dark:border-gray-600 dark:text-gray-100"
                 >
-                  {championMastery.championPoints.toLocaleString()}
+                  {mastery.championPoints.toLocaleString()}
                 </span>
               </div>
             </div>
@@ -107,17 +109,19 @@ const ChampionRow = ({
           <div className="flex rounded-md">
             <span
               id={`champion-level-${champion.id}`}
+              title="Mastery level"
               className={`${masteryClasses(
-                championMastery.championLevel
+                mastery.championLevel
               )} inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm dark:border-gray-600 lg:px-3 lg:text-base`}
             >
-              {championMastery.championLevel}
+              {mastery.championLevel}
             </span>
             <span
               id={`champion-points-${champion.id}`}
+              title="Mastery points"
               className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm text-gray-900 dark:border-gray-600 dark:text-gray-100 lg:px-3 lg:text-base"
             >
-              {championMastery.championPoints.toLocaleString()}
+              {mastery.championPoints.toLocaleString()}
             </span>
           </div>
         </div>
@@ -125,8 +129,9 @@ const ChampionRow = ({
         <div className="col-span-1 col-start-6 row-start-2 flex h-full items-end justify-self-end md:col-span-2 md:col-start-auto md:row-start-auto md:inline-flex md:items-center md:self-auto md:justify-self-auto md:px-6 md:py-4">
           <div
             id={`champion-chest-${champion.id}`}
+            title={`Chest ${mastery.chestGranted ? 'obtained' : 'available'}`}
             className={`${
-              championMastery.chestGranted
+              mastery.chestGranted
                 ? 'text-amber-400 dark:text-amber-300'
                 : 'text-gray-200 dark:text-gray-700'
             }`}

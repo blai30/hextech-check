@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { Listbox, Switch, Transition } from '@headlessui/react'
-import { Champion, ChampionList, ChampionMastery, Tag } from '@/models'
+import { ChampionList, ChampionMastery, Tag } from '@/models'
 import { fetcher } from '@/hooks/useGet'
 import { ChampionRow, LoadingChampionRow } from '@/components'
 import { ChestIcon, ClassIcon } from '@/components/common'
@@ -82,33 +82,31 @@ const ChampionMasteriesTable = ({
       }
 
       // Function to determine if a champion is filtered out.
-      const filtered = (championMastery: ChampionMastery) => {
-        const champion = champions[championMastery.championId]
+      const filtered = (mastery: ChampionMastery) => {
+        const champion = champions[mastery.championId]
         return (
-          (!filterChest || !championMastery.chestGranted) &&
+          (!filterChest || !mastery.chestGranted) &&
           champion.name.toLowerCase().includes(query?.toLowerCase()) &&
           filterTags.every((tag) => champion.tags.includes(tag))
         )
       }
 
       // Sort champion masteries by the selected column.
-      const sorted = masteries?.sort(
-        sortColumn(byColumn, ascending, champions)
-      )
+      const sorted = masteries?.sort(sortColumn(byColumn, ascending, champions))
 
-      const finalTable = sorted?.map((championMastery) => {
-        const date = new Date(championMastery.lastPlayTime + 'Z')
-        const champion = champions[championMastery.championId]
+      const finalTable = sorted?.map((mastery) => {
+        const date = new Date(mastery.lastPlayTime + 'Z')
+        const champion = champions[mastery.championId]
         const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
 
         return (
           <li
-            key={championMastery.championId}
-            className={`${filtered(championMastery) ? 'block' : 'hidden'}`}
+            key={mastery.championId}
+            className={`${filtered(mastery) ? 'block' : 'hidden'}`}
           >
             <ChampionRow
               champion={champion}
-              championMastery={championMastery}
+              mastery={mastery}
               imageUrl={imageUrl}
               lastPlayed={date}
             />
@@ -150,6 +148,7 @@ const ChampionMasteriesTable = ({
         <input
           id="filter-champion"
           name="filter-champion"
+          title="Search champion"
           type="search"
           placeholder="Find champion..."
           value={query}
@@ -215,6 +214,7 @@ const ChampionMasteriesTable = ({
                 <div className="relative flex-1">
                   <Listbox.Button
                     id="sort-column-select"
+                    title="Sort by column"
                     className="inline-flex w-full cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-100 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
                     <span className="flex items-center">
@@ -306,6 +306,9 @@ const ChampionMasteriesTable = ({
 
           <button
             id="sort-direction"
+            title={`Sort column direction (current: ${
+              ascending ? 'ascending' : 'descending'
+            })`}
             onClick={() => setAscending(!ascending)}
             className="inline-flex items-center rounded-r-md border border-gray-300 bg-gray-100 px-3 py-2 transition-colors hover:bg-gray-200 focus-visible:border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 focus-visible:dark:border-gray-600"
           >

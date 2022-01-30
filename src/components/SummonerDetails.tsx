@@ -58,14 +58,23 @@ const SummonerDetails = ({
               <div className="flex flex-row">
                 <span
                   id={`summoner-rank-${summoner.id}`}
+                  title="Summoner rank"
                   className={`${
                     leagueClasses[league?.tier ?? Tier.UNRANKED]
                   } inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg`}
                 >
-                  {league ? `${league.tier} ${league.rank}` : Tier.UNRANKED}
+                  {/* Hide division for apex tiers. */}
+                  {league
+                    ? league.tier === Tier.MASTER ||
+                      league.tier === Tier.GRANDMASTER ||
+                      league.tier === Tier.CHALLENGER
+                      ? `${league.tier}`
+                      : `${league.tier} ${league.rank}`
+                    : Tier.UNRANKED}
                 </span>
                 <span
                   id={`summoner-level-${summoner.id}`}
+                  title="Summoner level"
                   className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg"
                 >
                   {summoner.level}
@@ -79,6 +88,7 @@ const SummonerDetails = ({
             </p>
             <p
               id={`summoner-totalmastery-${summoner.id}`}
+              title="Combined total of all champions mastery points"
               className="text-center text-xl font-semibold text-amber-900 dark:text-amber-100 lg:text-2xl"
             >
               {totalMastery.toLocaleString()}
@@ -90,6 +100,7 @@ const SummonerDetails = ({
             </p>
             <p
               id={`summoner-revisiondate-${summoner.id}`}
+              title="Last summoner name change, summoner level change, or profile icon change"
               className="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right lg:text-base"
             >
               {format(date, 'Pp')}
