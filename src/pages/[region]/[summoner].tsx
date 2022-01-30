@@ -37,18 +37,7 @@ const SummonerPage = ({
     fetcher
   )
 
-  if (
-    summonerError ||
-    !summoner ||
-    leaguesError ||
-    !leagues ||
-    masteriesError ||
-    !masteries
-  ) {
-    return <p>Loading...</p>
-  }
-
-  const totalMastery = masteries.reduce(
+  const totalMastery = masteries?.reduce(
     (previousValue, currentValue) =>
       previousValue + currentValue.championPoints,
     0

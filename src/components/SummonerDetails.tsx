@@ -28,7 +28,12 @@ const SummonerDetails = ({
   summoner: Summoner
   totalMastery: number
 }) => {
-  if (!summoner || !leagues || !totalMastery || totalMastery === undefined) {
+  if (
+    !summoner ||
+    !leagues ||
+    totalMastery === null ||
+    totalMastery === undefined
+  ) {
     return <LoadingSummoner />
   }
 
@@ -54,7 +59,7 @@ const SummonerDetails = ({
                 <span
                   id={`summoner-rank-${summoner.id}`}
                   className={`${
-                    leagueClasses[league?.tier || Tier.UNRANKED]
+                    leagueClasses[league?.tier ?? Tier.UNRANKED]
                   } inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg`}
                 >
                   {league ? `${league.tier} ${league.rank}` : Tier.UNRANKED}

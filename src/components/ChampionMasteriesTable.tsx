@@ -92,11 +92,11 @@ const ChampionMasteriesTable = ({
       }
 
       // Sort champion masteries by the selected column.
-      const sorted = masteries.sort(
+      const sorted = masteries?.sort(
         sortColumn(byColumn, ascending, champions)
       )
 
-      const finalTable = sorted.map((championMastery) => {
+      const finalTable = sorted?.map((championMastery) => {
         const date = new Date(championMastery.lastPlayTime + 'Z')
         const champion = champions[championMastery.championId]
         const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
@@ -389,7 +389,7 @@ const ChampionMasteriesTable = ({
           >
             {
               // prettier-ignore
-              !resultsTimeout && table.length === 0 && filterTags.length === 0 && !filterChest ? (
+              !resultsTimeout && (!table || table?.length === 0) && filterTags.length === 0 && !filterChest ? (
                 [...Array(20)].map((value, index) => (
                   <li key={index}><LoadingChampionRow /></li>
                 ))
