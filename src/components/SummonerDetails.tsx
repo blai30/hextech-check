@@ -52,7 +52,10 @@ const SummonerDetails = ({
               alt={`Summoner profile icon ${summoner.profileIconId}`}
             />
             <div className="flex flex-col space-y-2">
-              <p className="text-center text-xl sm:text-left lg:text-2xl">
+              <p
+                title="Summoner name"
+                className="text-center text-xl sm:text-left lg:text-2xl"
+              >
                 {summoner.name}
               </p>
               <div className="flex flex-row">
@@ -94,13 +97,15 @@ const SummonerDetails = ({
               {totalMastery.toLocaleString()}
             </p>
           </div>
-          <div className="flex flex-col items-center sm:items-end">
+          <div
+            title="Last summoner name change, summoner level change, or profile icon change"
+            className="flex flex-col items-center sm:items-end"
+          >
             <p className="text-center text-sm text-gray-600 dark:text-gray-300 sm:text-right lg:text-base">
               Last modified {formatDistanceToNow(date)} ago
             </p>
             <p
               id={`summoner-revisiondate-${summoner.id}`}
-              title="Last summoner name change, summoner level change, or profile icon change"
               className="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right lg:text-base"
             >
               {format(date, 'Pp')}
