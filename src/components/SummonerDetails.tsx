@@ -42,7 +42,7 @@ const SummonerDetails = ({
 
   return (
     <>
-      <div className="rounded-lg bg-white p-6 shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30">
+      <div className="rounded-lg bg-white p-6 shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30 print:shadow-none">
         <div className="space-y-4 sm:flex sm:items-center sm:justify-between sm:space-y-0">
           <div className="flex flex-col items-center space-y-2 sm:flex-row sm:gap-4 sm:space-y-0 lg:gap-6">
             <img

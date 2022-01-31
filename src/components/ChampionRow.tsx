@@ -84,7 +84,7 @@ const ChampionRow = ({
         <div className="col-span-3 col-start-5 flex h-full items-center place-self-end md:col-start-auto md:row-start-auto md:inline-flex md:place-self-auto md:px-6 md:py-4">
           <div
             id={`champion-tags-${champion.id}`}
-            className="flex items-end -space-x-2 md:items-start"
+            className="flex items-end -space-x-2 print:space-x-0 md:items-start"
           >
             {champion.tags.map((tag, index) => (
               <button
@@ -94,7 +94,7 @@ const ChampionRow = ({
                   10 - index * 10
                 }`} group relative flex flex-col items-center rounded-full p-1 ring-2 ring-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:ring-gray-800 dark:focus:ring-indigo-500`}
               >
-                <div className="absolute -top-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30">
+                <div className="absolute -top-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
                   <div className="flex flex-col items-center space-y-1">
                     <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
                   </div>
@@ -132,7 +132,7 @@ const ChampionRow = ({
             title={`Chest ${mastery.chestGranted ? 'obtained' : 'available'}`}
             className={`${
               mastery.chestGranted
-                ? 'text-amber-400 dark:text-amber-300'
+                ? 'text-amber-500 dark:text-amber-300'
                 : 'text-gray-200 dark:text-gray-700'
             }`}
           >
@@ -144,19 +144,19 @@ const ChampionRow = ({
           <button className="group relative flex flex-col items-start focus:outline-none">
             <span
               id={`m-champion-lastplayed-${champion.id}`}
-              className="block text-left text-sm text-gray-600 underline decoration-gray-400 decoration-dotted underline-offset-2 group-focus:decoration-indigo-500 group-focus:decoration-solid group-focus:decoration-2 dark:text-gray-300 md:hidden"
+              className="block text-left text-sm text-gray-600 underline decoration-gray-400 decoration-dotted underline-offset-2 group-focus:decoration-indigo-500 group-focus:decoration-solid group-focus:decoration-2 dark:text-gray-300 print:no-underline md:hidden"
             >
               {`Last played ${formatDistanceToNow(lastPlayed)} ago`}
             </span>
             <span
               id={`champion-lastplayed-${champion.id}`}
-              className="hidden text-left text-sm text-gray-600 underline decoration-gray-400 decoration-dotted underline-offset-2 group-focus:decoration-indigo-500 group-focus:decoration-solid group-focus:decoration-2 dark:text-gray-300 md:block lg:text-base"
+              className="hidden text-left text-sm text-gray-600 underline decoration-gray-400 decoration-dotted underline-offset-2 group-focus:decoration-indigo-500 group-focus:decoration-solid group-focus:decoration-2 dark:text-gray-300 print:no-underline md:block lg:text-base"
             >
               {`${formatDistanceToNow(lastPlayed)} ago`}
             </span>
             <div
               id={`champion-lastplayed-tooltip-${champion.id}`}
-              className="absolute -top-16 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 md:-translate-x-8"
+              className="absolute -top-16 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden md:-translate-x-8"
             >
               <div className="flex flex-col items-center space-y-1">
                 <p>{format(lastPlayed, 'PPPP')}</p>

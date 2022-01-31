@@ -170,7 +170,7 @@ const ChampionMasteriesTable = ({
                     : 'text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400'
                 } group relative col-span-1 flex cursor-pointer flex-col items-center rounded-full p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500`}
               >
-                <div className="absolute -top-10 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus-visible:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30">
+                <div className="absolute -top-10 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus-visible:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
                   <div className="flex flex-col items-center space-y-1">
                     <p>{Tag[tag]}</p>
                   </div>
@@ -192,7 +192,7 @@ const ChampionMasteriesTable = ({
                 : 'text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400'
             } group relative flex cursor-pointer flex-col items-center rounded-full p-1 transition-colors focus:ring-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset`}
           >
-            <div className="absolute -top-14 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus-visible:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30">
+            <div className="absolute -top-14 z-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus-visible:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
               <div className="flex flex-col items-center space-y-1 whitespace-normal">
                 <p>Chest available</p>
               </div>
@@ -348,7 +348,7 @@ const ChampionMasteriesTable = ({
       </div>
 
       <div className="flex-col md:block">
-        <div className="overflow-hidden rounded-t-lg border-b border-gray-200 bg-gray-50 shadow transition-colors dark:border-gray-900 dark:bg-gray-700 dark:shadow-gray-700/30">
+        <div className="overflow-hidden rounded-t-lg border-b border-gray-200 bg-gray-50 shadow transition-colors dark:border-gray-900 dark:bg-gray-700 dark:shadow-gray-700/30 print:shadow-none">
           <div id="m-table-header" className="flex px-6 py-2 md:hidden">
             <span className="text-left text-[0.65rem] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300 lg:text-xs">
               Champion Masteries
@@ -384,11 +384,11 @@ const ChampionMasteriesTable = ({
             </div>
           </div>
         </div>
-        <div className="overflow-visible rounded-b-lg bg-white shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30">
+        <div className="overflow-visible rounded-b-lg bg-white shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30 print:shadow-none">
           <ul
             id="champion-masteries-table"
             role="list"
-            className="divide-y divide-gray-200 dark:divide-gray-900"
+            className="flex-col divide-y divide-gray-200 dark:divide-gray-900"
           >
             {
               // prettier-ignore
