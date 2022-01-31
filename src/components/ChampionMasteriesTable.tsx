@@ -76,48 +76,42 @@ const ChampionMasteriesTable = ({
   }, [])
 
   useEffect(() => {
-    const buildTable = () => {
-      if (!champions) {
-        return
-      }
-
-      // Function to determine if a champion is filtered out.
-      const filtered = (mastery: ChampionMastery) => {
-        const champion = champions[mastery.championId]
-        return (
-          (!filterChest || !mastery.chestGranted) &&
-          champion.name.toLowerCase().includes(query?.toLowerCase()) &&
-          filterTags.every((tag) => champion.tags.includes(tag))
-        )
-      }
-
-      // Sort champion masteries by the selected column.
-      const sorted = masteries?.sort(sortColumn(byColumn, ascending, champions))
-
-      const finalTable = sorted?.map((mastery) => {
-        const date = new Date(mastery.lastPlayTime + 'Z')
-        const champion = champions[mastery.championId]
-        const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
-
-        return (
-          <li
-            key={mastery.championId}
-            className={`${filtered(mastery) ? 'block' : 'hidden'}`}
-          >
-            <ChampionRow
-              champion={champion}
-              mastery={mastery}
-              imageUrl={imageUrl}
-              lastPlayed={date}
-            />
-          </li>
-        )
-      })
-
-      setTable(finalTable)
+    if (!champions) {
+      return
     }
 
-    buildTable()
+    // Filter champion masteries based on the current filters.
+    const filtered = masteries?.filter((mastery) => {
+      const champion = champions[mastery.championId]
+      return (
+        (!filterChest || !mastery.chestGranted) &&
+        champion.name.toLowerCase().includes(query?.toLowerCase()) &&
+        filterTags.every((tag) => champion.tags.includes(tag))
+      )
+    })
+
+    // Sort champion masteries by the selected column.
+    const sorted = filtered?.sort(sortColumn(byColumn, ascending, champions))
+
+    // Build the table.
+    const finalTable = sorted?.map((mastery) => {
+      const date = new Date(mastery.lastPlayTime + 'Z')
+      const champion = champions[mastery.championId]
+      const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
+
+      return (
+        <li key={mastery.championId}>
+          <ChampionRow
+            champion={champion}
+            mastery={mastery}
+            imageUrl={imageUrl}
+            lastPlayed={date}
+          />
+        </li>
+      )
+    })
+
+    setTable(finalTable)
 
     return () => {
       setTable([])

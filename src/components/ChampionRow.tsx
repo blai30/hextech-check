@@ -45,9 +45,10 @@ const ChampionRow = ({
               <div className="relative h-12 w-12 lg:h-14 lg:w-14">
                 <img
                   id={`champion-image-${champion.id}`}
-                  className="absolute -inset-1"
                   src={imageUrl}
                   alt={`Champion icon ${champion.name}`}
+                  title={imageUrl}
+                  className="absolute -inset-1"
                 />
               </div>
             </div>

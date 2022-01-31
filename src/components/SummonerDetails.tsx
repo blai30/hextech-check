@@ -47,9 +47,10 @@ const SummonerDetails = ({
           <div className="flex flex-col items-center space-y-2 sm:flex-row sm:gap-4 sm:space-y-0 lg:gap-6">
             <img
               id={`summoner-icon-${summoner.id}`}
-              className="inline-block h-16 w-16 rounded-full lg:h-20 lg:w-20"
               src={imageUrl}
               alt={`Summoner profile icon ${summoner.profileIconId}`}
+              title={imageUrl}
+              className="inline-block h-16 w-16 rounded-full lg:h-20 lg:w-20"
             />
             <div className="flex flex-col space-y-2">
               <p
@@ -85,13 +86,15 @@ const SummonerDetails = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center">
+          <div
+            className="flex flex-col items-center"
+            title="Combined total of all champions mastery points"
+          >
             <p className="text-md text-center font-light text-gray-600 dark:text-gray-300 lg:text-lg">
               Total mastery
             </p>
             <p
               id={`summoner-totalmastery-${summoner.id}`}
-              title="Combined total of all champions mastery points"
               className="text-center text-xl font-semibold text-amber-900 dark:text-amber-100 lg:text-2xl"
             >
               {totalMastery.toLocaleString()}
