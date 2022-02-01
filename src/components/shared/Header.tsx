@@ -51,7 +51,7 @@ const Header = () => {
         <button
           title="Copy URL to clipboard"
           onClick={copyToClipboard}
-          className="group inline-flex items-center justify-between gap-2 rounded-lg px-3 outline-2 outline-offset-4 outline-gray-200 transition hover:outline dark:outline-gray-700"
+          className="group inline-flex items-center justify-between gap-2 rounded-lg px-3 outline-2 outline-offset-4 outline-gray-200 transition hover:outline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700"
         >
           <h3 className="w-24 truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 xs:w-40 sm:w-72 sm:text-xl md:w-96 lg:w-fit">
             ~{url.pathname}
