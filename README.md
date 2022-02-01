@@ -1,8 +1,8 @@
-![screenshot](https://github.com/blai30/hextech-check/blob/main/resources/hextech.png?raw=true)
-
 Demo: https://hextech-check.bhlai.com/
 
 API: https://github.com/blai30/HextechCheck-Functions
+
+![screenshot](https://github.com/blai30/hextech-check/blob/main/resources/hextech.png?raw=true)
 
 ## Features:
 - Fully responsive design
