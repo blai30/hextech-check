@@ -1,8 +1,26 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { DarkToggle } from '@/components/shared'
 import { ChestIcon } from '@/components/common'
 
 const Header = () => {
+  const [copied, setCopied] = useState(false)
+  const url = new URL(window.location.href)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (copied) setCopied(false)
+    }, 1000)
+
+    return () => clearTimeout(timeout)
+  }, [copied])
+
+  const copyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setCopied(true)
+    navigator.clipboard.writeText(`${url.href}`)
+  }
+
   return (
     <nav className="w-full">
       <div className="flex flex-row items-center justify-between">
@@ -30,6 +48,49 @@ const Header = () => {
             </a>
           </Link>
         </div>
+        <button
+          title="Copy URL to clipboard"
+          onClick={copyToClipboard}
+          className="group inline-flex items-center justify-between gap-2 rounded-lg px-3 outline-2 outline-offset-4 outline-gray-200 transition hover:outline dark:outline-gray-700"
+        >
+          <h3 className="w-24 truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 xs:w-40 sm:w-72 sm:text-xl md:w-96 lg:w-fit">
+            ~{url.pathname}
+          </h3>
+          <span
+            className={`${
+              copied ? 'opacity-100' : 'opacity-40'
+            } inline-flex h-6 w-6 items-center transition group-hover:opacity-100`}
+          >
+            <svg
+              className={`${
+                copied ? 'scale-0' : 'scale-100'
+              } absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            <svg
+              className={`${
+                copied ? 'scale-100' : 'scale-0'
+              } absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200`}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
         <div className="flex items-center">
           <DarkToggle />
         </div>
