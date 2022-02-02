@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <nav className="w-full">
       <div className="flex flex-row flex-wrap items-center justify-between gap-6">
-        <div className="flex items-center justify-start gap-4">
+        <div className="flex w-24 items-center justify-start gap-4">
           <Link href="/">
             <a
               id="home-link"
@@ -54,7 +54,7 @@ const Header = () => {
           onClick={copyToClipboard}
           className={`${
             router.asPath === '/' ? 'hidden' : 'flex'
-          } group order-last w-full items-center justify-center rounded-lg py-1 px-2 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none 2xs:w-44 xs:w-64 sm:w-80 md:w-96 lg:py-0`}
+          } group order-last w-full items-center justify-center rounded-lg py-1 px-2 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none 2xs:w-32 xs:w-56 sm:w-80 md:w-96 lg:py-0`}
         >
           <h3 className="select-none truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 lg:text-xl">
             {`~${router.asPath}`}
@@ -96,7 +96,7 @@ const Header = () => {
             </span>
           </div>
         </button>
-        <div className="flex items-center justify-end">
+        <div className="flex w-24 items-center justify-end">
           <DarkToggle />
         </div>
       </div>
