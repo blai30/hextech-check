@@ -43,8 +43,8 @@ const SummonerDetails = ({
   return (
     <>
       <div className="rounded-lg bg-white p-6 shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30 print:shadow-none">
-        <div className="space-y-4 sm:flex sm:items-center sm:justify-between sm:space-y-0">
-          <div className="flex flex-col items-center space-y-2 sm:flex-row sm:gap-4 sm:space-y-0 lg:gap-6">
+        <div className="flex flex-col space-y-4 md:grid md:grid-cols-3 md:items-center md:justify-between md:space-y-0">
+          <div className="flex flex-col items-center space-y-2 md:flex-row md:gap-4 md:space-y-0 lg:gap-6">
             <img
               id={`summoner-icon-${summoner.id}`}
               src={imageUrl}
@@ -52,10 +52,10 @@ const SummonerDetails = ({
               title={imageUrl}
               className="inline-block h-16 w-16 rounded-full lg:h-20 lg:w-20"
             />
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col items-center space-y-2 md:items-start">
               <p
                 title="Summoner name"
-                className="text-center text-xl sm:text-left lg:text-2xl"
+                className="max-w-sm break-all text-center text-xl md:text-left lg:text-2xl"
               >
                 {summoner.name}
               </p>
@@ -102,14 +102,14 @@ const SummonerDetails = ({
           </div>
           <div
             title="Last summoner name change, summoner level change, or profile icon change"
-            className="flex flex-col items-center sm:items-end"
+            className="flex flex-col items-center md:items-end"
           >
-            <p className="text-center text-sm text-gray-600 dark:text-gray-300 sm:text-right lg:text-base">
+            <p className="text-center text-sm text-gray-600 dark:text-gray-300 md:text-right lg:text-base">
               Last modified {formatDistanceToNow(date)} ago
             </p>
             <p
               id={`summoner-revisiondate-${summoner.id}`}
-              className="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right lg:text-base"
+              className="text-center text-sm text-gray-500 dark:text-gray-400 md:text-right lg:text-base"
             >
               {format(date, 'Pp')}
             </p>
