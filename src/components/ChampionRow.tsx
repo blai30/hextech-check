@@ -6,12 +6,12 @@ import { ChestIcon, ClassIcon } from '@/components/common'
 
 // prettier-ignore
 const tagClasses = (tag: Tag) => ({
-  [Tag.Fighter]: 'text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900',
-  [Tag.Tank]: 'text-indigo-800 dark:text-indigo-200 bg-indigo-100 dark:bg-indigo-900',
-  [Tag.Mage]: 'text-sky-800 dark:text-sky-200 bg-sky-100 dark:bg-sky-900',
-  [Tag.Assassin]: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
-  [Tag.Support]: 'text-teal-800 dark:text-teal-200 bg-teal-100 dark:bg-teal-900',
-  [Tag.Marksman]: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
+  [Tag.Fighter]: 'text-amber-600 dark:text-amber-300',
+  [Tag.Tank]: 'text-indigo-600 dark:text-indigo-300',
+  [Tag.Mage]: 'text-sky-600 dark:text-sky-300',
+  [Tag.Assassin]: 'text-red-600 dark:text-red-300',
+  [Tag.Support]: 'text-teal-600 dark:text-teal-300',
+  [Tag.Marksman]: 'text-green-600 dark:text-green-300',
 })[tag] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
 
 // prettier-ignore
@@ -82,10 +82,10 @@ const ChampionRow = ({
           </div>
         </div>
 
-        <div className="col-span-2 2xs:col-span-3 row-start-2 flex h-full translate-y-3 items-center 2xs:col-start-5 2xs:row-start-1 2xs:translate-y-0 2xs:place-self-end md:col-start-auto md:row-start-auto md:inline-flex md:place-self-auto md:px-6 md:py-4">
+        <div className="col-span-2 row-start-2 flex h-full translate-y-3 items-center 2xs:col-span-3 2xs:col-start-5 2xs:row-start-1 2xs:translate-y-0 2xs:place-self-end md:col-start-auto md:row-start-auto md:inline-flex md:place-self-auto md:px-6 md:py-4">
           <div
             id={`champion-tags-${champion.id}`}
-            className="flex items-end space-x-2 print:space-x-0 2xs:-space-x-2 md:items-start"
+            className="flex items-end gap-2 md:items-start"
           >
             {champion.tags.map((tag, index) => (
               <button
@@ -93,9 +93,9 @@ const ChampionRow = ({
                 id={`${champion.id}-tag-${tag}`}
                 className={`${tagClasses(tag)} ${`z-${
                   10 - index * 10
-                }`} group relative flex flex-col items-center rounded-full p-1 ring-2 ring-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:ring-gray-800 dark:focus:ring-indigo-500`}
+                }`} group relative flex flex-col items-center rounded-full p-1 transition-colors  focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-500`}
               >
-                <div className="absolute -top-10 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
+                <div className="absolute -top-12 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
                   <div className="flex flex-col items-center space-y-1">
                     <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
                   </div>
