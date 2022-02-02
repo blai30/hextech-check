@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { DarkToggle } from '@/components/shared'
 import { ChestIcon } from '@/components/common'
 
 const Header = () => {
   const [copied, setCopied] = useState(false)
-  const url = new URL(window.location.href)
+  const router = useRouter()
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -18,13 +19,13 @@ const Header = () => {
   const copyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setCopied(true)
-    navigator.clipboard.writeText(`${url.href}`)
+    navigator.clipboard.writeText(window.location.href)
   }
 
   return (
     <nav className="w-full">
-      <div className="flex flex-row flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-row flex-wrap items-center justify-between gap-6">
+        <div className="flex items-center justify-start gap-4">
           <Link href="/">
             <a
               id="home-link"
@@ -51,47 +52,51 @@ const Header = () => {
         <button
           title="Copy URL to clipboard"
           onClick={copyToClipboard}
-          className="group order-last inline-flex w-full items-center justify-between gap-3 rounded-lg px-2 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 xs:order-none xs:w-auto"
+          className={`${
+            router.asPath === '/' ? 'hidden' : 'flex'
+          } group order-last w-full items-center justify-center rounded-lg py-1 px-2 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none 2xs:w-44 xs:w-64 sm:w-80 md:w-96 lg:py-0`}
         >
-          <h3 className="w-full truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 xs:w-40 sm:w-72 sm:text-xl md:w-96 lg:w-fit">
-            ~{url.pathname}
+          <h3 className="select-none truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 lg:text-xl">
+            {`~${router.asPath}`}
           </h3>
-          <span
-            className={`${
-              copied ? 'opacity-100' : 'opacity-40'
-            } inline-flex h-6 w-6 items-center transition group-hover:opacity-100`}
-          >
-            <svg
+          <div className="flex items-center justify-end pl-8">
+            <span
               className={`${
-                copied ? 'scale-0' : 'scale-100'
-              } absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200`}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
+                copied ? 'opacity-100' : 'opacity-40'
+              } absolute h-6 w-6 transition group-hover:opacity-100`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-            <svg
-              className={`${
-                copied ? 'scale-100' : 'scale-0'
-              } absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200`}
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
+              <svg
+                className={`${
+                  copied ? 'scale-0' : 'scale-100'
+                } absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+              <svg
+                className={`${
+                  copied ? 'scale-100' : 'scale-0'
+                } absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
         </button>
-        <div className="flex items-center">
+        <div className="flex items-center justify-end">
           <DarkToggle />
         </div>
       </div>
