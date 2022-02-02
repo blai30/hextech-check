@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <nav className="w-full">
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <Link href="/">
             <a
@@ -51,9 +51,9 @@ const Header = () => {
         <button
           title="Copy URL to clipboard"
           onClick={copyToClipboard}
-          className="group inline-flex items-center justify-between gap-2 rounded-lg px-3 outline-2 outline-offset-4 outline-gray-200 transition hover:outline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700"
+          className="group order-last inline-flex w-full items-center justify-between gap-3 rounded-lg px-2 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 xs:order-none xs:w-auto"
         >
-          <h3 className="w-24 truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 xs:w-40 sm:w-72 sm:text-xl md:w-96 lg:w-fit">
+          <h3 className="w-full truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 xs:w-40 sm:w-72 sm:text-xl md:w-96 lg:w-fit">
             ~{url.pathname}
           </h3>
           <span

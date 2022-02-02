@@ -37,9 +37,9 @@ const ChampionRow = ({
   }
 
   return (
-    <div className="space-y-4 whitespace-normal px-6 py-4 md:p-0">
-      <div className="grid grid-cols-6 grid-rows-2 items-center md:grid-cols-18 md:grid-rows-1">
-        <div className="col-span-4 h-full items-center md:col-span-5 md:inline-flex md:px-6 md:py-4">
+    <div className="space-y-4 whitespace-normal px-4 py-4 2xs:px-6 md:p-0">
+      <div className="grid grid-cols-6 grid-rows-3 items-center 2xs:grid-rows-2 md:grid-cols-18 md:grid-rows-1">
+        <div className="col-span-full h-full items-center 2xs:col-span-4 md:col-span-5 md:inline-flex md:px-6 md:py-4">
           <div className="flex items-center gap-4">
             <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full lg:h-12 lg:w-12">
               <div className="relative h-12 w-12 lg:h-14 lg:w-14">
@@ -82,10 +82,10 @@ const ChampionRow = ({
           </div>
         </div>
 
-        <div className="col-span-3 col-start-5 flex h-full items-center place-self-end md:col-start-auto md:row-start-auto md:inline-flex md:place-self-auto md:px-6 md:py-4">
+        <div className="col-span-2 2xs:col-span-3 row-start-2 flex h-full translate-y-3 items-center 2xs:col-start-5 2xs:row-start-1 2xs:translate-y-0 2xs:place-self-end md:col-start-auto md:row-start-auto md:inline-flex md:place-self-auto md:px-6 md:py-4">
           <div
             id={`champion-tags-${champion.id}`}
-            className="flex items-end -space-x-2 print:space-x-0 md:items-start"
+            className="flex items-end space-x-2 print:space-x-0 2xs:-space-x-2 md:items-start"
           >
             {champion.tags.map((tag, index) => (
               <button
@@ -127,7 +127,7 @@ const ChampionRow = ({
           </div>
         </div>
 
-        <div className="col-span-1 col-start-6 row-start-2 flex h-full items-end justify-self-end md:col-span-2 md:col-start-auto md:row-start-auto md:inline-flex md:items-center md:self-auto md:justify-self-auto md:px-6 md:py-4">
+        <div className="col-span-1 col-start-6 row-start-2 flex h-full translate-y-3 items-center justify-self-end 2xs:translate-y-0 2xs:items-end md:col-span-2 md:col-start-auto md:row-start-auto md:inline-flex md:items-center md:self-auto md:justify-self-auto md:px-6 md:py-4">
           <div
             id={`champion-chest-${champion.id}`}
             title={`Chest ${mastery.chestGranted ? 'obtained' : 'available'}`}
@@ -141,7 +141,7 @@ const ChampionRow = ({
           </div>
         </div>
 
-        <div className="col-span-5 col-start-1 row-start-2 flex h-full items-end self-end md:col-span-4 md:col-start-auto md:row-start-auto md:inline-flex md:items-center md:self-auto md:px-6 md:py-4">
+        <div className="col-span-full col-start-1 row-start-3 flex h-full items-end self-end 2xs:col-span-5 2xs:row-start-2 md:col-span-4 md:col-start-auto md:row-start-auto md:inline-flex md:items-center md:self-auto md:px-6 md:py-4">
           <button className="group relative flex flex-col items-start focus:outline-none">
             <span
               id={`m-champion-lastplayed-${champion.id}`}
