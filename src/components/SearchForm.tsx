@@ -54,7 +54,7 @@ const SearchForm = () => {
                 <Listbox.Button
                   id="region-select"
                   title="Select region"
-                  className="inline-flex w-24 cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-100 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                  className="inline-flex w-24 cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
                   <span className="flex items-center">
                     <span className="block">{region}</span>
@@ -161,7 +161,7 @@ const SearchForm = () => {
           id="search-button"
           title="Search"
           disabled={!region || !summoner}
-          className="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-100 px-3 py-2 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-gray-800"
+          className="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 py-2 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-gray-800"
         >
           {isLoading ? (
             <svg

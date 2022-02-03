@@ -5,16 +5,16 @@ import { LoadingSummoner } from '@/components'
 
 // prettier-ignore
 const leagueClasses: Readonly<Record<Tier, string>> = {
-  [Tier.UNRANKED]: 'text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-900',
-  [Tier.IRON]: 'text-slate-800 dark:text-slate-300 bg-slate-100 dark:bg-slate-900',
-  [Tier.BRONZE]: 'text-stone-800 dark:text-stone-300 bg-stone-100 dark:bg-stone-900',
-  [Tier.SILVER]: 'text-neutral-800 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-900',
-  [Tier.GOLD]: 'text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900',
-  [Tier.PLATINUM]: 'text-teal-800 dark:text-teal-300 bg-teal-100 dark:bg-teal-900',
-  [Tier.DIAMOND]: 'text-sky-800 dark:text-sky-300 bg-sky-100 dark:bg-sky-900',
-  [Tier.MASTER]: 'text-purple-800 dark:text-purple-300 bg-purple-100 dark:bg-purple-900',
-  [Tier.GRANDMASTER]: 'text-red-800 dark:text-red-300 bg-red-100 dark:bg-red-900',
-  [Tier.CHALLENGER]: 'text-amber-800 dark:text-amber-300 bg-cyan-100 dark:bg-cyan-900',
+  [Tier.UNRANKED]: 'text-gray-800 dark:text-gray-100 bg-gray-300 dark:bg-gray-700',
+  [Tier.IRON]: 'text-slate-800 dark:text-slate-100 bg-slate-300 dark:bg-slate-700',
+  [Tier.BRONZE]: 'text-stone-800 dark:text-stone-100 bg-stone-300 dark:bg-stone-700',
+  [Tier.SILVER]: 'text-zinc-800 dark:text-zinc-100 bg-zinc-300 dark:bg-zinc-700',
+  [Tier.GOLD]: 'text-amber-800 dark:text-amber-100 bg-amber-300 dark:bg-amber-700',
+  [Tier.PLATINUM]: 'text-emerald-800 dark:text-emerald-100 bg-emerald-300 dark:bg-emerald-700',
+  [Tier.DIAMOND]: 'text-blue-800 dark:text-blue-100 bg-blue-300 dark:bg-blue-700',
+  [Tier.MASTER]: 'text-purple-800 dark:text-purple-100 bg-purple-300 dark:bg-purple-700',
+  [Tier.GRANDMASTER]: 'text-red-800 dark:text-red-100 bg-red-300 dark:bg-red-700',
+  [Tier.CHALLENGER]: 'text-yellow-800 dark:text-yellow-100 bg-sky-300 dark:bg-sky-700',
 }
 
 const SummonerDetails = ({
@@ -65,7 +65,7 @@ const SummonerDetails = ({
                   title="Summoner rank"
                   className={`${
                     leagueClasses[league?.tier ?? Tier.UNRANKED]
-                  } inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg`}
+                  } inline-flex items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg`}
                 >
                   {/* Hide division for apex tiers. */}
                   {league
@@ -79,7 +79,7 @@ const SummonerDetails = ({
                 <span
                   id={`summoner-level-${summoner.id}`}
                   title="Summoner level"
-                  className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm transition-colors dark:border-gray-600 lg:px-3 lg:text-lg"
+                  className="inline-flex items-center rounded-r-md border-l border-white bg-gray-100 px-2.5 text-sm transition-colors dark:border-gray-800 dark:bg-gray-900 lg:px-3 lg:text-lg"
                 >
                   {summoner.level}
                 </span>

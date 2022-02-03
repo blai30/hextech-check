@@ -12,14 +12,14 @@ const tagClasses = (tag: Tag) => ({
   [Tag.Assassin]: 'text-red-600 dark:text-red-300',
   [Tag.Support]: 'text-teal-600 dark:text-teal-300',
   [Tag.Marksman]: 'text-green-600 dark:text-green-300',
-})[tag] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
+})[tag]
 
 // prettier-ignore
 const masteryClasses = (level: number) => ({
-  5: 'text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900',
-  6: 'text-fuchsia-800 dark:text-fuchsia-200 bg-fuchsia-100 dark:bg-fuchsia-900',
-  7: 'text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900',
-})[level] ?? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-900'
+  [5]: 'text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-900',
+  [6]: 'text-fuchsia-900 dark:text-fuchsia-100 bg-fuchsia-100 dark:bg-fuchsia-900',
+  [7]: 'text-green-900 dark:text-green-100 bg-green-100 dark:bg-green-900',
+})[level] ?? 'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900'
 
 const ChampionRow = ({
   champion,
@@ -66,14 +66,14 @@ const ChampionRow = ({
                   title="Mastery level"
                   className={`${masteryClasses(
                     mastery.championLevel
-                  )} inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm dark:border-gray-600`}
+                  )} inline-flex items-center rounded-l-md px-2.5 text-sm`}
                 >
                   {mastery.championLevel}
                 </span>
                 <span
                   id={`m-champion-points-${champion.id}`}
                   title="Mastery points"
-                  className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm text-gray-900 dark:border-gray-600 dark:text-gray-100"
+                  className="inline-flex items-center rounded-r-md border-l border-white bg-gray-100 px-2.5 text-sm text-gray-900 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100"
                 >
                   {mastery.championPoints.toLocaleString()}
                 </span>
@@ -107,20 +107,20 @@ const ChampionRow = ({
         </div>
 
         <div className="col-span-4 hidden h-full items-end md:inline-flex md:items-center md:px-6 md:py-4">
-          <div className="flex rounded-md">
+          <div className="flex flex-row items-center rounded-md">
             <span
               id={`champion-level-${champion.id}`}
               title="Mastery level"
               className={`${masteryClasses(
                 mastery.championLevel
-              )} inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-2.5 text-sm dark:border-gray-600 lg:px-3 lg:text-base`}
+              )} inline-flex items-center rounded-l-md px-2.5 text-sm transition lg:px-3 lg:text-base`}
             >
               {mastery.championLevel}
             </span>
             <span
               id={`champion-points-${champion.id}`}
               title="Mastery points"
-              className="inline-flex items-center rounded-r-md border border-gray-300 px-2.5 text-sm text-gray-900 dark:border-gray-600 dark:text-gray-100 lg:px-3 lg:text-base"
+              className="inline-flex items-center rounded-r-md border-l border-white bg-gray-100 px-2.5 text-sm text-gray-900 transition dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 lg:px-3 lg:text-base"
             >
               {mastery.championPoints.toLocaleString()}
             </span>
@@ -135,7 +135,7 @@ const ChampionRow = ({
               mastery.chestGranted
                 ? 'text-amber-500 dark:text-amber-300'
                 : 'text-gray-200 dark:text-gray-700'
-            }`}
+            } transition`}
           >
             <ChestIcon className="h-6 w-6 lg:h-8 lg:w-8" />
           </div>

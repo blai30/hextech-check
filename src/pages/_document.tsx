@@ -109,7 +109,7 @@ class MyDocument extends Document {
             href="https://rsms.me/inter/inter.css"
           />
         </Head>
-        <body className="bg-gray-50 subpixel-antialiased transition-colors dark:bg-gray-900">
+        <body className="bg-gray-100 subpixel-antialiased transition-colors dark:bg-gray-900">
           <Main />
           <NextScript />
         </body>

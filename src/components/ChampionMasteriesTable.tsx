@@ -209,7 +209,7 @@ const ChampionMasteriesTable = ({
                   <Listbox.Button
                     id="sort-column-select"
                     title="Sort by column"
-                    className="inline-flex w-full cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-100 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    className="inline-flex w-full cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
                     <span className="flex items-center">
                       <span className="block">{byColumn}</span>
@@ -304,7 +304,7 @@ const ChampionMasteriesTable = ({
               ascending ? 'ascending' : 'descending'
             })`}
             onClick={() => setAscending(!ascending)}
-            className="inline-flex items-center rounded-r-md border border-gray-300 bg-gray-100 px-3 py-2 transition-colors hover:bg-gray-200 focus-visible:border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 focus-visible:dark:border-gray-600"
+            className="inline-flex items-center rounded-r-md border border-gray-300 bg-gray-50 px-3 py-2 transition-colors hover:bg-gray-200 focus-visible:border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 focus-visible:dark:border-gray-600"
           >
             {ascending ? (
               <>
@@ -382,7 +382,7 @@ const ChampionMasteriesTable = ({
           <ul
             id="champion-masteries-table"
             role="list"
-            className="flex-col divide-y divide-gray-200 dark:divide-gray-900"
+            className="flex flex-col gap-2"
           >
             {
               // prettier-ignore
