@@ -79,28 +79,10 @@ class MyDocument extends Document {
             content="Hextech Check"
           />
           <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-          <link
-            rel="apple-touch-icon"
-            sizes="152x152"
-            href="/icons/apple-touch-icon.png"
-          />
 
           <link rel="canonical" href="https://www.bhlai.com/hextech-check" />
-          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-          <link rel="icon" href="/favicon.png" type="image/x-icon" />
-          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-          <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-          <link
-            rel="mask-icon"
-            href="/icons/safari-pinned-tab.svg"
-            type="image/svg+xml"
-            color="#FCD34D"
-          />
-          <link
-            rel="apple-touch-icon"
-            href="/icons/apple-touch-icon.png"
-            type="image/x-icon"
-          />
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link rel="icon" href="/icon.svg" type="image/svg+xml" />
           <link rel="manifest" href="/manifest.webmanifest" />
 
           <link
