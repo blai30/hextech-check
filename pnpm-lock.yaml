@@ -12,6 +12,7 @@ specifiers:
   date-fns: ^2.28.0
   eslint: ^8.8.0
   eslint-config-next: ^12.0.9
+  eslint-config-prettier: ^8.3.0
   next: ^12.0.9
   next-pwa: ^5.4.4
   next-themes: ^0.0.15
@@ -44,6 +45,7 @@ devDependencies:
   cross-env: 7.0.3
   eslint: 8.8.0
   eslint-config-next: 12.0.9_731ae6d7a372e3a3d32db42865ae91b8
+  eslint-config-prettier: 8.3.0_eslint@8.8.0
   postcss: 8.4.5
   prettier: 2.5.1
   prettier-plugin-tailwindcss: 0.1.4_prettier@2.5.1
@@ -2211,6 +2213,15 @@ packages:
       typescript: 4.5.5
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-config-prettier/8.3.0_eslint@8.8.0:
+    resolution: {integrity: sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.8.0
     dev: true
 
   /eslint-import-resolver-node/0.3.6:
