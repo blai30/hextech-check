@@ -6,6 +6,7 @@ import { ChampionList, ChampionMastery, Tag } from '@/models'
 import { fetcher } from '@/hooks/useGet'
 import { ChampionRow, LoadingChampionRow } from '@/components'
 import { ChestIcon, ClassIcon } from '@/components/common'
+import { ChampionsDataDragonDetails } from 'twisted/dist/models-dto'
 
 enum Column {
   Champion = 'Champion',
@@ -34,12 +35,12 @@ const allTags = [
 const sortColumn = (
   sortBy: Column,
   ascending: Boolean,
-  champions: ChampionList,
+  champions: Map<number, ChampionsDataDragonDetails>,
 ) => (
   a: ChampionMastery,
   b: ChampionMastery
 ) => ({
-  [Column.Champion]: champions[a.championId].name.toLowerCase() > champions[b.championId].name.toLowerCase() ? 1 : -1,
+  [Column.Champion]: champions.get(a.championId)!.name.toLowerCase() > champions.get(b.championId)!.name.toLowerCase() ? 1 : -1,
   [Column.Points]: a.championPoints - b.championPoints,
   [Column.Chest]: a.chestGranted ? -1 : b.chestGranted ? 1 : 0,
   [Column.LastPlayed]: a.lastPlayTime > b.lastPlayTime ? -1 : 1,
@@ -60,8 +61,8 @@ const ChampionMasteriesTable = ({
   const [byColumn, setByColumn] = useState<Column>(Column.Points)
   const [ascending, setAscending] = useState<boolean>(false)
 
-  const { data: champions, error: championsError } = useSWR<ChampionList>(
-    `/Champions`,
+  const { data: champions, error: championsError } = useSWR<Map<number, ChampionsDataDragonDetails>>(
+    () => `/api/champions`,
     fetcher
   )
 
@@ -82,11 +83,11 @@ const ChampionMasteriesTable = ({
 
     // Filter champion masteries based on the current filters.
     const filtered = masteries?.filter((mastery) => {
-      const champion = champions[mastery.championId]
+      const champion = champions.get(mastery.championId)
       return (
         (!filterChest || !mastery.chestGranted) &&
-        champion.name.toLowerCase().includes(query?.toLowerCase()) &&
-        filterTags.every((tag) => champion.tags.includes(tag))
+        champion?.name.toLowerCase().includes(query?.toLowerCase()) &&
+        filterTags.every((tag) => champion.tags.includes(Tag[tag]))
       )
     })
 
@@ -96,7 +97,7 @@ const ChampionMasteriesTable = ({
     // Build the table.
     const finalTable = sorted?.map((mastery) => {
       const date = new Date(mastery.lastPlayTime + 'Z')
-      const champion = champions[mastery.championId]
+      const champion = champions.get(mastery.championId)!
       const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${champion.image.full}`
 
       return (
@@ -171,7 +172,7 @@ const ChampionMasteriesTable = ({
                 </div>
                 <span className="sr-only">{`Filter ${Tag[tag]}`}</span>
                 <span>
-                  <ClassIcon className="h-8 w-8" tag={tag} />
+                  <ClassIcon className="h-8 w-8" tag={Tag[tag]} />
                 </span>
               </Switch>
             ))}

@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import { formatDistanceToNow, format } from 'date-fns'
-import { Champion, ChampionMastery, Tag } from '@/models'
+import { Champion, ChampionMastery } from '@/models'
 import { LoadingChampionRow } from '@/components'
 import { ChestIcon, ClassIcon } from '@/components/common'
+import { ChampionsDataDragonDetails } from 'twisted/dist/models-dto'
 
 // prettier-ignore
-const tagClasses = (tag: Tag) => ({
-  [Tag.Fighter]: 'text-amber-600 dark:text-amber-300',
-  [Tag.Tank]: 'text-indigo-600 dark:text-indigo-300',
-  [Tag.Mage]: 'text-sky-600 dark:text-sky-300',
-  [Tag.Assassin]: 'text-red-600 dark:text-red-300',
-  [Tag.Support]: 'text-teal-600 dark:text-teal-300',
-  [Tag.Marksman]: 'text-green-600 dark:text-green-300',
+const tagClasses = (tag: string) => ({
+  ['Fighter']: 'text-amber-600 dark:text-amber-300',
+  ['Tank']: 'text-indigo-600 dark:text-indigo-300',
+  ['Mage']: 'text-sky-600 dark:text-sky-300',
+  ['Assassin']: 'text-red-600 dark:text-red-300',
+  ['Support']: 'text-teal-600 dark:text-teal-300',
+  ['Marksman']: 'text-green-600 dark:text-green-300',
 })[tag]
 
 // prettier-ignore
@@ -27,7 +28,7 @@ const ChampionRow = ({
   imageUrl,
   lastPlayed,
 }: {
-  champion: Champion | undefined
+  champion: ChampionsDataDragonDetails | undefined
   mastery: ChampionMastery | undefined
   imageUrl: string
   lastPlayed: Date
@@ -97,7 +98,7 @@ const ChampionRow = ({
               >
                 <div className="absolute -top-12 hidden whitespace-nowrap rounded bg-white/60 px-4 py-2 text-xs font-medium text-black shadow-xl backdrop-blur-lg group-hover:block group-focus:block dark:bg-black/60 dark:text-white dark:shadow-gray-700/30 print:hidden print:group-hover:hidden print:group-focus:hidden">
                   <div className="flex flex-col items-center space-y-1">
-                    <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
+                    <p id={`${champion.id}-tag-${tag}`}>{tag}</p>
                   </div>
                 </div>
                 <ClassIcon className="h-6 w-6 lg:h-8 lg:w-8" tag={tag} />

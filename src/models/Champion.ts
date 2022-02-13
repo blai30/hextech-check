@@ -50,4 +50,4 @@ export interface Info {
   magic: number
 }
 
-export type ChampionList = { [key: string]: Champion }
+export type ChampionList = Readonly<Record<string, Champion>>

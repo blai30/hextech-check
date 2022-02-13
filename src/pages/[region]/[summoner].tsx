@@ -23,17 +23,17 @@ const SummonerPage = ({
   imageUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: summoner, error: summonerError } = useSWR<Summoner>(
-    `/Summoners/${region}/${summonerName}`,
+    () => `/api/summoners/${region}/${summonerName}`,
     fetcher
   )
 
   const { data: leagues, error: leaguesError } = useSWR<League[]>(
-    () => `/Leagues/${region}/${summoner!.id}`,
+    () => `/api/leagues/${region}/${summoner!.id}`,
     fetcher
   )
 
   const { data: masteries, error: masteriesError } = useSWR<ChampionMastery[]>(
-    `/ChampionMasteries/${region}/${summonerName}`,
+    () => `/api/championMasteries/${region}/${summonerName}`,
     fetcher
   )
 
@@ -110,7 +110,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const summoner = await api
-    .get<Summoner>(`/Summoners/${region}/${summonerName}`)
+    .get<Summoner>(`/summoners/${region}/${summonerName}`)
     .then((response) => response.data)
     .catch(() => null)
 

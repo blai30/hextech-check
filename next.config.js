@@ -7,7 +7,6 @@ module.exports = withPWA({
   images: {
     domains: [
       'ddragon.leagueoflegends.com',
-      'blai30hextechcheck.azurewebsites.net',
     ],
   },
   pwa: {

@@ -23,6 +23,7 @@ specifiers:
   react-dom: ^17.0.2
   swr: ^1.2.0
   tailwindcss: ^3.0.18
+  twisted: ^1.46.4
   typescript: ^4.5.5
 
 dependencies:
@@ -35,6 +36,7 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   swr: 1.2.0_react@17.0.2
+  twisted: 1.46.4
 
 devDependencies:
   '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.18
@@ -1749,6 +1751,14 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
+  /axios/0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.14.7
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /axios/0.24.0:
     resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
     dependencies:
@@ -1875,6 +1885,10 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
     dev: true
+
+  /camelcasejs/1.0.3:
+    resolution: {integrity: sha512-jzRiwgTNJ9CjkpwJSutEzzQqUaINaOphl2rlm5/ejTA3bI7zrwWucCt4nqqtz/goOYgMlfpv9aG8uCK6o5ssdw==}
+    dev: false
 
   /caniuse-lite/1.0.30001304:
     resolution: {integrity: sha512-bdsfZd6K6ap87AGqSHJP/s1V+U6Z5lyrcbBu3ovbCCf8cSYpwTtGrCBObMpJqwxfTbLW6YTIdbb1jEeTelcpYQ==}
@@ -2116,6 +2130,11 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv/8.6.0:
+    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
+    engines: {node: '>=10'}
+    dev: false
 
   /ejs/3.1.6:
     resolution: {integrity: sha512-9lt9Zse4hPucPkoP7FHDF0LQAlGyF9JVpnClFLFH3aSSbxmyoqINRpp/9wePWJTUl4KOQwRL72Iw3InHPDkoGw==}
@@ -2682,6 +2701,10 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+
+  /http-status-codes/1.4.0:
+    resolution: {integrity: sha512-JrT3ua+WgH8zBD3HEJYbeEgnuQaAnUeRRko/YojPAJjGmIfGD3KPU/asLdsLwKjfxOmQe5nXMQ0pt/7MyapVbQ==}
+    dev: false
 
   /idb/6.1.5:
     resolution: {integrity: sha512-IJtugpKkiVXQn5Y+LteyBCNk1N8xpGV3wWZk9EVtZWH8DYkjBn0bX1XnGP9RkyZF0sAcywa6unHqSWKe7q4LGw==}
@@ -3483,6 +3506,11 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /promise-queue/2.2.5:
+    resolution: {integrity: sha1-L29ffA9tCBCelnZZx5uIqe1ek7Q=}
+    engines: {node: '>= 0.8.0'}
+    dev: false
+
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
@@ -4030,6 +4058,21 @@ packages:
       typescript: 4.5.5
     dev: true
 
+  /twisted/1.46.4:
+    resolution: {integrity: sha512-yCH8CZk4nJdWc1pW2NTohwafQt8bCBqWdlKFdvscvlRSmkhQAy7vHoRBpYphM7u3ekYOAXt0VYpwh5RkJ+Pecg==}
+    engines: {node: '>=8.6.0'}
+    dependencies:
+      axios: 0.21.4
+      camelcasejs: 1.0.3
+      dotenv: 8.6.0
+      http-status-codes: 1.4.0
+      lodash: 4.17.21
+      promise-queue: 2.2.5
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -4118,6 +4161,11 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
     dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
