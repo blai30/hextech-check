@@ -90,6 +90,10 @@ class MyDocument extends Document {
             type="text/css"
             href="https://rsms.me/inter/inter.css"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <body className="bg-gray-100 subpixel-antialiased transition-colors dark:bg-gray-900">
           <Main />

@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        cookie: ['Cookie'],
       },
       gridTemplateColumns: {
         '18': 'repeat(18, minmax(0, 1fr))',

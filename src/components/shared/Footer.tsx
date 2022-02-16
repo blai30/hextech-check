@@ -1,4 +1,5 @@
 import { SVGProps } from 'react'
+import { CoffeeIcon } from '@/components/common'
 
 const navigation = [
   {
@@ -21,16 +22,21 @@ const Footer = () => {
 
   return (
     <footer>
-      <div className="mx-auto mt-8 flex max-w-7xl flex-col space-y-8 border-t border-gray-200 py-12 px-4 transition-colors dark:border-gray-700 sm:px-6 md:flex-row md:items-center md:justify-between md:space-y-0 lg:px-8">
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col items-center space-y-8 border-t border-gray-200 py-12 px-4 transition-colors dark:border-gray-700 sm:px-6 md:flex-row md:justify-between md:space-y-0 lg:px-8">
         {/* <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-8 w-8" aria-hidden="true" />
             </a>
           ))}
         </div> */}
-        <div className="md:order-1">
+        {/* <div className="md:order-1"> */}
+        <div>
           <p className="text-center text-base text-gray-400">
             &copy; {year}{' '}
             <a
@@ -42,6 +48,15 @@ const Footer = () => {
             - Hextech Check
           </p>
         </div>
+        <a
+          href="https://www.buymeacoffee.com/blai30"
+          className="flex w-fit flex-row items-center justify-between gap-2 rounded-lg bg-yellow-300 py-2 px-3 transition dark:bg-yellow-500"
+        >
+          <CoffeeIcon />
+          <span className="font-cookie text-2xl text-black">
+            Buy me a coffee
+          </span>
+        </a>
       </div>
     </footer>
   )
