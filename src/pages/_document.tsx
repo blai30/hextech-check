@@ -44,7 +44,7 @@ class MyDocument extends Document {
           <meta
             key="og:url"
             property="og:url"
-            content="https://www.bhlai.com/hextech-check"
+            content="https://hextech-check.bhlai.com/"
           />
           <meta key="og:type" property="og:type" content="website" />
           <meta key="og:locale" property="og:locale" content="en_US" />
@@ -80,7 +80,7 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
-          <link rel="canonical" href="https://www.bhlai.com/hextech-check" />
+          <link rel="canonical" href="https://hextech-check.bhlai.com/" />
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <link rel="icon" href="/icon.svg" type="image/svg+xml" />
           <link rel="manifest" href="/manifest.webmanifest" />
