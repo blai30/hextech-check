@@ -38,7 +38,7 @@ const SummonerDetails = ({
   }
 
   const date = new Date(summoner.revisionDate + 'Z')
-  const league = leagues.sort((a, b) => (a.tier < b.tier ? -1 : 1))[0]
+  const league = leagues.sort((a, b) => (a.tier > b.tier ? -1 : 1))[0]
 
   return (
     <>
