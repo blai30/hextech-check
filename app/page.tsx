@@ -1,0 +1,14 @@
+'use client'
+
+import { SearchForm } from '@/components'
+
+export default function Home() {
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center gap-10 md:px-8">
+      <p className="whitespace-normal px-8 text-center text-xl font-light text-gray-700 dark:text-gray-200">
+        Enter a player name and region.
+      </p>
+      <SearchForm />
+    </div>
+  )
+}

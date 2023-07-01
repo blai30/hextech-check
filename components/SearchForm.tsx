@@ -1,7 +1,5 @@
 import { Fragment, useState } from 'react'
-import { useRouter } from 'next/router'
 import { Listbox, Transition } from '@headlessui/react'
-import useRouterLoading from '@/hooks/useRouterLoading'
 
 const regions: Readonly<Record<string, string>> = {
   NA: 'North America',
@@ -18,14 +16,8 @@ const regions: Readonly<Record<string, string>> = {
 }
 
 const SearchForm = () => {
-  const router = useRouter()
-  const { region: selectedRegion, summoner: summonerName } = router.query as {
-    region: string
-    summoner: string
-  }
-  const [summoner, setName] = useState<string>(summonerName ?? '')
-  const [region, setRegion] = useState<string>(selectedRegion ?? 'NA')
-  const isLoading = useRouterLoading()
+  const [summoner, setName] = useState<string>('')
+  const [region, setRegion] = useState<string>('NA')
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
@@ -33,14 +25,6 @@ const SearchForm = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(isLoading)
-    router.push({
-      pathname: '/[region]/[summoner]',
-      query: {
-        summoner,
-        region,
-      },
-    })
   }
 
   return (
@@ -163,7 +147,7 @@ const SearchForm = () => {
           disabled={!region || !summoner}
           className="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 py-2 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-gray-800"
         >
-          {isLoading ? (
+          {false ? (
             <svg
               className="h-6 w-6 animate-spin transition-colors"
               fill="none"

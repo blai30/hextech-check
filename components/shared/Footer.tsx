@@ -1,5 +1,4 @@
 import { SVGProps } from 'react'
-import { CoffeeIcon } from '@/components/common'
 
 const navigation = [
   {
@@ -22,7 +21,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <div className="mx-auto mt-8 flex max-w-7xl flex-col items-center space-y-8 border-t border-gray-200 py-12 px-4 transition-colors dark:border-gray-700 sm:px-6 md:flex-row md:justify-between md:space-y-0 lg:px-8">
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col items-center gap-8 border-t border-gray-200 px-4 py-12 transition-colors dark:border-gray-800 sm:px-6 md:flex-row md:justify-between md:gap-0 lg:px-8">
         {/* <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
             <a
@@ -48,15 +47,6 @@ const Footer = () => {
             - Hextech Check
           </p>
         </div>
-        <a
-          href="https://www.buymeacoffee.com/blai30"
-          className="flex w-fit flex-row items-center justify-between gap-2 rounded-lg bg-yellow-300 py-2 px-3 transition dark:bg-yellow-500"
-        >
-          <CoffeeIcon />
-          <span className="font-cookie text-2xl text-black">
-            Buy me a coffee
-          </span>
-        </a>
       </div>
     </footer>
   )
