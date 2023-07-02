@@ -1,9 +1,7 @@
-'use client'
-
-import { Footer, Header } from '@/components/shared'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Providers } from '@/app/providers'
+import { Footer, Header } from '@/components/shared'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -52,7 +50,9 @@ export default function RootLayout({
         <Providers>
           <main className="flex min-h-screen flex-col gap-6 px-4 py-6 print:mx-0 print:max-w-none print:p-0">
             <Header />
-            <section className="flex flex-grow flex-col">{children}</section>
+            <section className="flex flex-grow flex-col items-center">
+              {children}
+            </section>
             <Footer />
           </main>
         </Providers>

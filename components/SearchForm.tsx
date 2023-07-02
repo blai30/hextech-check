@@ -1,4 +1,7 @@
+'use client'
+
 import { Fragment, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import { Listbox, Transition } from '@headlessui/react'
 
 const regions: Readonly<Record<string, string>> = {
@@ -16,32 +19,36 @@ const regions: Readonly<Record<string, string>> = {
 }
 
 const SearchForm = () => {
-  const [summoner, setName] = useState<string>('')
-  const [region, setRegion] = useState<string>('NA')
+  const router = useRouter()
+  const params = useParams()
+  const [player, setPlayer] = useState<string>(params['player'] ?? '')
+  const [region, setRegion] = useState<string>(params['region'] ?? 'NA')
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
+    setPlayer(event.target.value)
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    router.push(`/${region}/${player}`)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-row items-center">
-        <Listbox value={region} onChange={setRegion}>
+    <form onSubmit={handleSubmit} className="w-full">
+      <div className="flex w-full flex-col items-center gap-2 md:flex-row">
+        <Listbox name="region" value={region} onChange={setRegion}>
           {({ open }) => (
             <>
               <Listbox.Label className="sr-only">Select region</Listbox.Label>
-              <div className="relative">
+              <div className="relative w-full md:w-36">
                 <Listbox.Button
                   id="region-select"
                   title="Select region"
-                  className="inline-flex w-24 cursor-default items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                  className="w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
                   <span className="flex items-center">
-                    <span className="block">{region}</span>
+                    <span className="hidden md:block">{region}</span>
+                    <span className="block md:hidden">{regions[region]}</span>
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <svg
@@ -67,7 +74,7 @@ const SearchForm = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Listbox.Options className="absolute left-0 z-20 mt-1 max-h-56 w-72 overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm">
+                  <Listbox.Options className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72">
                     {Object.keys(regions).map((region, index) => (
                       <Listbox.Option
                         key={index}
@@ -75,7 +82,7 @@ const SearchForm = () => {
                         className={({ active }) =>
                           `${
                             active
-                              ? 'bg-indigo-600 text-white dark:bg-indigo-400 dark:text-black'
+                              ? 'bg-yellow-600 text-white dark:bg-yellow-400 dark:text-black'
                               : 'text-gray-900 dark:text-gray-100'
                           } relative cursor-default select-none py-2 pl-2 pr-8 transition-colors duration-75 ease-in-out`
                         }
@@ -101,7 +108,7 @@ const SearchForm = () => {
                                 className={`${
                                   active
                                     ? 'text-white'
-                                    : 'text-indigo-600 dark:text-indigo-300'
+                                    : 'text-yellow-600 dark:text-yellow-300'
                                 } absolute inset-y-0 right-0 flex items-center pr-2 transition-colors`}
                               >
                                 <svg
@@ -131,21 +138,21 @@ const SearchForm = () => {
         </Listbox>
 
         <input
-          id="summoner-input"
-          name="summoner"
-          title="Summoner name"
+          id="player-input"
+          name="player"
+          title="Player name"
           type="search"
-          placeholder="Summoner name"
-          value={summoner}
+          placeholder="Player name"
+          value={player}
           onChange={handleChangeName}
-          className="inline-flex w-full items-center border border-gray-300 bg-white px-3 py-2 text-black transition-colors hover:bg-gray-100 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 focus:dark:border-gray-600"
+          className="w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         />
 
         <button
           id="search-button"
           title="Search"
-          disabled={!region || !summoner}
-          className="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 py-2 text-black transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-gray-800"
+          disabled={!region || !player}
+          className="flex w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
           {false ? (
             <svg

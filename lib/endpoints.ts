@@ -1,3 +1,11 @@
+import {
+  ChampionDto,
+  ChampionListDto,
+  ChampionMasteryDto,
+  LeagueEntryDto,
+  SummonerDto,
+} from 'riotapi'
+
 const regionsMap: { [key: string]: string } = {
   BR: 'br1',
   EUNE: 'eun1',
@@ -17,17 +25,30 @@ const regionsMap: { [key: string]: string } = {
   VN: 'vn2',
 }
 
-export async function getChampions() {
-  const versions = await fetch('https://ddragon.leagueoflegends.com/api/versions.json')
+export async function getChampions(): Promise<{
+  [key: string]: ChampionDto
+}> {
+  const versions = await fetch(
+    'https://ddragon.leagueoflegends.com/api/versions.json'
+  )
   const latestVersion = (await versions.json())[0]
   const response = await fetch(
     `http://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
   )
 
-  return await response.json()
+  const championList: ChampionListDto = await response.json()
+  const championsMap: { [key: string]: ChampionDto } = {}
+  for (const champion in championList.data) {
+    championsMap[championList.data[champion].key] = championList.data[champion]
+  }
+
+  return championsMap
 }
 
-export async function getChampionMasteries(region: string, summonerId: string) {
+export async function getChampionMasteries(
+  region: string,
+  summonerId: string
+): Promise<ChampionMasteryDto[]> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
   const regionCode = regionsMap[region]
@@ -45,7 +66,10 @@ export async function getChampionMasteries(region: string, summonerId: string) {
   return await response.json()
 }
 
-export async function getLeagues(region: string, summonerId: string) {
+export async function getLeagues(
+  region: string,
+  summonerId: string
+): Promise<LeagueEntryDto[]> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
   const regionCode = regionsMap[region]
@@ -63,7 +87,10 @@ export async function getLeagues(region: string, summonerId: string) {
   return await response.json()
 }
 
-export async function getSummoner(region: string, summoner: string) {
+export async function getSummoner(
+  region: string,
+  summoner: string
+): Promise<SummonerDto> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
   const regionCode = regionsMap[region]

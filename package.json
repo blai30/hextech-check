@@ -1,5 +1,5 @@
 {
-  "name": "hexcheck",
+  "name": "hextech-check",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,25 +10,24 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
+    "next": "13.4.7",
+    "next-themes": "^0.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
+    "cross-env": "^7.0.3",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.7",
-    "next": "13.4.7",
-    "next-themes": "^0.2.1",
+    "eslint-config-prettier": "^8.8.0",
     "postcss": "8.4.24",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.6"
-  },
-  "devDependencies": {
-    "@types/riot-api-nodejs": "^0.0.30",
-    "cross-env": "^7.0.3",
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }
