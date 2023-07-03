@@ -4,7 +4,7 @@ import {
   ChampionMasteryDto,
   LeagueEntryDto,
   SummonerDto,
-} from 'riotapi'
+} from '@/models/riotapi'
 
 const regionsMap: { [key: string]: string } = {
   BR: 'br1',
@@ -26,7 +26,7 @@ const regionsMap: { [key: string]: string } = {
 }
 
 export async function getChampions(): Promise<{
-  [key: string]: ChampionDto
+  [key: number]: ChampionDto
 }> {
   const versions = await fetch(
     'https://ddragon.leagueoflegends.com/api/versions.json'
@@ -37,7 +37,7 @@ export async function getChampions(): Promise<{
   )
 
   const championList: ChampionListDto = await response.json()
-  const championsMap: { [key: string]: ChampionDto } = {}
+  const championsMap: { [key: number]: ChampionDto } = {}
   for (const champion in championList.data) {
     championsMap[championList.data[champion].key] = championList.data[champion]
   }
@@ -85,6 +85,42 @@ export async function getLeagues(
   )
 
   return await response.json()
+}
+
+export async function getProfileIconUrl(
+  profileIconId: number
+): Promise<string> {
+  const versions = await fetch(
+    'https://ddragon.leagueoflegends.com/api/versions.json'
+  )
+  const latestVersion = (await versions.json())[0]
+  const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${profileIconId}.png`
+
+  return profileIconUrl
+}
+
+export async function getChampionIconUrl(
+  championId: number
+): Promise<string> {
+  const versions = await fetch(
+    'https://ddragon.leagueoflegends.com/api/versions.json'
+  )
+  const latestVersion = (await versions.json())[0]
+  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/tiles/${championId}.png`
+
+  return championIconUrl
+}
+
+export async function getChampionCardUrl(
+  championId: number
+): Promise<string> {
+  const versions = await fetch(
+    'https://ddragon.leagueoflegends.com/api/versions.json'
+  )
+  const latestVersion = (await versions.json())[0]
+  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${championId}.png`
+
+  return championIconUrl
 }
 
 export async function getSummoner(

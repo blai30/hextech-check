@@ -1,45 +1,59 @@
-/* eslint-disable @next/next/no-img-element */
-import { useParams } from 'next/navigation'
-import { Tier } from 'riotapi'
-import { getChampionMasteries, getLeagues, getSummoner } from '@/lib/endpoints'
+import Image from 'next/image'
+import {
+  getChampionMasteries,
+  getLeagues,
+  getProfileIconUrl,
+  getSummoner,
+} from '@/lib/endpoints'
+import { formatDate, formatRelativeDate } from '@/lib/formatDate'
+import { Tier, TierKey } from '@/models/riotapi'
 
 // prettier-ignore
-const leagueClasses: Readonly<Record<Tier, string>> = {
-  [Tier.UNRANKED]: 'text-gray-800 dark:text-gray-100 bg-gray-300 dark:bg-gray-700',
-  [Tier.IRON]: 'text-slate-800 dark:text-slate-100 bg-slate-300 dark:bg-slate-700',
-  [Tier.BRONZE]: 'text-stone-800 dark:text-stone-100 bg-stone-300 dark:bg-stone-700',
-  [Tier.SILVER]: 'text-zinc-800 dark:text-zinc-100 bg-zinc-300 dark:bg-zinc-700',
-  [Tier.GOLD]: 'text-amber-800 dark:text-amber-100 bg-amber-300 dark:bg-amber-700',
-  [Tier.PLATINUM]: 'text-emerald-800 dark:text-emerald-100 bg-emerald-300 dark:bg-emerald-700',
-  [Tier.DIAMOND]: 'text-blue-800 dark:text-blue-100 bg-blue-300 dark:bg-blue-700',
-  [Tier.MASTER]: 'text-purple-800 dark:text-purple-100 bg-purple-300 dark:bg-purple-700',
-  [Tier.GRANDMASTER]: 'text-red-800 dark:text-red-100 bg-red-300 dark:bg-red-700',
-  [Tier.CHALLENGER]: 'text-yellow-800 dark:text-yellow-100 bg-sky-300 dark:bg-sky-700',
+const leagueClasses: Readonly<Record<TierKey, string>> = {
+  [Tier.Unranked]: 'text-gray-800 dark:text-gray-100 bg-gray-300 dark:bg-gray-700',
+  [Tier.Iron]: 'text-slate-800 dark:text-slate-100 bg-slate-300 dark:bg-slate-700',
+  [Tier.Bronze]: 'text-stone-800 dark:text-stone-100 bg-stone-300 dark:bg-stone-700',
+  [Tier.Silver]: 'text-zinc-800 dark:text-zinc-100 bg-zinc-300 dark:bg-zinc-700',
+  [Tier.Gold]: 'text-amber-800 dark:text-amber-100 bg-amber-300 dark:bg-amber-700',
+  [Tier.Platinum]: 'text-teal-800 dark:text-teal-100 bg-teal-300 dark:bg-teal-700',
+  [Tier.Emerald]: 'text-emerald-800 dark:text-emerald-100 bg-emerald-300 dark:bg-emerald-700',
+  [Tier.Diamond]: 'text-blue-800 dark:text-blue-100 bg-blue-300 dark:bg-blue-700',
+  [Tier.Master]: 'text-purple-800 dark:text-purple-100 bg-purple-300 dark:bg-purple-700',
+  [Tier.Grandmaster]: 'text-red-800 dark:text-red-100 bg-red-300 dark:bg-red-700',
+  [Tier.Challenger]: 'text-yellow-800 dark:text-yellow-100 bg-sky-300 dark:bg-sky-700',
 }
 
 export default async function SummonerDetails({
+  region,
+  player,
 }: {
+  region: string
+  player: string
 }) {
-  const { region, player } = useParams()
   const playerData = await getSummoner(region, player)
   const leaguesData = await getLeagues(region, playerData.id)
   const masteriesData = await getChampionMasteries(region, playerData.id)
-  const date = new Date(playerData.revisionDate + 'Z')
-  const league = leaguesData.sort((a, b) => (a.tier > b.tier ? -1 : 1))[0]
-  const imageUrl = `https://ddragon.leagueoflegends.com/cdn/13.13.1/img/profileicon/${playerData.profileIconId}.png`
-  const totalMastery = masteriesData.reduce((acc, cur) => acc + cur.championPoints, 0)
+  const imageUrl = await getProfileIconUrl(playerData.profileIconId)
+  const totalMastery = masteriesData.reduce(
+    (acc, cur) => acc + cur.championPoints,
+    0
+  )
+  const date = new Date(playerData.revisionDate)
+  const league = leaguesData.sort((a, b) => a.tier > b.tier ? -1 : 1)[0]
 
   return (
     <>
-      <div className="rounded-lg bg-white p-6 shadow transition-colors dark:bg-gray-800 dark:shadow-gray-700/30 print:shadow-none">
+      <div className="rounded-lg bg-gray-50 p-6 shadow transition-colors dark:bg-gray-900 dark:shadow-gray-700/30 print:shadow-none">
         <div className="flex flex-col space-y-4 md:grid md:grid-cols-3 md:items-center md:justify-between md:space-y-0">
           <div className="flex flex-col items-center space-y-2 md:flex-row md:gap-4 md:space-y-0 lg:gap-6">
-            <img
+            <Image
               id={`summoner-icon-${playerData.id}`}
               src={imageUrl}
               alt={`Summoner profile icon ${playerData.profileIconId}`}
               title={imageUrl}
-              className="inline-block h-16 w-16 rounded-full lg:h-20 lg:w-20"
+              className="h-16 w-16 rounded-full lg:h-20 lg:w-20"
+              width={300}
+              height={300}
             />
             <div className="flex flex-col items-center space-y-2 md:items-start">
               <p
@@ -52,23 +66,14 @@ export default async function SummonerDetails({
                 <span
                   id={`summoner-rank-${playerData.id}`}
                   title="Summoner rank"
-                  className={`${
-                    leagueClasses[league?.tier ?? Tier.UNRANKED]
-                  } inline-flex items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg`}
+                  className={[leagueClasses[league?.tier ?? Tier.Unranked], 'items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg'].join(' ')}
                 >
-                  {/* Hide division for apex tiers. */}
-                  {league
-                    ? league.tier === Tier.MASTER ||
-                      league.tier === Tier.GRANDMASTER ||
-                      league.tier === Tier.CHALLENGER
-                      ? `${league.tier}`
-                      : `${league.tier} ${league.rank}`
-                    : Tier.UNRANKED}
+                  {league?.tier ? [league?.tier, league?.rank].join(' ') : Tier.Unranked}
                 </span>
                 <span
                   id={`summoner-level-${playerData.id}`}
                   title="Summoner level"
-                  className="inline-flex items-center rounded-r-md border-l border-white bg-gray-100 px-2.5 text-sm transition-colors dark:border-gray-800 dark:bg-gray-900 lg:px-3 lg:text-lg"
+                  className="items-center rounded-r-md bg-gray-100 px-2.5 text-sm transition-colors dark:bg-gray-950 lg:px-3 lg:text-lg"
                 >
                   {playerData.summonerLevel}
                 </span>
@@ -94,13 +99,13 @@ export default async function SummonerDetails({
             className="flex flex-col items-center md:items-end"
           >
             <p className="text-center text-sm text-gray-600 dark:text-gray-300 md:text-right lg:text-base">
-              Last modified {date.toUTCString()} ago
+              Last modified {formatRelativeDate(date)}
             </p>
             <p
               id={`summoner-revisiondate-${playerData.id}`}
               className="text-center text-sm text-gray-500 dark:text-gray-400 md:text-right lg:text-base"
             >
-              {date.toUTCString()}
+              {formatDate(date)}
             </p>
           </div>
         </div>
