@@ -4,9 +4,13 @@ import {
   getLeagues,
   getSummoner,
 } from '@/lib/endpoints'
-import { LoadingSummoner, SearchForm, SummonerDetails } from '@/components'
+import {
+  LoadingSummoner,
+  MasteriesTable,
+  SearchForm,
+  SummonerDetails,
+} from '@/components'
 import { Suspense } from 'react'
-import MasteriesTable from '@/app/MasteriesTable'
 
 export const metadata = {
   title: 'Player',

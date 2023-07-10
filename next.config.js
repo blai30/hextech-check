@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       'ddragon.leagueoflegends.com',
-      'blai30hextechcheck.azurewebsites.net',
+      'i.imgur.com',
     ],
   },
 }

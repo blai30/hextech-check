@@ -3,7 +3,7 @@ import {
   getChampionMasteries,
   getChampions,
 } from '@/lib/endpoints'
-import MasteryCard from './MasteryCard'
+import { MasteryCard } from '@/components'
 
 export default async function MasteriesTable({
   region,
@@ -17,7 +17,7 @@ export default async function MasteriesTable({
   const masteriesData = await getChampionMasteries(region, playerData.id)
 
   return (
-    <div className="flex flex-wrap justify-evenly gap-x-4 gap-y-8">
+    <div className="flex flex-wrap justify-between gap-x-4 gap-y-8">
       {masteriesData.map((mastery) => {
         return (
           <MasteryCard
