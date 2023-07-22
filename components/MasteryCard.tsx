@@ -30,17 +30,33 @@ export default function MasteryCard({
     champion.id === 'Fiddlesticks'
       ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
       : `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${champion.id}_0.jpg`
+  const imageStyle = {
+    backgroundImage: `url('${imageUrl}')`,
+  }
 
   return (
     <div className="overflow-hidden rounded-xl shadow-lg">
-      <div className="relative h-72 w-48">
+      {/* <div className="relative h-80 w-56"> */}
+      <div className="relative aspect-[3/4]">
         <Image
           src={imageUrl}
           alt={`Champion ${champion.name} loading screen image`}
           fill
-          objectFit="cover"
+          style={{
+            objectFit: 'cover',
+          }}
           className="-z-10"
         />
+        {/* <Image
+          src={imageUrl}
+          alt={`Champion ${champion.name} loading screen image`}
+          fill
+          style={{
+            objectFit: 'cover',
+            clipPath: `url(#svg-clippath-${champion.id})`,
+          }}
+          className="-z-10 blur-lg brightness-[4.0]"
+        /> */}
         <div className="flex h-full w-full flex-col justify-between">
           <div className="flex flex-col p-2">
             <div className="flex flex-row items-center justify-between">
@@ -49,9 +65,9 @@ export default function MasteryCard({
                   <button
                     key={tag}
                     id={`${champion.id}-tag-${tag}`}
-                    className={`${tagClasses[tag]} group relative flex flex-col rounded-full bg-gray-900 p-2`}
+                    className={`${tagClasses[tag]} group relative flex flex-col rounded-full p-2 backdrop-blur-lg backdrop-brightness-75`}
                   >
-                    <div className="absolute -bottom-12 hidden whitespace-nowrap rounded bg-black/80 px-4 py-2 text-xs font-medium text-white shadow-xl group-hover:block group-focus:block print:hidden print:group-hover:hidden print:group-focus:hidden">
+                    <div className="absolute -bottom-12 hidden whitespace-nowrap rounded px-4 py-2 text-xs font-medium text-white shadow-xl backdrop-blur-lg backdrop-brightness-50 group-hover:block group-focus:block print:hidden print:group-hover:hidden print:group-focus:hidden">
                       <div className="flex flex-col items-center gap-y-1">
                         <p id={`${champion.id}-tag-${Tag[tag]}`}>{Tag[tag]}</p>
                       </div>
@@ -68,7 +84,7 @@ export default function MasteryCard({
                 className={`${
                   mastery.chestGranted
                     ? 'bg-amber-600 text-amber-100'
-                    : 'bg-gray-900 text-gray-100'
+                    : 'bg-gray-900 text-gray-400'
                 } rounded-full p-2`}
               >
                 <ChestIcon className="h-6 w-6" />
@@ -90,12 +106,22 @@ export default function MasteryCard({
               <span
                 id={`champion-points-${champion.id}`}
                 title="Mastery points"
-                className="items-center rounded-r-md px-2.5 text-sm transition bg-gray-900 text-gray-100 lg:px-3 lg:text-base"
+                className="items-center rounded-r-md bg-gray-900 px-2.5 text-sm text-gray-100 transition lg:px-3 lg:text-base"
               >
                 {mastery.championPoints.toLocaleString()}
               </span>
             </div>
-            <p className="rounded-xl p-2 text-xl font-medium tracking-wide text-white subpixel-antialiased backdrop-blur-md backdrop-brightness-50">
+            {/* <svg className="text-left font-display text-7xl font-bold uppercase">
+              <clipPath id={`svg-clippath-${champion.id}`}>
+                <text dominantBaseline="bottom" x="0" y="310">
+                  {champion.name}
+                </text>
+              </clipPath>
+            </svg> */}
+            <p
+              className="rounded-xl text-left font-display text-base font-extrabold uppercase tracking-wide text-yellow-600 subpixel-antialiased md:text-4xl italic"
+            >
+              {/* <p className={['rounded-xl p-2 text-xl font-medium tracking-wide text-white subpixel-antialiased backdrop-blur-md backdrop-brightness-50', beaufortforlol.className].join(' ')}> */}
               {champion.name}
             </p>
           </div>

@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -13,6 +15,15 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        display: ['var(--font-beaufortforlol)'],
+      },
+    },
+    screens: {
+      '2xs': '420px',
+      'xs': '500px',
+      ...defaultTheme.screens,
     },
   },
   plugins: [],
