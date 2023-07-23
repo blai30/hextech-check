@@ -43,6 +43,7 @@ export default function MasteryCard({
         <Image
           src={imageUrl}
           alt={`Champion ${champion.name} loading screen image`}
+          placeholder="blur"
           fill
           style={{
             objectFit: 'cover',
