@@ -27,6 +27,19 @@ const beaufortforlol = localFont({
   variable: '--font-beaufortforlol',
 })
 
+const spiegel = localFont({
+  src: [
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Bold_Italic.ttf', weight: '700', style: 'italic' },
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Bold.ttf', weight: '700', style: 'normal' },
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_SemiBold_Italic.ttf', weight: '600', style: 'italic' },
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_SemiBold.ttf', weight: '600', style: 'normal' },
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Regular_Italic.ttf', weight: '400', style: 'italic' },
+    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Regular.ttf', weight: '400', style: 'normal' },
+  ],
+  display: 'swap',
+  variable: '--font-spiegel',
+})
+
 /* prettier-ignore */
 export const metadata = {
   title: {
@@ -62,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={[inter.variable, beaufortforlol.variable].join(' ')}>
+    <html lang="en" className={[inter.variable, beaufortforlol.variable, spiegel.variable].join(' ')}>
       <body
         className={[
           // inter.className,
