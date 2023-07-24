@@ -43,24 +43,24 @@ export default function MasteryCard({
 
   return (
     <div
-      className="relative aspect-[3/2] rounded-xl xs:aspect-[3/4]"
+      className="relative aspect-[3/2] rounded-xl sm:aspect-[3/4]"
       style={{
         perspective: '1000px',
       }}
     >
       {/* Flip switch */}
       <Switch
-        className="group absolute flex h-full w-full items-center justify-center outline-none"
+        className="group absolute flex h-full w-full cursor-default items-center justify-center outline-none"
         checked={flipped}
         onChange={setFlipped}
       >
-        <div className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full opacity-0 backdrop-blur-xl backdrop-brightness-75 transition-opacity duration-200 ease-in-out hover:opacity-100 group-focus-visible:opacity-100 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-sky-400">
+        <div className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full opacity-0 transition-opacity duration-200 ease-in-out hover:opacity-100 group-focus-visible:opacity-100 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-sky-400">
           <svg
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="h-8 w-8 text-white"
+            className="h-12 w-12 text-white"
           >
             <path
               strokeLinecap="round"
@@ -170,7 +170,7 @@ export default function MasteryCard({
                 <span
                   id={`champion-points-${champion.id}`}
                   title="Mastery points"
-                  className="flex items-center justify-center bg-gradient-to-b from-yellow-200 via-yellow-300 to-yellow-600 bg-clip-text px-2.5 font-display text-2xl font-bold uppercase italic text-transparent transition"
+                  className="flex items-center justify-center bg-gradient-to-b from-yellow-200 via-yellow-200 to-yellow-400 bg-clip-text px-2.5 font-display text-2xl font-bold uppercase italic text-transparent transition"
                 >
                   {mastery.championPoints.toLocaleString()}
                 </span>
@@ -191,9 +191,46 @@ export default function MasteryCard({
           }}
         >
           <div className="h-full w-full bg-gray-900">
-            <div className="flex flex-col p-4 gap-4">
-              <p>{champion.name}</p>
-              <p>{champion.tags.join(', ')}</p>
+            <div className="flex flex-col gap-2 p-4">
+              <div className="flex flex-row items-center justify-between gap-4">
+                <Image
+                  src={iconUrl}
+                  alt={`Champion ${champion.name} loading screen image`}
+                  width={40}
+                  height={40}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                  className="rounded-full bg-clip-padding"
+                />
+                <ChestIcon
+                  className={[
+                    'h-8 w-8',
+                    mastery.chestGranted ? 'text-yellow-400' : 'text-gray-700',
+                  ].join(' ')}
+                />
+              </div>
+              <p className="bg-gradient-to-b from-gray-300 via-gray-200 to-gray-100 bg-clip-text font-display text-xl font-extrabold uppercase text-transparent">
+                {champion.name}
+              </p>
+              <div className="flex flex-row items-center gap-1">
+                {champion.tags.map((tag) => (
+                  <div
+                    key={tag}
+                    id={`${champion.id}-tag-${tag}`}
+                    className={[
+                      'flex w-1/2 flex-row items-center gap-1 rounded-full px-1.5 py-0.5',
+                      tagClasses[tag],
+                    ].join(' ')}
+                  >
+                    <ClassIcon className="h-4 w-4" tag={tag} />
+                    <p className="font-body text-xs font-bold uppercase">
+                      {Tag[tag]}
+                    </p>
+                  </div>
+                ))}
+              </div>
               <p>{mastery.championLevel}</p>
               <p>{mastery.championPoints.toLocaleString()}</p>
               <p>
