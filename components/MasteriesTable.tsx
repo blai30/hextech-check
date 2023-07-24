@@ -2,6 +2,7 @@ import {
   getSummoner,
   getChampionMasteries,
   getChampions,
+  getLatestVersion,
 } from '@/lib/endpoints'
 import { MasteryCard } from '@/components'
 
@@ -12,8 +13,9 @@ export default async function MasteriesTable({
   region: string
   player: string
 }) {
+  const version = await getLatestVersion()
   const playerData = await getSummoner(region, player)
-  const championsData = await getChampions()
+  const championsData = await getChampions(version)
   const masteriesData = await getChampionMasteries(region, playerData.id)
 
   return (
@@ -25,6 +27,7 @@ export default async function MasteriesTable({
               key={mastery.championId}
               champion={championsData[mastery.championId]}
               mastery={mastery}
+              version={version}
             />
           )
         })}

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 import { ChestIcon, ClassIcon } from '@/components/common'
 import { formatDate, formatRelativeDate } from '@/lib/formatDate'
+import { Switch } from '@headlessui/react'
 
 // prettier-ignore
 const tagClasses: Readonly<Record<Tag, string>> = {
@@ -26,11 +27,14 @@ const masteryClasses = (masteryLevel: number) => ({
 export default function MasteryCard({
   champion,
   mastery,
+  version,
 }: {
   champion: ChampionDto
   mastery: ChampionMasteryDto
+  version: string
 }) {
   const [flipped, setFlipped] = useState(false)
+  const iconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion.id}.png`
   const imageUrl =
     champion.id === 'Fiddlesticks'
       ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
@@ -43,8 +47,30 @@ export default function MasteryCard({
       style={{
         perspective: '1000px',
       }}
-      onClick={() => setFlipped(!flipped)}
     >
+      {/* Flip switch */}
+      <Switch
+        className="group absolute flex h-full w-full items-center justify-center outline-none"
+        checked={flipped}
+        onChange={setFlipped}
+      >
+        <div className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full opacity-0 backdrop-blur-xl backdrop-brightness-75 transition-opacity duration-200 ease-in-out hover:opacity-100 group-focus-visible:opacity-100 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-sky-400">
+          <svg
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-8 w-8 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+        </div>
+      </Switch>
+
       {/* Card container */}
       <div
         className="relative aspect-[3/2] h-full w-full transform-gpu transition-transform duration-200 ease-in-out xs:aspect-[3/4]"
@@ -57,7 +83,9 @@ export default function MasteryCard({
         <div
           className={[
             'absolute h-full w-full overflow-hidden rounded-xl bg-transparent shadow-lg ring-4 ring-inset',
-            mastery.chestGranted ? 'ring-yellow-500' : 'ring-gray-900',
+            mastery.chestGranted
+              ? 'ring-yellow-300 dark:ring-yellow-500'
+              : 'ring-gray-400 dark:ring-gray-900',
           ].join(' ')}
           style={{
             WebkitBackfaceVisibility: 'hidden',
@@ -68,6 +96,7 @@ export default function MasteryCard({
             src={imageUrl}
             alt={`Champion ${champion.name} loading screen image`}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{
               objectFit: 'cover',
             }}
@@ -104,8 +133,8 @@ export default function MasteryCard({
                 className={[
                   'rounded-bl-xl p-2',
                   mastery.chestGranted
-                    ? 'bg-yellow-500 text-yellow-900'
-                    : 'bg-gray-900 text-gray-400',
+                    ? 'bg-yellow-300 text-yellow-700 dark:bg-yellow-500 dark:text-yellow-900'
+                    : 'bg-gray-400 text-white dark:bg-gray-900 dark:text-gray-400',
                 ].join(' ')}
               >
                 <ChestIcon className="h-6 w-6" />
@@ -115,7 +144,9 @@ export default function MasteryCard({
               <p
                 className={[
                   'translate-y-3.5 rounded-xl text-left font-display text-4xl font-extrabold uppercase italic tracking-wide subpixel-antialiased 2xs:text-5xl xs:text-4xl sm:text-3xl md:text-4xl',
-                  mastery.chestGranted ? 'text-yellow-500' : 'text-gray-900',
+                  mastery.chestGranted
+                    ? 'text-yellow-300 dark:text-yellow-500'
+                    : 'text-gray-400 dark:text-gray-900',
                 ].join(' ')}
               >
                 {champion.name}
@@ -165,7 +196,9 @@ export default function MasteryCard({
               <p>{champion.tags.join(', ')}</p>
               <p>{mastery.championLevel}</p>
               <p>{mastery.championPoints.toLocaleString()}</p>
-              <p>{mastery.chestGranted ? 'Chest obtained' : 'Chest available'}</p>
+              <p>
+                {mastery.chestGranted ? 'Chest obtained' : 'Chest available'}
+              </p>
               <p>{'Last played ' + formatRelativeDate(lastPlayed)}</p>
             </div>
           </div>

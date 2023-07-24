@@ -25,15 +25,18 @@ const regionsMap: { [key: string]: string } = {
   VN: 'vn2',
 }
 
-export async function getChampions(): Promise<{
+export async function getChampions(version?: string): Promise<{
   [key: number]: ChampionDto
 }> {
-  const versions = await fetch(
-    'https://ddragon.leagueoflegends.com/api/versions.json'
-  )
-  const latestVersion = (await versions.json())[0]
+  if (!version) {
+    const versions = await fetch(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+    version = (await versions.json())[0]
+  }
+
   const response = await fetch(
-    `http://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
+    `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`
   )
 
   const championList: ChampionListDto = await response.json()
@@ -88,38 +91,47 @@ export async function getLeagues(
 }
 
 export async function getProfileIconUrl(
-  profileIconId: number
+  profileIconId: number,
+  version?: string
 ): Promise<string> {
-  const versions = await fetch(
-    'https://ddragon.leagueoflegends.com/api/versions.json'
-  )
-  const latestVersion = (await versions.json())[0]
-  const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/profileicon/${profileIconId}.png`
+  if (!version) {
+    const versions = await fetch(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+    version = (await versions.json())[0]
+  }
 
+  const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`
   return profileIconUrl
 }
 
 export async function getChampionIconUrl(
-  championId: number
+  championId: number,
+  version?: string
 ): Promise<string> {
-  const versions = await fetch(
-    'https://ddragon.leagueoflegends.com/api/versions.json'
-  )
-  const latestVersion = (await versions.json())[0]
-  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/tiles/${championId}.png`
+  if (!version) {
+    const versions = await fetch(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+    version = (await versions.json())[0]
+  }
 
+  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/tiles/${championId}.png`
   return championIconUrl
 }
 
 export async function getChampionCardUrl(
-  championId: number
+  championId: number,
+  version?: string
 ): Promise<string> {
-  const versions = await fetch(
-    'https://ddragon.leagueoflegends.com/api/versions.json'
-  )
-  const latestVersion = (await versions.json())[0]
-  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/img/champion/${championId}.png`
+  if (!version) {
+    const versions = await fetch(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+    version = (await versions.json())[0]
+  }
 
+  const championIconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${championId}.png`
   return championIconUrl
 }
 
@@ -142,4 +154,11 @@ export async function getSummoner(
   )
 
   return await response.json()
+}
+
+export async function getLatestVersion(): Promise<string> {
+  const versions = await fetch(
+    'https://ddragon.leagueoflegends.com/api/versions.json'
+  )
+  return (await versions.json())[0]
 }
