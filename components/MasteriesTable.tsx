@@ -20,7 +20,7 @@ export default async function MasteriesTable({
 
   return (
     <>
-      <div className="grid grid-cols-1 justify-between gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <ul className="grid grid-cols-1 justify-between gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {masteriesData.map((mastery) => {
           return (
             <MasteryCard
@@ -31,7 +31,7 @@ export default async function MasteriesTable({
             />
           )
         })}
-      </div>
+      </ul>
     </>
   )
 }

@@ -42,7 +42,7 @@ export default function MasteryCard({
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   return (
-    <div
+    <li
       className="relative aspect-[3/2] rounded-xl sm:aspect-[3/4]"
       style={{
         perspective: '1000px',
@@ -214,9 +214,9 @@ export default function MasteryCard({
               <p className="bg-gradient-to-b from-gray-300 via-gray-200 to-gray-100 bg-clip-text font-display text-xl font-extrabold uppercase text-transparent">
                 {champion.name}
               </p>
-              <div className="flex flex-row items-center gap-1">
+              <ul className="flex flex-row items-center gap-1">
                 {champion.tags.map((tag) => (
-                  <div
+                  <li
                     key={tag}
                     id={`${champion.id}-tag-${tag}`}
                     className={[
@@ -228,9 +228,9 @@ export default function MasteryCard({
                     <p className="font-body text-xs font-bold uppercase">
                       {Tag[tag]}
                     </p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
               <p>{mastery.championLevel}</p>
               <p>{mastery.championPoints.toLocaleString()}</p>
               <p>
@@ -241,6 +241,6 @@ export default function MasteryCard({
           </div>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
