@@ -8,7 +8,6 @@ import { formatDate, formatRelativeDate } from '@/lib/formatDate'
 import { Switch } from '@headlessui/react'
 import {
   motion,
-  useAnimate,
   useMotionTemplate,
   useMotionValue,
   useTransform,
@@ -40,73 +39,125 @@ export default function MasteryCard({
   mastery: ChampionMasteryDto
   version: string
 }) {
-  const [scope, animate] = useAnimate()
   const [flipped, setFlipped] = useState(false)
   const iconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion.id}.png`
   const imageUrl =
     champion.id === 'Fiddlesticks'
-      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
-      : `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${champion.id}_0.jpg`
+      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/FiddleSticks_0.jpg'
+      : `https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${champion.id}_0.jpg`
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   const cardRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(
-    typeof window !== 'undefined' ? window.innerWidth / 2 : 0
-  )
-  const mouseY = useMotionValue(
-    typeof window !== 'undefined' ? window.innerHeight / 2 : 0
-  )
+  const [mouseX, setMouseX] = useState(0)
+  const [mouseY, setMouseY] = useState(0)
+  const [mousePX, setMousePX] = useState(0)
+  const [mousePY, setMousePY] = useState(0)
+  // const mouseX = useMotionValue(window ? window.innerWidth / 2 : 0)
+  // const mouseY = useMotionValue(window ? window.innerHeight / 2 : 0)
+  // const mousePX = useTransform(mouseX, (newMouseX) => {
+  //   if (!cardRef.current) return 0
+  //   const rect = cardRef.current.getBoundingClientRect()
+  //   return newMouseX / rect.height
+  // })
+  // const mousePY = useTransform(mouseX, (newMouseX) => {
+  //   if (!cardRef.current) return 0
+  //   const rect = cardRef.current.getBoundingClientRect()
+  //   return newMouseX / rect.height
+  // })
 
-  const dampen = 40
-  const rotateX = useTransform<number, number>(mouseY, (newMouseY) => {
-    if (!cardRef.current) return 0
-    const rect = cardRef.current.getBoundingClientRect()
-    const newRotateX = newMouseY - rect.top - rect.height / 2
-    return -newRotateX / dampen
-  })
-  const rotateY = useTransform(mouseX, (newMouseX) => {
-    if (!cardRef.current) return 0
-    const rect = cardRef.current.getBoundingClientRect()
-    const newRotateY = newMouseX - rect.left - rect.width / 2
-    return newRotateY / dampen
-  })
+  // const dampen = 10
+  // const rotateX = useTransform<number, number>(mouseY, (newMouseY) => {
+  //   if (!cardRef.current) return 0
+  //   const rect = cardRef.current.getBoundingClientRect()
+  //   const newRotateX = newMouseY - rect.top - rect.height / 2
+  //   return -newRotateX / dampen
+  // })
+  // const rotateY = useTransform<number, number>(mouseX, (newMouseX) => {
+  //   if (!cardRef.current) return 0
+  //   const rect = cardRef.current.getBoundingClientRect()
+  //   const newRotateY = newMouseX - rect.left - rect.width / 2
+  //   return newRotateY / dampen
+  // })
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      // animate mouse x and y
-      animate(mouseX, e.clientX);
-      animate(mouseY, e.clientY);
-    };
-    if (typeof window === 'undefined') return;
-    // recalculate grid on resize
-    window.addEventListener('mousemove', handleMouseMove);
-    // cleanup
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [animate, mouseX, mouseY]);
+  // rotateX.set(0)
+  // rotateY.set(0)
+
+  // sheen
+  // const diagonalMovement = useTransform<number, number>(
+  //   [rotateX, rotateY],
+  //   ([newRotateX, newRotateY]) => {
+  //     const position: number = newRotateX + newRotateY
+  //     return position
+  //   }
+  // )
+  // const sheenPosition = useTransform(diagonalMovement, [-5, 5], [-100, 200])
+  // const sheenOpacity = useTransform(
+  //   sheenPosition,
+  //   [-250, 50, 250],
+  //   [0, 0.05, 0]
+  // )
+  // const sheenGradient = useMotionTemplate`linear-gradient(
+  //   55deg,
+  //   transparent,
+  //   rgba(255 255 255 / ${sheenOpacity}) ${sheenPosition}%,
+  //   transparent)`
+
+  let mouseLeaveDelay: NodeJS.Timeout
+  const handleMouseMove = (event: React.MouseEvent) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setMouseX(event.pageX - rect.left - rect.width / 2)
+    setMouseY(event.pageY - rect.top - rect.height / 2)
+    setMousePX(mouseX / rect.width)
+    setMousePY(mouseY / rect.height)
+    // mouseX.set(event.pageX - cardRef.current.offsetLeft / 2)
+    // mouseY.set(event.pageY - cardRef.current.offsetTop / 2)
+  }
+  const handleMouseEnter = () => {
+    clearTimeout(mouseLeaveDelay)
+  }
+  const handleMouseLeave = () => {
+    mouseLeaveDelay = setTimeout(() => {
+      setMouseX(0)
+      setMouseY(0)
+      setMousePX(0)
+      setMousePY(0)
+      // rotateX.set(0)
+      // rotateY.set(0)
+    }, 1000)
+  }
 
   const CardBackground = (
     <>
       <div
-        className="absolute h-full w-full overflow-hidden rounded-xl shadow-lg"
-        style={{ transform: 'translateZ(-20px)' }}
+        className="pointer-events-none absolute h-full w-full overflow-hidden rounded-xl shadow-lg"
+        style={{
+          transform: `translateZ(-20px)`,
+        }}
       >
         <Image
           src={imageUrl}
           alt={`Champion ${champion.name} loading screen image`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          className="group-hover/card:duration-50 absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-[cubic-bezier(0.445,0.05,0.55,0.95)] group-hover/card:ease-[cubic-bezier(0.23,1,0.32,1)]"
+          style={{
+            transform: `translateX(${mousePX * -20}px) translateY(${
+              mousePY * -20
+            }px)`,
+            scale: 1.2,
+          }}
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
       </div>
       <div
         className={[
-          'absolute inset-0 -z-10 m-2 rounded-xl border',
+          'absolute inset-0 -z-10 m-4 rounded-xl border',
           mastery.chestGranted ? 'border-yellow-400/60' : 'border-gray-400/40',
         ].join(' ')}
-        style={{ transform: 'translateZ(0px)' }}
+        style={{
+          transform: `translateZ(40px)`,
+        }}
       />
     </>
   )
@@ -114,12 +165,18 @@ export default function MasteryCard({
   return (
     <div
       id={`card-container-${champion.id}`}
-      className="relative"
+      className="group/card relative"
       style={{ perspective: '1000px' }}
     >
       <motion.div
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative aspect-[3/2] rounded-xl sm:aspect-[3/4]"
+        style={{
+          transform: `rotateX(${mousePY * -30}deg) rotateY(${mousePX * 30}deg)`,
+          transformStyle: 'preserve-3d',
+        }}
+        className="group-hover/card:duration-50 relative aspect-[3/2] transform-gpu rounded-xl transition-transform duration-1000 ease-[cubic-bezier(0.445,0.05,0.55,0.95)] group-hover/card:ease-[cubic-bezier(0.23,1,0.32,1)] sm:aspect-[3/4]"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Front side */}
         {CardBackground}
@@ -134,11 +191,11 @@ export default function MasteryCard({
                   key={tag}
                   id={`${champion.id}-tag-${tag}`}
                   className={[
-                    'group relative flex flex-col items-center justify-center rounded-full',
+                    'group/tag relative flex flex-col items-center justify-center rounded-full',
                     tagClasses[tag],
                   ].join(' ')}
                 >
-                  <div className="absolute -top-12 left-0 hidden whitespace-nowrap rounded px-4 py-2 font-body text-base font-medium text-white shadow-xl backdrop-blur-lg backdrop-brightness-50 group-hover:block group-focus:block print:hidden print:group-hover:hidden print:group-focus:hidden">
+                  <div className="absolute -top-12 left-0 hidden whitespace-nowrap rounded bg-gray-900 px-4 py-2 font-body text-base font-medium text-white shadow-xl group-hover/tag:block group-focus/tag:block print:hidden print:group-hover/tag:hidden print:group-focus/tag:hidden">
                     <div className="flex flex-col items-center gap-y-1">
                       <p id={`${champion.id}-tag-${Tag[tag]}-tooltip`}>
                         {Tag[tag]}
