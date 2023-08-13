@@ -43,8 +43,8 @@ export default function MasteryCard({
   const iconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion.id}.png`
   const imageUrl =
     champion.id === 'Fiddlesticks'
-      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
-      : `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${champion.id}_0.jpg`
+      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/FiddleSticks_0.jpg'
+      : `https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${champion.id}_0.jpg`
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   const cardRef = useRef<HTMLDivElement>(null)
@@ -145,10 +145,10 @@ export default function MasteryCard({
             transform: `translateX(${mousePX * -20}px) translateY(${
               mousePY * -20
             }px)`,
-            scale: 1.1,
+            scale: 1.2,
           }}
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40 scale-110" />
       </div>
       <div
         className={[
