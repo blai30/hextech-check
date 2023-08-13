@@ -106,8 +106,8 @@ export default function MasteryCard({
   const handleMouseMove = (event: React.MouseEvent) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
-    setMouseX(event.pageX - rect.left - rect.width / 2)
-    setMouseY(event.pageY - rect.top - rect.height / 2)
+    setMouseX(event.clientX - rect.left - rect.width / 2)
+    setMouseY(event.clientY - rect.top - rect.height / 2)
     setMousePX(mouseX / rect.width)
     setMousePY(mouseY / rect.height)
     // mouseX.set(event.pageX - cardRef.current.offsetLeft / 2)
@@ -152,7 +152,7 @@ export default function MasteryCard({
       </div>
       <div
         className={[
-          'absolute inset-0 -z-10 m-4 rounded-xl border',
+          'pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border',
           mastery.chestGranted ? 'border-yellow-400/60' : 'border-gray-400/40',
         ].join(' ')}
         style={{
