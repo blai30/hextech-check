@@ -20,7 +20,7 @@ const regions: Readonly<Record<string, string>> = {
 
 const SearchForm = () => {
   const router = useRouter()
-  const params = useParams()
+  const params = useParams() as Record<string, string>
   const [player, setPlayer] = useState<string>(params['player'] ?? '')
   const [region, setRegion] = useState<string>(params['region'] ?? 'NA')
 
