@@ -4,6 +4,8 @@ API: https://github.com/blai30/HextechCheck-Functions
 
 ![screenshot](https://github.com/blai30/hextech-check/blob/main/resources/hextech.png?raw=true)
 
+https://github.com/blai30/hextech-check/assets/29187599/3ad2d342-b3de-4a81-9163-2c6570443052
+
 ## Features:
 - Fully responsive design
 - Dark mode
