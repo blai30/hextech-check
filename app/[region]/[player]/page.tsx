@@ -5,7 +5,7 @@ import {
   SummonerDetails,
 } from '@/components'
 import { Suspense } from 'react'
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import { getLatestVersion, getSummoner } from '@/lib/endpoints'
 
 export async function generateMetadata(
@@ -13,8 +13,7 @@ export async function generateMetadata(
     params: { region, player },
   }: {
     params: { region: string; player: string }
-  },
-  parent?: ResolvingMetadata
+  }
 ): Promise<Metadata> {
   const version = await getLatestVersion()
   const playerData = await getSummoner(region, player)
