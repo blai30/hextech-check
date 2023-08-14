@@ -137,8 +137,8 @@ export default function MasteryCard({
             className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
             style={{
               transform: `translateX(${
-                rotateY * (flipped ? 1 : -1)
-              }px) translateY(${rotateX * -1}px)
+                rotateY * 0.8 * (flipped ? 1 : -1)
+              }px) translateY(${rotateX * 0.8 * -1}px)
               translateZ(${flipped ? 10 : -10}px)`,
               scale: 1.2,
             }}
