@@ -6,7 +6,7 @@ import {
   getSummoner,
 } from '@/lib/endpoints'
 import { formatDate, formatRelativeDate } from '@/lib/formatDate'
-import { Tier, TierKey } from '@/models/riotapi'
+import { Tier, TierKey, TierOrder } from '@/models/riotapi'
 
 // prettier-ignore
 const leagueClasses: Readonly<Record<TierKey, string>> = {
@@ -41,7 +41,7 @@ export default async function SummonerDetails({
   )
   const league = leaguesData
     .filter((item) => item.tier)
-    .sort((a, b) => (a.tier < b.tier ? -1 : 1))[0]
+    .sort((a, b) => TierOrder[b.tier] - TierOrder[a.tier])[0]
 
   return (
     <>
