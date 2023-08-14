@@ -35,8 +35,8 @@ export default function MasteryCard({
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [flipped, setFlipped] = useState(false)
-  const [rotateX, setRotateX] = useState(30 * -0.25)
-  const [rotateY, setRotateY] = useState(30 * -0.39)
+  const [rotateX, setRotateX] = useState(30 * -0.20)
+  const [rotateY, setRotateY] = useState(30 * -0.34)
 
   // Rotate card based on mouse position.
   const handlePointerMove = (event: React.PointerEvent) => {
@@ -58,8 +58,8 @@ export default function MasteryCard({
   // Reset card rotation after 1 second of mouse inactivity.
   const handlePointerLeave = () => {
     mouseLeaveDelay = setTimeout(() => {
-      setRotateX(30 * -0.25)
-      setRotateY(30 * -0.39)
+      setRotateX(30 * -0.20)
+      setRotateY(30 * -0.34)
     }, 1000)
   }
 
@@ -226,7 +226,7 @@ export default function MasteryCard({
 
         {/* Back side background */}
         <div
-          className="pointer-events-none absolute h-full w-full overflow-hidden rounded-xl shadow-xl backdrop-blur-md"
+          className="pointer-events-none absolute h-full w-full overflow-hidden rounded-xl shadow-xl backdrop-blur-md backdrop-brightness-75"
           style={{
             transform: `rotateY(180deg)`,
             backfaceVisibility: 'hidden',
@@ -303,16 +303,11 @@ export default function MasteryCard({
             <div
               className={[
                 'flex items-center gap-2 text-left text-lg font-light',
-                mastery.chestGranted ? 'text-yellow-200' : 'text-gray-200',
+                mastery.chestGranted ? 'text-yellow-500' : 'text-amber-100',
               ].join(' ')}
             >
               <ChestIcon className="h-6 w-6" />
-              <span
-                className={[
-                  'text-left text-lg font-light',
-                  mastery.chestGranted ? 'text-yellow-200' : 'text-gray-200',
-                ].join(' ')}
-              >
+              <span className="text-left text-lg font-light">
                 {mastery.chestGranted ? 'Claimed' : 'Available'}
               </span>
             </div>

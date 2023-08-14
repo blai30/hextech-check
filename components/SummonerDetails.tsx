@@ -34,12 +34,14 @@ export default async function SummonerDetails({
   const leaguesData = await getLeagues(region, playerData.id)
   const masteriesData = await getChampionMasteries(region, playerData.id)
   const imageUrl = await getProfileIconUrl(playerData.profileIconId)
+  const date = new Date(playerData.revisionDate)
   const totalMastery = masteriesData.reduce(
     (acc, cur) => acc + cur.championPoints,
     0
   )
-  const date = new Date(playerData.revisionDate)
-  const league = leaguesData.sort((a, b) => a.tier > b.tier ? -1 : 1)[0]
+  const league = leaguesData
+    .filter((item) => item.tier)
+    .sort((a, b) => (a.tier < b.tier ? -1 : 1))[0]
 
   return (
     <>
@@ -66,9 +68,14 @@ export default async function SummonerDetails({
                 <span
                   id={`summoner-rank-${playerData.id}`}
                   title="Summoner rank"
-                  className={[leagueClasses[league?.tier ?? Tier.Unranked], 'items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg'].join(' ')}
+                  className={[
+                    leagueClasses[league?.tier ?? Tier.Unranked],
+                    'items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg',
+                  ].join(' ')}
                 >
-                  {league?.tier ? [league?.tier, league?.rank].join(' ') : Tier.Unranked}
+                  {league?.tier
+                    ? [league?.tier, league?.rank].join(' ')
+                    : Tier.Unranked}
                 </span>
                 <span
                   id={`summoner-level-${playerData.id}`}

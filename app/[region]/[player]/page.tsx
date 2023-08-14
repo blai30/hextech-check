@@ -5,9 +5,26 @@ import {
   SummonerDetails,
 } from '@/components'
 import { Suspense } from 'react'
+import type { Metadata, ResolvingMetadata } from 'next'
+import { getLatestVersion, getSummoner } from '@/lib/endpoints'
 
-export const metadata = {
-  title: 'Player',
+export async function generateMetadata(
+  {
+    params: { region, player },
+  }: {
+    params: { region: string; player: string }
+  },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
+  const version = await getLatestVersion()
+  const playerData = await getSummoner(region, player)
+
+  return {
+    title: playerData.name,
+    openGraph: {
+      images: [`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${playerData.profileIconId}.png`],
+    },
+  }
 }
 
 export default function PlayerPage({
@@ -22,16 +39,6 @@ export default function PlayerPage({
         <Suspense fallback={<LoadingSummoner />}>
           <SummonerDetails region={region} player={player} />
         </Suspense>
-        <div className="flex flex-col items-center md:flex-row md:justify-between">
-          <input
-            id="filter-champion"
-            name="filter-champion"
-            title="Search champion"
-            type="search"
-            placeholder="Find champion..."
-            className="w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-3/12"
-          />
-        </div>
         <Suspense fallback={<div>Loading...</div>}>
           <MasteriesTable region={region} player={player} />
         </Suspense>
