@@ -1,6 +1,7 @@
 import './globals.css'
 import localFont from 'next/font/local'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import { Providers } from '@/app/providers'
 import { Footer, Header } from '@/components/shared'
 
@@ -91,6 +92,7 @@ export default function RootLayout({
             <Footer />
           </main>
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
