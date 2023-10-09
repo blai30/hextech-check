@@ -35,7 +35,7 @@ export default function MasteryCard({
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [flipped, setFlipped] = useState(false)
-  const [rotateX, setRotateX] = useState(30 * -0.20)
+  const [rotateX, setRotateX] = useState(30 * -0.2)
   const [rotateY, setRotateY] = useState(30 * -0.34)
 
   // Rotate card based on mouse position.
@@ -58,7 +58,7 @@ export default function MasteryCard({
   // Reset card rotation after 1 second of mouse inactivity.
   const handlePointerLeave = () => {
     mouseLeaveDelay = setTimeout(() => {
-      setRotateX(30 * -0.20)
+      setRotateX(30 * -0.2)
       setRotateY(30 * -0.34)
     }, 1000)
   }
@@ -71,47 +71,20 @@ export default function MasteryCard({
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   return (
-    <li
+    <Switch
       id={`card-container-${champion.id}`}
-      className="group/card relative"
-      style={{ perspective: '1000px' }}
+      className="group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+      style={{ perspective: '800px' }}
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
+      checked={flipped}
+      onChange={setFlipped}
     >
-      {/* Flip switch */}
-      <Switch
-        className="group/flip absolute flex h-full w-full cursor-default items-end justify-end outline-none"
-        checked={flipped}
-        onChange={setFlipped}
-      >
-        <div
-          className="relative z-10 flex h-24 w-24 items-center justify-center gap-2 rounded-full opacity-0 transition-opacity duration-200 ease-in-out hover:opacity-100 group-focus-visible/flip:opacity-100 group-focus-visible/flip:outline group-focus-visible/flip:outline-2 group-focus-visible/flip:outline-offset-2 group-focus-visible/flip:outline-sky-400"
-          style={{
-            transform: `translateZ(20px)`,
-          }}
-        >
-          <span className="text-lg font-light text-white">Flip</span>
-          <svg
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="h-6 w-6 text-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-            />
-          </svg>
-        </div>
-      </Switch>
-
       {/* Card */}
       <div
         ref={cardRef}
-        className="relative aspect-[3/2] transform-gpu rounded-xl transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out sm:aspect-[3/4]"
+        className="relative aspect-[3/2] transform-gpu rounded-2xl transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out group-focus-visible/card:duration-300 group-focus-visible/card:ease-out sm:aspect-[3/4]"
         style={{
           transform: `rotateX(${rotateX * -1}deg) rotateY(${
             flipped ? 180 + rotateY : rotateY
@@ -120,15 +93,7 @@ export default function MasteryCard({
         }}
       >
         {/* Front side background */}
-        <div
-          className="pointer-events-none absolute top-0 h-full w-full overflow-hidden rounded-xl shadow-xl"
-          style={
-            {
-              // backfaceVisibility: 'hidden',
-              // WebkitBackfaceVisibility: 'hidden',
-            }
-          }
-        >
+        <div className="pointer-events-none absolute top-0 h-full w-full overflow-hidden rounded-2xl shadow-xl">
           <Image
             src={imageUrl}
             alt={`Champion ${champion.name} loading screen image`}
@@ -226,7 +191,7 @@ export default function MasteryCard({
 
         {/* Back side background */}
         <div
-          className="pointer-events-none absolute h-full w-full overflow-hidden rounded-xl shadow-xl backdrop-blur-md backdrop-brightness-75"
+          className="pointer-events-none absolute h-full w-full overflow-hidden rounded-2xl shadow-xl backdrop-blur-md backdrop-brightness-75"
           style={{
             transform: `rotateY(180deg)`,
             backfaceVisibility: 'hidden',
@@ -237,7 +202,7 @@ export default function MasteryCard({
         {/* Back side content */}
         <div
           className={[
-            'pointer-events-auto flex flex-col justify-start gap-4 rounded-xl p-4',
+            'pointer-events-auto flex flex-col justify-start gap-4 rounded-2xl p-4',
             flipped ? 'z-0' : 'z-10',
           ].join(' ')}
           style={{
@@ -314,6 +279,6 @@ export default function MasteryCard({
           </div>
         </div>
       </div>
-    </li>
+    </Switch>
   )
 }
