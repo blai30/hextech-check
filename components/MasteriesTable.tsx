@@ -1,11 +1,10 @@
 import {
-  getSummoner,
   getChampionMasteries,
   getChampions,
   getLatestVersion,
+  getAccount,
 } from '@/lib/endpoints'
 import { MasteryCard } from '@/components'
-import { useState } from 'react'
 
 export default async function MasteriesTable({
   region,
@@ -16,9 +15,9 @@ export default async function MasteriesTable({
 }) {
   // const [query, setQuery] = useState('')
   const version = await getLatestVersion()
-  const playerData = await getSummoner(region, player)
+  const accountData = await getAccount(player)
   const championsData = await getChampions(version)
-  const masteriesData = await getChampionMasteries(region, playerData.id)
+  const masteriesData = await getChampionMasteries(region, accountData.puuid)
 
   return (
     <>

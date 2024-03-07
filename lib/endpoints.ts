@@ -1,4 +1,5 @@
 import {
+  AccountDto,
   ChampionDto,
   ChampionListDto,
   ChampionMasteryDto,
@@ -7,22 +8,22 @@ import {
 } from '@/models/riotapi'
 
 const regionsMap: { [key: string]: string } = {
-  BR: 'br1',
-  EUNE: 'eun1',
-  EUW: 'euw1',
-  JP: 'jp1',
-  KR: 'kr',
-  LAN: 'la1',
-  LAS: 'la2',
-  NA: 'na1',
-  OCE: 'oc1',
-  PH: 'ph2',
-  RU: 'ru',
-  SG: 'sg2',
-  TH: 'th2',
-  TR: 'tr1',
-  TW: 'tw2',
-  VN: 'vn2',
+  br: 'br1',
+  eune: 'eun1',
+  euw: 'euw1',
+  jp: 'jp1',
+  kr: 'kr',
+  lan: 'la1',
+  las: 'la2',
+  na: 'na1',
+  oce: 'oc1',
+  ph: 'ph2',
+  ru: 'ru',
+  sg: 'sg2',
+  th: 'th2',
+  tr: 'tr1',
+  tw: 'tw2',
+  vn: 'vn2',
 }
 
 export async function getChampions(version?: string): Promise<{
@@ -50,15 +51,15 @@ export async function getChampions(version?: string): Promise<{
 
 export async function getChampionMasteries(
   region: string,
-  summonerId: string
+  puuid: string
 ): Promise<ChampionMasteryDto[]> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
-  const regionCode = regionsMap[region]
+  const regionCode = regionsMap[region.toLowerCase()]
   if (!regionCode) throw new Error('Invalid region')
 
   const response = await fetch(
-    `https://${regionCode}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}`,
+    `https://${regionCode}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}`,
     {
       headers: {
         'X-Riot-Token': process.env.RIOT_API_KEY,
@@ -75,7 +76,7 @@ export async function getLeagues(
 ): Promise<LeagueEntryDto[]> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
-  const regionCode = regionsMap[region]
+  const regionCode = regionsMap[region.toLowerCase()]
   if (!regionCode) throw new Error('Invalid region')
 
   const response = await fetch(
@@ -137,15 +138,35 @@ export async function getChampionCardUrl(
 
 export async function getSummoner(
   region: string,
-  summoner: string
+  puuid: string
 ): Promise<SummonerDto> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
-  const regionCode = regionsMap[region]
+  const regionCode = regionsMap[region.toLowerCase()]
   if (!regionCode) throw new Error('Invalid region')
 
   const response = await fetch(
-    `https://${regionCode}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}`,
+    `https://${regionCode}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`,
+    {
+      headers: {
+        'X-Riot-Token': process.env.RIOT_API_KEY,
+      },
+    }
+  )
+
+  return await response.json()
+}
+
+export async function getAccount(
+  summoner: string
+): Promise<AccountDto> {
+  if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
+
+  const [gameName, tagLine] = summoner.split('-')
+  if (!gameName || !tagLine) throw new Error('Invalid summoner name')
+
+  const response = await fetch(
+    `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
     {
       headers: {
         'X-Riot-Token': process.env.RIOT_API_KEY,

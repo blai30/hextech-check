@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import {
+  getAccount,
   getChampionMasteries,
   getLeagues,
   getProfileIconUrl,
@@ -30,9 +31,10 @@ export default async function SummonerDetails({
   region: string
   player: string
 }) {
-  const playerData = await getSummoner(region, player)
+  const accountData = await getAccount(player)
+  const playerData = await getSummoner(region, accountData.puuid)
   const leaguesData = await getLeagues(region, playerData.id)
-  const masteriesData = await getChampionMasteries(region, playerData.id)
+  const masteriesData = await getChampionMasteries(region, accountData.puuid)
   const imageUrl = await getProfileIconUrl(playerData.profileIconId)
   const date = new Date(playerData.revisionDate)
   const totalMastery = masteriesData.reduce(
@@ -58,12 +60,20 @@ export default async function SummonerDetails({
               height={300}
             />
             <div className="flex flex-col items-center space-y-2 md:items-start">
-              <p
-                title="Summoner name"
-                className="max-w-sm break-all text-center text-xl md:text-left lg:text-2xl"
-              >
-                {playerData.name}
-              </p>
+              <div className="flex flex-row">
+                <p
+                  title="Summoner name"
+                  className="max-w-sm break-all text-center text-xl md:text-left lg:text-2xl"
+                >
+                  {accountData.gameName}
+                </p>
+                <p
+                  title="Tagline"
+                  className="max-w-sm break-all text-center text-xl text-gray-500 dark:text-gray-400 md:text-left lg:text-2xl"
+                >
+                  #{accountData.tagLine}
+                </p>
+              </div>
               <div className="flex flex-row">
                 <span
                   id={`summoner-rank-${playerData.id}`}

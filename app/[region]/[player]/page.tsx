@@ -6,7 +6,7 @@ import {
 } from '@/components'
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
-import { getLatestVersion, getSummoner } from '@/lib/endpoints'
+import { getAccount, getLatestVersion, getSummoner } from '@/lib/endpoints'
 
 export async function generateMetadata(
   {
@@ -16,7 +16,8 @@ export async function generateMetadata(
   }
 ): Promise<Metadata> {
   const version = await getLatestVersion()
-  const playerData = await getSummoner(region, player)
+  const accountData = await getAccount(player)
+  const playerData = await getSummoner(region, accountData.puuid)
 
   return {
     title: playerData.name,
