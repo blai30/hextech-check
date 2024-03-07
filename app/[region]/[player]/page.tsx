@@ -20,7 +20,7 @@ export async function generateMetadata(
   const playerData = await getSummoner(region, accountData.puuid)
 
   return {
-    title: playerData.name,
+    title: `${accountData.gameName}#${accountData.tagLine}`,
     openGraph: {
       images: [`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${playerData.profileIconId}.png`],
     },

@@ -68,7 +68,7 @@ export default async function SummonerDetails({
                   {accountData.gameName}
                 </p>
                 <p
-                  title="Tagline"
+                  title="Tag Line"
                   className="max-w-sm break-all text-center text-xl text-gray-500 dark:text-gray-400 md:text-left lg:text-2xl"
                 >
                   #{accountData.tagLine}
