@@ -1,46 +1,8 @@
 import './globals.css'
-import localFont from 'next/font/local'
-import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Providers } from '@/app/providers'
 import { Footer, Header } from '@/components/shared'
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-})
-
-const beaufortforlol = localFont({
-  src: [
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Bold.ttf', weight: '700', style: 'normal' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-BoldItalic.ttf', weight: '700', style: 'italic' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Heavy.ttf', weight: '800', style: 'normal' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-HeavyItalic.ttf', weight: '800', style: 'italic' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Italic.ttf', weight: '400', style: 'italic' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Light.ttf', weight: '100', style: 'normal' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-LightItalic.ttf', weight: '100', style: 'italic' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Medium.ttf', weight: '500', style: 'normal' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-MediumItalic.ttf', weight: '500', style: 'italic' },
-    { path: '../public/fonts/BeaufortForLoL-TTF/BeaufortforLOL-Regular.ttf', weight: '400', style: 'normal' },
-  ],
-  display: 'swap',
-  variable: '--font-beaufortforlol',
-})
-
-const spiegel = localFont({
-  src: [
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Bold_Italic.ttf', weight: '700', style: 'italic' },
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Bold.ttf', weight: '700', style: 'normal' },
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_SemiBold_Italic.ttf', weight: '600', style: 'italic' },
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_SemiBold.ttf', weight: '600', style: 'normal' },
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Regular_Italic.ttf', weight: '400', style: 'italic' },
-    { path: '../public/fonts/Spiegel-TTF/Spiegel_TT_Regular.ttf', weight: '400', style: 'normal' },
-  ],
-  display: 'swap',
-  variable: '--font-spiegel',
-})
 
 /* prettier-ignore */
 export const metadata = {
@@ -77,10 +39,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={[inter.variable, beaufortforlol.variable, spiegel.variable].join(' ')}>
+    <html lang="en">
       <body
         className={[
-          // inter.className,
           'font-sans bg-gray-100 subpixel-antialiased transition-colors dark:bg-gray-950',
         ].join(' ')}
       >
