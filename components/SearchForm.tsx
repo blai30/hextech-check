@@ -5,23 +5,23 @@ import { useParams, useRouter } from 'next/navigation'
 import { Listbox, Transition } from '@headlessui/react'
 
 const regions: Readonly<Record<string, string>> = {
-  NA: 'North America',
-  EUW: 'Europe West',
-  EUNE: 'Europe Nordic & East',
-  KR: 'Korea',
-  BR: 'Brazil',
-  JP: 'Japan',
-  RU: 'Russia',
-  OCE: 'Oceania',
-  TR: 'Turkey',
-  LAN: 'Latin America North',
-  LAS: 'Latin America South',
+  na: 'North America',
+  euw: 'Europe West',
+  eune: 'Europe Nordic & East',
+  kr: 'Korea',
+  br: 'Brazil',
+  jp: 'Japan',
+  ru: 'Russia',
+  oce: 'Oceania',
+  tr: 'Turkey',
+  lan: 'Latin America North',
+  las: 'Latin America South',
 }
 
 const SearchForm = () => {
   const router = useRouter()
   const params = useParams() as Record<string, string>
-  const [player, setPlayer] = useState<string>(params['player'] ?? '')
+  const [player, setPlayer] = useState<string>('')
   const [region, setRegion] = useState<string>(params['region'] ?? 'NA')
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,8 @@ const SearchForm = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    router.push(`/${region}/${player}`)
+    const route = `/${region}/${player.replace('#', '-')}`.toLowerCase()
+    router.push(route)
   }
 
   return (
@@ -47,7 +48,7 @@ const SearchForm = () => {
                   className="w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
                   <span className="flex items-center">
-                    <span className="hidden md:block">{region}</span>
+                    <span className="hidden uppercase md:block">{region}</span>
                     <span className="block md:hidden">{regions[region]}</span>
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -91,7 +92,7 @@ const SearchForm = () => {
                         {({ selected, active }) => (
                           <>
                             <div className="flex items-center">
-                              <span className="w-12 text-right font-bold">
+                              <span className="w-12 text-right font-bold uppercase">
                                 {region}
                               </span>
                               <span

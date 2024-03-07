@@ -46,6 +46,12 @@ export interface LeagueEntryDto {
   hotStreak: boolean
 }
 
+export interface AccountDto {
+  puuid: string
+  gameName: string
+  tagLine: string
+}
+
 export interface SummonerDto {
   id: string
   accountId: string
