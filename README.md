@@ -1,4 +1,4 @@
-Demo: https://hextech.cards/
+Demo: https://hextech-check.vercel.app/
 
 ![screenshot](https://github.com/blai30/hextech-check/blob/main/resources/hextech.png?raw=true)
 
