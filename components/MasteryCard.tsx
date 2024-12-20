@@ -91,8 +91,8 @@ export default function MasteryCard({
   const iconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion.id}.png`
   const imageUrl =
     champion.id === 'Fiddlesticks'
-      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/FiddleSticks_0.jpg'
-      : `https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${champion.id}_0.jpg`
+      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
+      : `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${champion.id}_0.jpg`
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   return (
@@ -127,8 +127,7 @@ export default function MasteryCard({
               src={imageUrl}
               alt={`Champion ${champion.name} loading screen image`}
               fill
-              sizes="(max-width: 768px) 15vw, (max-width: 1200px) 15vw, 15vw"
-              quality={25}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
