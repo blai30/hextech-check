@@ -127,9 +127,11 @@ export default function MasteryCard({
               src={imageUrl}
               alt={`Champion ${champion.name} loading screen image`}
               fill
-              sizes="(max-width: 768px) 75vw, (max-width: 1200px) 40vw, 25vw"
-              quality={50}
+              sizes="(max-width: 768px) 15vw, (max-width: 1200px) 15vw, 15vw"
+              quality={25}
               loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
               className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
               style={{
                 transform: `translateX(${

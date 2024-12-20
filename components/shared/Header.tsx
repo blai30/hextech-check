@@ -26,8 +26,8 @@ const Header = () => {
 
   return (
     <nav className="container mx-auto w-full">
-      <div className="flex flex-row flex-wrap items-center justify-between gap-6">
-        <div className="flex w-24 items-center justify-start gap-4">
+      <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex items-center justify-start gap-4">
           <Link
             href="/"
             id="home-link"
@@ -51,9 +51,10 @@ const Header = () => {
         </div>
         <button
           title="Copy URL to clipboard"
+          type="button"
           onClick={copyToClipboard}
           className={[
-            'group order-last w-full items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none 2xs:w-32 xs:w-56 sm:w-80 md:w-96 lg:py-0',
+            'group order-last items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none lg:py-0',
             pathname === '/' ? 'hidden' : 'flex',
           ].join(' ')}
         >
@@ -97,7 +98,7 @@ const Header = () => {
             </span>
           </div>
         </button>
-        <div className="flex w-24 items-center justify-end">
+        <div className="flex items-center justify-end">
           <DarkToggle />
         </div>
       </div>
