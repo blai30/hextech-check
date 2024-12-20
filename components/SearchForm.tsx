@@ -22,6 +22,12 @@ const regions: Readonly<Record<string, string>> = {
   tr: 'Turkey',
   lan: 'Latin America North',
   las: 'Latin America South',
+  ph: 'Philippines',
+  sg: 'Singapore',
+  th: 'Thailand',
+  tw: 'Taiwan',
+  vn: 'Vietnam',
+  me: 'Middle East',
 }
 
 const SearchForm = () => {

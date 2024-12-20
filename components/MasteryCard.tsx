@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 import { ChestIcon, ClassIcon } from '@/components/common'
@@ -43,25 +43,9 @@ export default function MasteryCard({
   className?: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
   const [flipped, setFlipped] = useState(false)
   const [rotateX, setRotateX] = useState(30 * -0.2)
   const [rotateY, setRotateY] = useState(30 * -0.34)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting)
-      },
-      { threshold: 0.1 }
-    )
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   // Rotate card based on mouse position.
   const handlePointerMove = (event: React.PointerEvent) => {
@@ -122,25 +106,22 @@ export default function MasteryCard({
       >
         {/* Front side background */}
         <div className="pointer-events-none absolute top-0 h-full w-full overflow-hidden rounded-2xl shadow-xl">
-          {isVisible && (
-            <Image
-              src={imageUrl}
-              alt={`Champion ${champion.name} loading screen image`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
-              className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
-              style={{
-                transform: `translateX(${
-                  rotateY * 0.8 * (flipped ? 1 : -1)
-                }px) translateY(${rotateX * 0.8 * -1}px)
-              translateZ(${flipped ? 10 : -10}px)`,
-                scale: 1.2,
-              }}
-            />
-          )}
+          <Image
+            src={imageUrl}
+            alt={`Champion ${champion.name} loading screen image`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
+            className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
+            style={{
+              transform: `translateX(${
+                rotateY * 0.8 * (flipped ? 1 : -1)
+              }px) translateY(${rotateX * 0.8 * -1}px)
+            translateZ(${flipped ? 10 : -10}px)`,
+              scale: 1.2,
+            }}
+          />
           <div className="absolute inset-0 -z-10 scale-110 bg-gradient-to-t from-gray-900 via-gray-900/40" />
         </div>
         <div

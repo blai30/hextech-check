@@ -54,21 +54,14 @@ export default function PaginatedMasteryList({
       </ul>
 
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-gray-700 dark:text-gray-300">
-          Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-          <span className="font-medium">
-            {Math.min(endIndex, masteriesData.length)}
-          </span>{' '}
-          of <span className="font-medium">{masteriesData.length}</span> results
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          {`Showing ${startIndex + 1} to ${Math.min(endIndex, masteriesData.length)} of ${masteriesData.length} results`}
         </p>
-        <nav
-          className="inline-flex -space-x-px rounded-md shadow-sm"
-          aria-label="Pagination"
-        >
+        <nav className="flex flex-row gap-1" aria-label="Pagination">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="relative inline-flex items-center rounded-l-md bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800"
           >
             <svg
               fill="none"
@@ -91,10 +84,10 @@ export default function PaginatedMasteryList({
                 typeof pageNum === 'number' && setCurrentPage(pageNum)
               }
               disabled={pageNum === '...'}
-              className={`relative inline-flex items-center px-4 py-2 text-sm font-medium ${
+              className={`flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium ${
                 pageNum === currentPage
-                  ? 'z-10 bg-yellow-500 text-white dark:bg-yellow-700'
-                  : 'bg-white text-gray-500 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800'
+                  ? 'bg-yellow-500 text-white dark:bg-yellow-700'
+                  : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
               }`}
             >
               {pageNum}
@@ -105,7 +98,7 @@ export default function PaginatedMasteryList({
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className="relative inline-flex items-center rounded-r-md bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800"
           >
             <svg
               fill="none"
