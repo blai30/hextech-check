@@ -5,8 +5,7 @@ import {
   getLatestVersion,
   getAccount,
 } from '@/lib/endpoints'
-import { MasteryCard } from '@/components'
-import InfiniteMasteryList from './InfiniteMasteryList'
+import PaginatedMasteryList from '@/components/PaginatedMasteryList'
 
 export default async function MasteriesTable({
   region,
@@ -36,7 +35,7 @@ export default async function MasteriesTable({
         />
       </form> */}
       <Suspense fallback={<div>Loading...</div>}>
-        <InfiniteMasteryList 
+        <PaginatedMasteryList 
           masteriesData={masteriesData}
           championsData={championsData}
           version={version}

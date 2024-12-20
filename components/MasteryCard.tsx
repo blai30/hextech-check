@@ -91,8 +91,8 @@ export default function MasteryCard({
   const iconUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champion.id}.png`
   const imageUrl =
     champion.id === 'Fiddlesticks'
-      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/FiddleSticks_0.jpg'
-      : `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${champion.id}_0.jpg`
+      ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/FiddleSticks_0.jpg'
+      : `https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${champion.id}_0.jpg`
   const lastPlayed = new Date(mastery.lastPlayTime)
 
   return (
