@@ -5,7 +5,7 @@ import {
   getLatestVersion,
   getAccount,
 } from '@/lib/endpoints'
-import PaginatedMasteryList from '@/components/PaginatedMasteryList'
+import PaginatedMasteries from '@/components/PaginatedMasteries'
 
 export default async function MasteriesTable({
   region,
@@ -35,7 +35,7 @@ export default async function MasteriesTable({
         />
       </form> */}
       <Suspense fallback={<div>Loading...</div>}>
-        <PaginatedMasteryList 
+        <PaginatedMasteries
           masteriesData={masteriesData}
           championsData={championsData}
           version={version}
