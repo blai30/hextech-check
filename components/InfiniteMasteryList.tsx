@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { MasteryCard } from '@/components'
+import { ChampionDto, ChampionMasteryDto } from '@/models/riotapi'
 
 const ITEMS_PER_PAGE = 20
 
@@ -9,12 +10,16 @@ export default function InfiniteMasteryList({
   masteriesData,
   championsData,
   version,
+}: {
+  masteriesData: ChampionMasteryDto[]
+  championsData: { [key: string]: ChampionDto }
+  version: string
 }) {
   const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE)
-  const observerRef = useRef(null)
+  const observerRef = useRef<IntersectionObserver>(null)
 
   const lastElementRef = useCallback(
-    (node) => {
+    (node: HTMLLIElement) => {
       if (observerRef.current) observerRef.current.disconnect()
 
       observerRef.current = new IntersectionObserver((entries) => {
