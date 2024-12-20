@@ -8,9 +8,11 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { getAccount, getLatestVersion, getSummoner } from '@/lib/endpoints'
 
-type Params = Promise<{ region: string; player: string }>
-
-export async function generateMetadata(params: Params): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string; player: string }>
+}): Promise<Metadata> {
   const { region, player } = await params
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
@@ -26,7 +28,11 @@ export async function generateMetadata(params: Params): Promise<Metadata> {
   }
 }
 
-export default async function PlayerPage(params: Params) {
+export default async function PlayerPage({
+  params,
+}: {
+  params: Promise<{ region: string; player: string }>
+}) {
   const { region, player } = await params
 
   return (
