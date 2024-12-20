@@ -39,12 +39,12 @@ export default function InfiniteMasteryList({
         <li
           key={mastery.championId}
           ref={index === visibleItems - 1 ? lastElementRef : null}
-          className="h-full w-full"
         >
           <MasteryCard
             champion={championsData[mastery.championId]}
             mastery={mastery}
             version={version}
+            className="h-full w-full"
           />
         </li>
       ))}

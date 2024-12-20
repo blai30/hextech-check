@@ -35,10 +35,12 @@ export default function MasteryCard({
   champion,
   mastery,
   version,
+  className,
 }: {
   champion: ChampionDto
   mastery: ChampionMasteryDto
   version: string
+  className?: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [flipped, setFlipped] = useState(false)
@@ -80,7 +82,10 @@ export default function MasteryCard({
   return (
     <Switch
       id={`card-container-${champion.id}`}
-      className="group/card relative h-full w-full cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+      className={[
+        'group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
+        className,
+      ].join(' ')}
       style={{ perspective: '800px' }}
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
