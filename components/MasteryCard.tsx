@@ -19,10 +19,17 @@ const tagClasses: Readonly<Record<Tag, string>> = {
 
 // prettier-ignore
 const masteryClasses = (masteryLevel: number) => ({
-  [5]: 'text-rose-300',
-  [6]: 'text-fuchsia-300',
-  [7]: 'text-emerald-300',
-})[masteryLevel] ?? 'text-gray-300'
+  [1]: 'text-gray-300',
+  [2]: 'text-gray-300',
+  [3]: 'text-gray-300',
+  [4]: 'text-gray-300',
+  [5]: 'text-zinc-300',
+  [6]: 'text-green-300',
+  [7]: 'text-blue-300',
+  [8]: 'text-purple-300',
+  [9]: 'text-orange-300',
+  [10]: 'text-red-300',
+})[masteryLevel] ?? 'text-red-300'
 
 export default function MasteryCard({
   champion,
@@ -73,7 +80,7 @@ export default function MasteryCard({
   return (
     <Switch
       id={`card-container-${champion.id}`}
-      className="group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+      className="group/card relative h-full w-full cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
       style={{ perspective: '800px' }}
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
@@ -99,8 +106,6 @@ export default function MasteryCard({
             alt={`Champion ${champion.name} loading screen image`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            placeholder="empty"
-            loading="lazy"
             className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
             style={{
               transform: `translateX(${
@@ -171,12 +176,12 @@ export default function MasteryCard({
                   title="Mastery level"
                   className={[
                     masteryClasses(mastery.championLevel),
-                    'w-4 text-left text-lg font-normal transition',
+                    'text-left text-lg font-normal transition',
                   ].join(' ')}
                 >
                   {mastery.championLevel}
                 </span>
-                <span className="w-2.5 text-left text-lg font-thin text-white transition">
+                <span className="w-2.5 text-center text-lg font-thin text-white transition">
                   |
                 </span>
                 <span
