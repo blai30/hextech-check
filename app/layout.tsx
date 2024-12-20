@@ -1,37 +1,52 @@
 import './globals.css'
+import { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Providers } from '@/app/providers'
 import { Footer, Header } from '@/components/shared'
 
 /* prettier-ignore */
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     template: '%s | Hextech Check',
     default: 'Hextech Check',
   },
+
   description: 'View champion masteries and claimed hextech chests for your League of Legends summoner.',
   generator: 'Next.js',
   applicationName: 'Next.js',
   referrer: 'origin-when-cross-origin',
   keywords: ['League of Legends', 'Hextech Chest', 'Mastery', 'Champion', 'Summoner', 'Riot Games API', 'Open Source', 'React', 'NextJS', 'Tailwind', 'HTML', 'CSS', 'JavaScript', 'TypeScript', 'PWA', 'C#', '.NET', 'Docker', 'Cloud', 'Node', 'GitHub', 'Full', 'Stack', 'Front', 'Back', 'End'],
   authors: [{ name: 'Brian Lai', url: 'https://github.com/blai30/' }],
-  colorScheme: 'dark',
   creator: 'blai30',
   publisher: 'blai30',
+
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
+
   metadataBase: new URL('https://hextech-check.vercel.app/'),
+
   alternates: {
     canonical: '/',
   },
+
   openGraph: {
     images: '/favicon.png',
-  },
+  }
 }
+
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+}
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function RootLayout({
   children,
@@ -39,10 +54,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={[
-          'font-sans bg-gray-100 subpixel-antialiased transition-colors dark:bg-gray-950',
+          'bg-gray-100 font-sans subpixel-antialiased transition-colors dark:bg-gray-950',
+          inter.className,
         ].join(' ')}
       >
         <Providers>

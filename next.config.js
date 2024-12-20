@@ -2,9 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'ddragon.leagueoflegends.com',
-      'i.imgur.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ddragon.leagueoflegends.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
     ],
   },
 }

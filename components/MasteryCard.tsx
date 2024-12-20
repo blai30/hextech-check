@@ -99,6 +99,8 @@ export default function MasteryCard({
             alt={`Champion ${champion.name} loading screen image`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            placeholder="empty"
+            loading="lazy"
             className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
             style={{
               transform: `translateX(${
@@ -138,7 +140,7 @@ export default function MasteryCard({
           <div className="flex flex-col gap-2 px-8 py-7 md:p-6">
             <div className="flex gap-2">
               {champion.tags.map((tag) => (
-                <button
+                <div
                   key={tag}
                   id={`${champion.id}-tag-${tag}`}
                   className={[
@@ -146,7 +148,7 @@ export default function MasteryCard({
                     tagClasses[tag],
                   ].join(' ')}
                 >
-                  <div className="absolute -top-14 left-0 hidden whitespace-nowrap rounded bg-gray-900 px-4 py-2 font-body text-base font-medium text-white shadow-xl group-hover/tag:block group-focus/tag:block print:hidden print:group-hover/tag:hidden print:group-focus/tag:hidden">
+                  <div className="font-body absolute -top-14 left-0 hidden whitespace-nowrap rounded bg-gray-900 px-4 py-2 text-base font-medium text-white shadow-xl group-hover/tag:block group-focus/tag:block print:hidden print:group-hover/tag:hidden print:group-focus/tag:hidden">
                     <div className="flex flex-col items-center gap-y-1">
                       <p id={`${champion.id}-tag-${Tag[tag]}-tooltip`}>
                         {Tag[tag]}
@@ -154,7 +156,7 @@ export default function MasteryCard({
                     </div>
                   </div>
                   <ClassIcon className="h-6 w-6" tag={tag} />
-                </button>
+                </div>
               ))}
             </div>
             <p className="text-left text-2xl font-extralight text-white subpixel-antialiased 2xs:text-3xl xs:text-3xl sm:text-2xl md:text-2xl">

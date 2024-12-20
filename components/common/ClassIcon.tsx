@@ -1,6 +1,6 @@
 'use client'
 
-import { SVGProps } from 'react'
+import { JSX, SVGProps } from 'react'
 
 const icon = (
   tag: string,

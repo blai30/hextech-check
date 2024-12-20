@@ -8,13 +8,12 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { getAccount, getLatestVersion, getSummoner } from '@/lib/endpoints'
 
-export async function generateMetadata(
-  {
-    params: { region, player },
-  }: {
-    params: { region: string; player: string }
-  }
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string; player: string }
+}): Promise<Metadata> {
+  const { region, player } = await params
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
   const playerData = await getSummoner(region, accountData.puuid)
@@ -22,16 +21,20 @@ export async function generateMetadata(
   return {
     title: `${accountData.gameName}#${accountData.tagLine}`,
     openGraph: {
-      images: [`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${playerData.profileIconId}.png`],
+      images: [
+        `http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${playerData.profileIconId}.png`,
+      ],
     },
   }
 }
 
-export default function PlayerPage({
-  params: { region, player },
+export default async function PlayerPage({
+  params,
 }: {
   params: { region: string; player: string }
 }) {
+  const { region, player } = await params
+
   return (
     <div className="container mx-auto">
       <div className="flex flex-col gap-6">

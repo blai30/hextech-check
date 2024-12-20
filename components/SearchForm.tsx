@@ -1,8 +1,14 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Listbox, Transition } from '@headlessui/react'
+import {
+  Label,
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from '@headlessui/react'
 
 const regions: Readonly<Record<string, string>> = {
   na: 'North America',
@@ -22,7 +28,7 @@ const SearchForm = () => {
   const router = useRouter()
   const params = useParams() as Record<string, string>
   const [player, setPlayer] = useState<string>('')
-  const [region, setRegion] = useState<string>(params['region'] ?? 'NA')
+  const [region, setRegion] = useState<string>(params['region'] ?? 'na')
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayer(event.target.value)
@@ -38,20 +44,55 @@ const SearchForm = () => {
     <form onSubmit={handleSubmit} className="w-full">
       <div className="flex w-full flex-col items-center gap-2 md:flex-row">
         <Listbox name="region" value={region} onChange={setRegion}>
-          {({ open }) => (
-            <>
-              <Listbox.Label className="sr-only">Select region</Listbox.Label>
-              <div className="relative w-full md:w-36">
-                <Listbox.Button
-                  id="region-select"
-                  title="Select region"
-                  className="w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          <Label className="sr-only">Select region</Label>
+          <div className="relative w-full md:w-36">
+            <ListboxButton
+              id="region-select"
+              title="Select region"
+              className="w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span className="flex items-center">
+                <span className="hidden uppercase md:block">{region}</span>
+                <span className="block md:hidden">{regions[region]}</span>
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <span className="flex items-center">
-                    <span className="hidden uppercase md:block">{region}</span>
-                    <span className="block md:hidden">{regions[region]}</span>
-                  </span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                  />
+                </svg>
+              </span>
+            </ListboxButton>
+
+            <ListboxOptions
+              transition
+              className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72"
+            >
+              {Object.keys(regions).map((region, index) => (
+                <ListboxOption
+                  key={index}
+                  id={`region-${index}`}
+                  className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-[active]:bg-yellow-600 data-[active]:text-white dark:text-gray-100 data-[active]:dark:bg-yellow-400 data-[active]:dark:text-black"
+                  value={region}
+                >
+                  <div className="flex items-center">
+                    <span className="w-12 text-right font-bold uppercase">
+                      {region}
+                    </span>
+                    <span className="ml-4 block font-normal group-data-[selected]:font-semibold">
+                      {regions[region]}
+                    </span>
+                  </div>
+
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-black dark:text-yellow-300">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -62,80 +103,14 @@ const SearchForm = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                        d="M5 13l4 4L19 7"
                       />
                     </svg>
                   </span>
-                </Listbox.Button>
-
-                <Transition
-                  show={open}
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
-                >
-                  <Listbox.Options className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72">
-                    {Object.keys(regions).map((region, index) => (
-                      <Listbox.Option
-                        key={index}
-                        id={`region-${index}`}
-                        className={({ active }) =>
-                          `${
-                            active
-                              ? 'bg-yellow-600 text-white dark:bg-yellow-400 dark:text-black'
-                              : 'text-gray-900 dark:text-gray-100'
-                          } relative cursor-default select-none py-2 pl-2 pr-8 transition-colors duration-75 ease-in-out`
-                        }
-                        value={region}
-                      >
-                        {({ selected, active }) => (
-                          <>
-                            <div className="flex items-center">
-                              <span className="w-12 text-right font-bold uppercase">
-                                {region}
-                              </span>
-                              <span
-                                className={`${
-                                  selected ? 'font-semibold' : 'font-normal'
-                                } ml-4 block`}
-                              >
-                                {regions[region]}
-                              </span>
-                            </div>
-
-                            {selected && (
-                              <span
-                                className={`${
-                                  active
-                                    ? 'text-white'
-                                    : 'text-yellow-600 dark:text-yellow-300'
-                                } absolute inset-y-0 right-0 flex items-center pr-2 transition-colors`}
-                              >
-                                <svg
-                                  className="h-6 w-6"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </>
-          )}
+                </ListboxOption>
+              ))}
+            </ListboxOptions>
+          </div>
         </Listbox>
 
         <input
