@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     template: '%s | Hextech Check',
     default: 'Hextech Check',
   },
-
   description: 'View champion masteries for your League of Legends account.',
   generator: 'Next.js',
   applicationName: 'Next.js',
@@ -21,31 +20,26 @@ export const metadata: Metadata = {
   authors: [{ name: 'Brian Lai', url: 'https://github.com/blai30/' }],
   creator: 'blai30',
   publisher: 'blai30',
-
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-
   metadataBase: new URL('https://hextech-check.vercel.app/'),
-
   alternates: {
     canonical: '/',
   },
-
   openGraph: {
     images: '/favicon.png',
   },
-
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
   },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: 'black',
+  themeColor: '#fbbf24',
 }
 
 const inter = Inter({
