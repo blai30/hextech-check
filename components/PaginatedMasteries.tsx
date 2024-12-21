@@ -1,12 +1,35 @@
 'use client'
 
-import { useState } from 'react'
-import { Switch } from '@headlessui/react'
+import { useMemo, useState } from 'react'
+import {
+  Label,
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Switch,
+} from '@headlessui/react'
 import { MasteryCard } from '@/components'
 import { ChestIcon, ClassIcon, Pagination } from '@/components/common'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 
 const ITEMS_PER_PAGE = 24
+
+enum SortingOption {
+  Name = 'Name',
+  Points = 'Points',
+  Level = 'Level',
+  LastPlayed = 'Last Played',
+  Chest = 'Chest',
+}
+
+const sortingOptions: SortingOption[] = [
+  SortingOption.Name,
+  SortingOption.Points,
+  SortingOption.Level,
+  SortingOption.LastPlayed,
+  SortingOption.Chest,
+]
 
 const tags: Tag[] = [
   Tag.Fighter,
@@ -16,6 +39,22 @@ const tags: Tag[] = [
   Tag.Support,
   Tag.Marksman,
 ]
+
+// prettier-ignore
+const sortByCompare = (
+  sortBy: SortingOption,
+  ascending: Boolean,
+  champions: { [key: string]: ChampionDto },
+) => (
+  a: ChampionMasteryDto,
+  b: ChampionMasteryDto
+) => ({
+  [SortingOption.Name]: champions[a.championId].name.localeCompare(champions[b.championId].name),
+  [SortingOption.Points]: a.championPoints - b.championPoints,
+  [SortingOption.Level]: a.championLevel - b.championLevel,
+  [SortingOption.LastPlayed]: a.lastPlayTime - b.lastPlayTime,
+  [SortingOption.Chest]: Number(a.chestGranted) - Number(b.chestGranted),
+})[sortBy] * (ascending ? 1 : -1)
 
 // prettier-ignore
 const tagClasses: Readonly<Record<Tag, string>> = {
@@ -37,23 +76,34 @@ export default function PaginatedMasteries({
   version: string
 }) {
   const [currentPage, setCurrentPage] = useState(1)
+  const [query, setQuery] = useState('')
+  const [sortBy, setSortBy] = useState<SortingOption>(SortingOption.Points)
+  const [ascending, setAscending] = useState(false)
   const [filterTags, setFilterTags] = useState<Tag[]>([])
   const [filterChest, setFilterChest] = useState<boolean>(false)
 
-  // Filter masteries by tags and chest available status
-  masteriesData = masteriesData.filter((mastery) => {
-    const champion = championsData[mastery.championId]
-    const hasTag =
-      filterTags.length === 0 ||
-      filterTags.every((tag) => champion.tags.includes(tag))
-    const hasChest = !filterChest || !mastery.chestGranted
-    return hasTag && hasChest
-  })
+  // Filter and sort masteries based on the query, tags, and chest filter.
+  const filteredMasteries = useMemo(() => {
+    return masteriesData
+      .filter((mastery) => {
+        const champion = championsData[mastery.championId]
+        const matchedQuery = query
+          ? champion.name.toLowerCase().includes(query.toLowerCase())
+          : true
+        const hasTag =
+          filterTags.length === 0 ||
+          filterTags.every((tag) => champion.tags.includes(tag))
+        const hasChest = !filterChest || !mastery.chestGranted
+        return matchedQuery && hasTag && hasChest
+      })
+      .sort(sortByCompare(sortBy, ascending, championsData))
+  }, [masteriesData, filterTags, filterChest, query, sortBy, ascending])
 
-  const totalPages = Math.ceil(masteriesData.length / ITEMS_PER_PAGE)
+  // Paginate the filtered masteries.
+  const totalPages = Math.ceil(filteredMasteries.length / ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
-  const currentMasteries = masteriesData.slice(startIndex, endIndex)
+  const currentMasteries = filteredMasteries.slice(startIndex, endIndex)
 
   const toggleFilterTag = (tag: Tag) => {
     setCurrentPage(1)
@@ -67,14 +117,19 @@ export default function PaginatedMasteries({
   return (
     <div className="flex flex-col gap-8">
       <div className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
+        {/* Search by name query */}
         <input
           id="search-champion-name"
           type="search"
           name="Search champion name"
           aria-label="Search champion name"
           placeholder="Search champion"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
         />
+
+        {/* Filter by tags and chest */}
         <div className="grid grid-cols-4 items-center justify-center gap-2 2xs:grid-cols-7">
           {tags.map((tagName) => (
             <Switch
@@ -110,15 +165,122 @@ export default function PaginatedMasteries({
             <ChestIcon className="h-8 w-8" />
           </Switch>
         </div>
-        <button className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"></button>
+
+        {/* Sorting options */}
+        <div className="flex w-full flex-row items-center justify-center gap-2 md:w-48 lg:w-72">
+          <Listbox name="sorting" value={sortBy} onChange={setSortBy}>
+            <Label className="sr-only">Sort masteries</Label>
+            <div className="relative w-full">
+              <ListboxButton
+                id="sort-masteries-dropdown"
+                title="Sort masteries dropdown"
+                className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+              >
+                <span className="flex items-center">{sortBy}</span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                    />
+                  </svg>
+                </span>
+              </ListboxButton>
+              <ListboxOptions
+                transition
+                className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72"
+              >
+                {sortingOptions.map((option, index) => (
+                  <ListboxOption
+                    key={index}
+                    id={`sort-option-${index}`}
+                    className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-[active]:bg-yellow-600 data-[active]:text-white dark:text-gray-100 data-[active]:dark:bg-yellow-400 data-[active]:dark:text-black"
+                    value={option}
+                  >
+                    <span className="flex items-center font-normal group-data-[selected]:font-semibold">
+                      {option}
+                    </span>
+
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-black dark:text-yellow-300">
+                      <svg
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </span>
+                  </ListboxOption>
+                ))}
+              </ListboxOptions>
+            </div>
+          </Listbox>
+
+          {/* Sorting direction control */}
+          <button
+            id="sort-direction"
+            type="button"
+            title="Sorting direction button"
+            name="Sorting direction button"
+            onClick={() => setAscending(!ascending)}
+            className="flex h-10 cursor-default items-center justify-center rounded-md bg-gray-200 px-2 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          >
+            {ascending ? (
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12"
+                />
+              </svg>
+            ) : (
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
+
+      {/* Top pagination controls */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        totalItems={masteriesData.length}
+        totalItems={filteredMasteries.length}
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={setCurrentPage}
       />
+
+      {/* Table of champion mastery cards */}
       <ul className="grid grid-cols-1 justify-between gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {currentMasteries.map((mastery) => (
           <li key={mastery.championId}>
@@ -131,10 +293,12 @@ export default function PaginatedMasteries({
           </li>
         ))}
       </ul>
+
+      {/* Bottom pagination controls */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        totalItems={masteriesData.length}
+        totalItems={filteredMasteries.length}
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={setCurrentPage}
       />

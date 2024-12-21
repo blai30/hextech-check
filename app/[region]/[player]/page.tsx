@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import {
   LoadingSummoner,
-  MasteriesTable,
+  PaginatedMasteries,
   SearchForm,
   SummonerDetails,
 } from '@/components'
@@ -60,6 +60,10 @@ export default async function PlayerPage({
   params: Promise<{ region: string; player: string }>
 }) {
   const { region, player } = await params
+  const version = await getLatestVersion()
+  const accountData = await getAccount(player)
+  const championsData = await getChampions(version)
+  const masteriesData = await getChampionMasteries(region, accountData.puuid)
 
   return (
     <div className="container mx-auto">
@@ -69,7 +73,11 @@ export default async function PlayerPage({
           <SummonerDetails region={region} player={player} />
         </Suspense>
         <Suspense fallback={<div>Loading...</div>}>
-          <MasteriesTable region={region} player={player} />
+          <PaginatedMasteries
+            masteriesData={masteriesData}
+            championsData={championsData}
+            version={version}
+          />
         </Suspense>
       </div>
     </div>
