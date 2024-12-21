@@ -41,6 +41,16 @@ export default function PaginatedMasteries({
   const [filterChest, setFilterChest] = useState<boolean>(false)
   const totalPages = Math.ceil(masteriesData.length / ITEMS_PER_PAGE)
 
+  // Filter masteries by tags and chest available status
+  masteriesData = masteriesData.filter((mastery) => {
+    const champion = championsData[mastery.championId]
+    const hasTag =
+      filterTags.length === 0 ||
+      filterTags.every((tag) => champion.tags.includes(tag))
+    const hasChest = !filterChest || !mastery.chestGranted
+    return hasTag && hasChest
+  })
+
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
   const currentMasteries = masteriesData.slice(startIndex, endIndex)
@@ -64,7 +74,7 @@ export default function PaginatedMasteries({
           placeholder="Search champion"
           className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
         />
-        <div className="grid grid-cols-4 2xs:grid-cols-7 items-center justify-center gap-2">
+        <div className="grid grid-cols-4 items-center justify-center gap-2 2xs:grid-cols-7">
           {tags.map((tagName) => (
             <Switch
               key={tagName}
