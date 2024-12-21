@@ -2,6 +2,11 @@
   "name": "hextech-check",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blai30/hextech-check"
+  },
+  "homepage": "https://hextech-check.vercel.app",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",

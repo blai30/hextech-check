@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: 'Hextech Check',
   },
 
-  description: 'View champion masteries and claimed hextech chests for your League of Legends summoner.',
+  description: 'View champion masteries for your League of Legends account.',
   generator: 'Next.js',
   applicationName: 'Next.js',
   referrer: 'origin-when-cross-origin',
@@ -36,11 +36,16 @@ export const metadata: Metadata = {
 
   openGraph: {
     images: '/favicon.png',
-  }
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
+  themeColor: '',
 }
 
 const inter = Inter({
