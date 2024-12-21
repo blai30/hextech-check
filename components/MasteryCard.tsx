@@ -2,10 +2,10 @@
 
 import { useRef, useState } from 'react'
 import Image from 'next/image'
+import { Switch } from '@headlessui/react'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 import { ChestIcon, ClassIcon } from '@/components/common'
-import { formatDate, formatRelativeDate } from '@/lib/formatDate'
-import { Switch } from '@headlessui/react'
+import { formatRelativeDate } from '@/lib/formatDate'
 
 // prettier-ignore
 const tagClasses: Readonly<Record<Tag, string>> = {
