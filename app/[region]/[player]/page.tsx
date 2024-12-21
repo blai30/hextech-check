@@ -40,7 +40,7 @@ export async function generateMetadata({
   const topFive = masteriesData.slice(0, 5).map((mastery, index) => {
     const champion = championsData[mastery.championId]
     const points = mastery.championPoints.toLocaleString()
-    return `${index}. ${champion.name} - ${points}`
+    return `${index + 1}. ${champion.name} - ${points}`
   })
 
   return {
