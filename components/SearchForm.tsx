@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
   Label,
   Listbox,
@@ -30,11 +30,17 @@ const regions: Readonly<Record<string, string>> = {
   me: 'Middle East',
 }
 
-const SearchForm = () => {
+const SearchForm = ({
+  defaultRegion = 'na',
+  defaultPlayer = '',
+}: {
+  defaultRegion?: string
+  defaultPlayer?: string
+}) => {
   const router = useRouter()
-  const params = useParams() as Record<string, string>
-  const [player, setPlayer] = useState<string>('')
-  const [region, setRegion] = useState<string>(params['region'] ?? 'na')
+  const [player, setPlayer] = useState<string>(defaultPlayer ?? '')
+  const [region, setRegion] = useState<string>(defaultRegion ?? 'na')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayer(event.target.value)
@@ -42,6 +48,7 @@ const SearchForm = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setIsLoading(true)
     const route = `/${region}/${player.replace('#', '-')}`.toLowerCase()
     router.push(route)
   }
@@ -55,7 +62,7 @@ const SearchForm = () => {
             <ListboxButton
               id="region-select"
               title="Select region"
-              className="w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+              className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="flex items-center">
                 <span className="hidden uppercase md:block">{region}</span>
@@ -127,16 +134,16 @@ const SearchForm = () => {
           placeholder="Player name"
           value={player}
           onChange={handleChangeName}
-          className="w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         />
 
         <button
           id="search-button"
           title="Search"
-          disabled={!region || !player}
-          className="flex w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
+          disabled={!region || !player || (player === defaultPlayer && region === defaultRegion)}
+          className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
-          {false ? (
+          {isLoading ? (
             <svg
               className="h-6 w-6 animate-spin transition-colors"
               fill="none"

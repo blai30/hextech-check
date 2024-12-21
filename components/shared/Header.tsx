@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <nav className="container mx-auto w-full">
-      <div className="flex flex-row items-center justify-between gap-4">
+      <div className="flex flex-row flex-wrap items-center justify-between gap-4">
         <div className="flex items-center justify-start gap-4">
           <Link
             href="/"
@@ -54,7 +54,7 @@ const Header = () => {
           type="button"
           onClick={copyToClipboard}
           className={[
-            'group order-last items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none lg:py-0',
+            'group order-last w-full 2xs:w-auto items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none lg:py-0',
             pathname === '/' ? 'hidden' : 'flex',
           ].join(' ')}
         >

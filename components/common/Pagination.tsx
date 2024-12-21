@@ -30,9 +30,12 @@ export const Pagination = ({
   return (
     <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-gray-600 dark:text-gray-400">
-        {`Showing ${startIndex + 1} to ${endIndex} of ${totalItems} results`}
+        {`${startIndex + 1} - ${endIndex} of ${totalItems} results`}
       </p>
-      <nav className="flex flex-row gap-1" aria-label="Pagination">
+      <nav
+        className="flex flex-row flex-wrap items-center justify-center gap-1"
+        aria-label="Pagination"
+      >
         <button
           id="previous-page-button"
           name="Previous page button"
