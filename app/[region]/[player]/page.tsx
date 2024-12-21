@@ -6,7 +6,13 @@ import {
   SearchForm,
   SummonerDetails,
 } from '@/components'
-import { getAccount, getLatestVersion, getSummoner } from '@/lib/endpoints'
+import {
+  getAccount,
+  getChampionMasteries,
+  getChampions,
+  getLatestVersion,
+  getSummoner,
+} from '@/lib/endpoints'
 
 export async function generateMetadata({
   params,
@@ -17,6 +23,8 @@ export async function generateMetadata({
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
   const playerData = await getSummoner(region, accountData.puuid)
+  const championsData = await getChampions(version)
+  const masteriesData = await getChampionMasteries(region, accountData.puuid)
 
   if (!accountData || !playerData) {
     return {
@@ -24,8 +32,20 @@ export async function generateMetadata({
     }
   }
 
+  const totalMastery = masteriesData.reduce(
+    (acc, cur) => acc + cur.championPoints,
+    0
+  )
+
+  const topFive = masteriesData.slice(0, 5).map((mastery, index) => {
+    const champion = championsData[mastery.championId]
+    const points = mastery.championPoints.toLocaleString()
+    return `${index}. ${champion.name} - ${points}`
+  })
+
   return {
     title: `${accountData.gameName}#${accountData.tagLine}`,
+    description: `Total mastery: ${totalMastery.toLocaleString()}\n${topFive.join('\n')}`,
     openGraph: {
       images: [
         `http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${playerData.profileIconId}.png`,

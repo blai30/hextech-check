@@ -24,13 +24,16 @@ export const Pagination = ({
   itemsPerPage: number
   onPageChange: (page: number) => void
 }) => {
+  totalPages = Math.max(1, totalPages)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems)
 
   return (
     <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-gray-600 dark:text-gray-400">
-        {`${startIndex + 1} - ${endIndex} of ${totalItems} results`}
+        {totalItems === 0
+          ? `${totalItems} results`
+          : `${startIndex + 1} - ${endIndex} of ${totalItems} results`}
       </p>
       <nav
         className="flex flex-row flex-wrap items-center justify-center gap-1"

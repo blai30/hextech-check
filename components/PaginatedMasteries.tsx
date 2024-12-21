@@ -39,7 +39,6 @@ export default function PaginatedMasteries({
   const [currentPage, setCurrentPage] = useState(1)
   const [filterTags, setFilterTags] = useState<Tag[]>([])
   const [filterChest, setFilterChest] = useState<boolean>(false)
-  const totalPages = Math.ceil(masteriesData.length / ITEMS_PER_PAGE)
 
   // Filter masteries by tags and chest available status
   masteriesData = masteriesData.filter((mastery) => {
@@ -51,11 +50,13 @@ export default function PaginatedMasteries({
     return hasTag && hasChest
   })
 
+  const totalPages = Math.ceil(masteriesData.length / ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const endIndex = startIndex + ITEMS_PER_PAGE
   const currentMasteries = masteriesData.slice(startIndex, endIndex)
 
   const toggleFilterTag = (tag: Tag) => {
+    setCurrentPage(1)
     if (filterTags.includes(tag)) {
       setFilterTags(filterTags.filter((t) => t !== tag))
     } else {
