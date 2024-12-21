@@ -54,8 +54,9 @@ const SearchForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={handleSubmit} autoComplete="off" className="w-full">
       <div className="flex w-full flex-col items-center gap-2 md:flex-row">
+        {/* Region dropdown */}
         <Listbox name="region" value={region} onChange={setRegion}>
           <Label className="sr-only">Select region</Label>
           <div className="relative w-full md:w-36">
@@ -84,7 +85,6 @@ const SearchForm = ({
                 </svg>
               </span>
             </ListboxButton>
-
             <ListboxOptions
               transition
               className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72"
@@ -126,21 +126,28 @@ const SearchForm = ({
           </div>
         </Listbox>
 
+        {/* Search field for player name */}
         <input
           id="player-input"
           name="player"
           title="Player name"
           type="search"
           placeholder="Player name"
+          autoComplete="off"
           value={player}
           onChange={handleChangeName}
           className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         />
 
+        {/* Search button */}
         <button
           id="search-button"
           title="Search"
-          disabled={!region || !player || (player === defaultPlayer && region === defaultRegion)}
+          disabled={
+            !region ||
+            !player ||
+            (player === defaultPlayer && region === defaultRegion)
+          }
           className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
           {isLoading ? (

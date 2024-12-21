@@ -124,6 +124,7 @@ export default function PaginatedMasteries({
           name="Search champion name"
           aria-label="Search champion name"
           placeholder="Search champion"
+          autoComplete="off"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
