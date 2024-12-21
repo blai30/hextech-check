@@ -277,7 +277,7 @@ export default function PaginatedMasteries({
         totalPages={totalPages}
         totalItems={filteredMasteries.length}
         itemsPerPage={ITEMS_PER_PAGE}
-        onPageChange={setCurrentPage}
+        onPageChangeAction={setCurrentPage}
       />
 
       {/* Table of champion mastery cards */}
@@ -300,7 +300,7 @@ export default function PaginatedMasteries({
         totalPages={totalPages}
         totalItems={filteredMasteries.length}
         itemsPerPage={ITEMS_PER_PAGE}
-        onPageChange={setCurrentPage}
+        onPageChangeAction={setCurrentPage}
       />
     </div>
   )

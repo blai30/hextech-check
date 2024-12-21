@@ -1,13 +1,16 @@
+'use client'
+
 import Image from 'next/image'
-import {
-  getAccount,
-  getChampionMasteries,
-  getLeagues,
-  getProfileIconUrl,
-  getSummoner,
-} from '@/lib/endpoints'
 import { formatDate, formatRelativeDate } from '@/lib/formatDate'
-import { Tier, TierKey, TierOrder } from '@/models/riotapi'
+import {
+  AccountDto,
+  ChampionMasteryDto,
+  LeagueEntryDto,
+  SummonerDto,
+  Tier,
+  TierKey,
+  TierOrder,
+} from '@/models/riotapi'
 
 // prettier-ignore
 const leagueClasses: Readonly<Record<TierKey, string>> = {
@@ -24,18 +27,19 @@ const leagueClasses: Readonly<Record<TierKey, string>> = {
   [Tier.Challenger]: 'text-yellow-800 dark:text-yellow-100 bg-sky-300 dark:bg-sky-700',
 }
 
-export default async function SummonerDetails({
-  region,
-  player,
+export default function SummonerDetails({
+  accountData,
+  playerData,
+  imageUrl,
+  masteriesData,
+  leaguesData,
 }: {
-  region: string
-  player: string
+  accountData: AccountDto
+  playerData: SummonerDto
+  imageUrl: string
+  masteriesData: ChampionMasteryDto[]
+  leaguesData: LeagueEntryDto[]
 }) {
-  const accountData = await getAccount(player)
-  const playerData = await getSummoner(region, accountData.puuid)
-  const leaguesData = await getLeagues(region, playerData.id)
-  const masteriesData = await getChampionMasteries(region, accountData.puuid)
-  const imageUrl = await getProfileIconUrl(playerData.profileIconId)
   const date = new Date(playerData.revisionDate)
   const totalMastery = masteriesData.reduce(
     (acc, cur) => acc + cur.championPoints,

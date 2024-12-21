@@ -1,3 +1,5 @@
+'use client'
+
 const getPageNumbers = (current: number, total: number) => {
   if (total <= 7) {
     return Array.from({ length: total }, (_, i) => i + 1)
@@ -16,13 +18,13 @@ export const Pagination = ({
   totalPages,
   totalItems,
   itemsPerPage,
-  onPageChange,
+  onPageChangeAction,
 }: {
   currentPage: number
   totalPages: number
   totalItems: number
   itemsPerPage: number
-  onPageChange: (page: number) => void
+  onPageChangeAction: (page: number) => void
 }) => {
   totalPages = Math.max(1, totalPages)
   const startIndex = (currentPage - 1) * itemsPerPage
@@ -43,7 +45,7 @@ export const Pagination = ({
           id="previous-page-button"
           name="Previous page button"
           type="button"
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={() => onPageChangeAction(currentPage - 1)}
           disabled={currentPage === 1}
           className="flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium text-gray-500 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800 focus-visible:dark:ring-offset-gray-900"
         >
@@ -68,7 +70,7 @@ export const Pagination = ({
             name={`Page ${pageNumber} button`}
             type="button"
             onClick={() =>
-              typeof pageNumber === 'number' && onPageChange(pageNumber)
+              typeof pageNumber === 'number' && onPageChangeAction(pageNumber)
             }
             disabled={pageNumber === '...'}
             className={[
@@ -85,7 +87,7 @@ export const Pagination = ({
           id="next-page-button"
           name="Next page button"
           type="button"
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => onPageChangeAction(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium text-gray-500 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800 focus-visible:dark:ring-offset-gray-900"
         >

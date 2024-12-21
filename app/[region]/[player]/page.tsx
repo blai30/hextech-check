@@ -11,6 +11,8 @@ import {
   getChampionMasteries,
   getChampions,
   getLatestVersion,
+  getLeagues,
+  getProfileIconUrl,
   getSummoner,
 } from '@/lib/endpoints'
 
@@ -64,15 +66,24 @@ export default async function PlayerPage({
   const accountData = await getAccount(player)
   const championsData = await getChampions(version)
   const masteriesData = await getChampionMasteries(region, accountData.puuid)
+  const playerData = await getSummoner(region, accountData.puuid)
+  const leaguesData = await getLeagues(region, playerData.id)
+  const imageUrl = await getProfileIconUrl(playerData.profileIconId)
 
   return (
     <div className="container mx-auto">
       <div className="flex flex-col gap-6">
         <SearchForm defaultRegion={region} defaultPlayer={player} />
         <Suspense fallback={<LoadingSummoner />}>
-          <SummonerDetails region={region} player={player} />
+          <SummonerDetails
+            accountData={accountData}
+            playerData={playerData}
+            imageUrl={imageUrl}
+            masteriesData={masteriesData}
+            leaguesData={leaguesData}
+          />
         </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<span>Loading...</span>}>
           <PaginatedMasteries
             masteriesData={masteriesData}
             championsData={championsData}
