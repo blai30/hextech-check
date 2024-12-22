@@ -9,7 +9,7 @@ import {
   ListboxOptions,
   Switch,
 } from '@headlessui/react'
-import { MasteryCard } from '@/components'
+import { MasteryCard } from '@/components/client'
 import { ChestIcon, ClassIcon, Pagination } from '@/components/common'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 

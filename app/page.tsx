@@ -1,4 +1,4 @@
-import { SearchForm } from '@/components'
+import { SearchForm } from '@/components/client'
 
 export default function Home() {
   return (
