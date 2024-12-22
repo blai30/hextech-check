@@ -43,7 +43,7 @@ const tags: Tag[] = [
 // prettier-ignore
 const sortByCompare = (
   sortBy: SortingOption,
-  ascending: Boolean,
+  ascending: boolean,
   champions: { [key: string]: ChampionDto },
 ) => (
   a: ChampionMasteryDto,
@@ -97,7 +97,7 @@ export default function PaginatedMasteries({
         return matchedQuery && hasTag && hasChest
       })
       .sort(sortByCompare(sortBy, ascending, championsData))
-  }, [masteriesData, filterTags, filterChest, query, sortBy, ascending])
+  }, [ascending, championsData, filterChest, filterTags, masteriesData, query, sortBy])
 
   // Paginate the filtered masteries.
   const totalPages = Math.ceil(filteredMasteries.length / ITEMS_PER_PAGE)
