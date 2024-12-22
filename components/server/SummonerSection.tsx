@@ -12,8 +12,8 @@ export default async function SummonerSection({
   region,
   player,
 }: {
-  region?: string
-  player?: string
+  region: string
+  player: string
 }) {
   const accountData = await getAccount(player)
   const masteriesData = await getChampionMasteries(region, accountData.puuid)

@@ -11,8 +11,8 @@ export default async function MasteriesSection({
   region,
   player,
 }: {
-  region?: string
-  player?: string
+  region: string
+  player: string
 }) {
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
