@@ -21,7 +21,7 @@ const Header = () => {
   const copyToClipboard = (e: React.MouseEvent) => {
     e.preventDefault()
     setCopied(true)
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(decodeURI(window.location.href))
   }
 
   return (
@@ -59,7 +59,7 @@ const Header = () => {
           ].join(' ')}
         >
           <h3 className="select-none truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 lg:text-xl">
-            {`~${pathname}`}
+            {`~${decodeURI(pathname)}`}
           </h3>
           <div className="flex items-center justify-end pl-8">
             <span

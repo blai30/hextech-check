@@ -1,10 +1,10 @@
-import './globals.css'
 import { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Providers } from '@/app/providers'
 import { Footer, Header } from '@/components/shared'
+import './globals.css'
 
 /* prettier-ignore */
 export const metadata: Metadata = {
@@ -43,8 +43,8 @@ export const viewport: Viewport = {
 }
 
 const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
-  display: 'swap',
 })
 
 export default function RootLayout({
@@ -56,8 +56,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={[
-          'bg-gray-100 font-sans subpixel-antialiased transition-colors dark:bg-gray-950',
-          inter.className,
+          'bg-gray-100 subpixel-antialiased dark:bg-gray-950',
+          inter.variable,
         ].join(' ')}
       >
         <Providers>

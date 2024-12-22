@@ -162,7 +162,7 @@ export async function getAccount(
 ): Promise<AccountDto> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
-  const [gameName, tagLine] = summoner.split('-')
+  const [gameName, tagLine] = summoner.trim().split('-')
   if (!gameName || !tagLine) throw new Error('Invalid summoner name')
 
   const response = await fetch(
