@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import {
   LoadingSummoner,
   LoadingTable,
@@ -23,8 +23,7 @@ type Props = {
 }
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
+  { params }: Props,
 ): Promise<Metadata> {
   const { region, player } = await params
   const version = await getLatestVersion()
@@ -61,7 +60,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function PlayerPage({ params, searchParams }: Props) {
+export default async function PlayerPage({ params }: Props) {
   const { region, player } = await params
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
