@@ -63,14 +63,16 @@ const Header = () => {
           </h3>
           <div className="flex items-center justify-end pl-8">
             <span
-              className={`${
-                copied ? 'opacity-100' : 'opacity-40'
-              } absolute h-6 w-6 transition group-hover:opacity-100`}
+              className={[
+                copied ? 'opacity-100' : 'opacity-40',
+                'absolute h-6 w-6 transition group-hover:opacity-100',
+              ].join(' ')}
             >
               <svg
-                className={`${
-                  copied ? 'scale-0' : 'scale-100'
-                } absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200`}
+                className={[
+                  copied ? 'scale-0' : 'scale-100',
+                  'absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200',
+                ].join(' ')}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -83,9 +85,10 @@ const Header = () => {
                 />
               </svg>
               <svg
-                className={`${
-                  copied ? 'scale-100' : 'scale-0'
-                } absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200`}
+                className={[
+                  copied ? 'scale-100' : 'scale-0',
+                  'absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200',
+                ].join(' ')}
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >

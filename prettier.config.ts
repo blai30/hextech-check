@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from 'prettier'
+
+const config: Config = {
   plugins: [require('prettier-plugin-tailwindcss')],
   arrowParens: 'always',
   bracketSpacing: true,
@@ -8,3 +10,5 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'es5',
 }
+
+export default config

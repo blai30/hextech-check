@@ -74,7 +74,7 @@ export default function SummonerDetails({
                 title="Tag Line"
                 className="max-w-sm break-all text-center text-xl text-gray-500 dark:text-gray-400 md:text-left lg:text-2xl"
               >
-                #{accountData.tagLine}
+                {`#${accountData.tagLine}`}
               </p>
             </div>
             <div className="flex flex-row">
@@ -119,7 +119,7 @@ export default function SummonerDetails({
           className="flex flex-col items-center md:items-end"
         >
           <p className="text-center text-sm text-gray-600 dark:text-gray-300 md:text-right lg:text-base">
-            Last modified {formatRelativeDate(date)}
+            {`Last modified ${formatRelativeDate(date)}`}
           </p>
           <p
             id={`summoner-revisiondate-${playerData.id}`}

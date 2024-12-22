@@ -1,7 +1,8 @@
 import { Suspense } from 'react'
-import type { Metadata } from 'next'
+import type { Metadata, ResolvingMetadata } from 'next'
 import {
   LoadingSummoner,
+  LoadingTable,
   PaginatedMasteries,
   SearchForm,
   SummonerDetails,
@@ -16,11 +17,15 @@ import {
   getSummoner,
 } from '@/lib/endpoints'
 
-export async function generateMetadata({
-  params,
-}: {
+type Props = {
   params: Promise<{ region: string; player: string }>
-}): Promise<Metadata> {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { region, player } = await params
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
@@ -30,13 +35,13 @@ export async function generateMetadata({
 
   if (!accountData || !playerData) {
     return {
-      title: 'Summoner not found',
+      title: 'Player not found',
     }
   }
 
   const totalMastery = masteriesData.reduce(
     (acc, cur) => acc + cur.championPoints,
-    0
+    0,
   )
 
   const topFive = masteriesData.slice(0, 5).map((mastery, index) => {
@@ -56,11 +61,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PlayerPage({
-  params,
-}: {
-  params: Promise<{ region: string; player: string }>
-}) {
+export default async function PlayerPage({ params, searchParams }: Props) {
   const { region, player } = await params
   const version = await getLatestVersion()
   const accountData = await getAccount(player)
@@ -83,7 +84,7 @@ export default async function PlayerPage({
             leaguesData={leaguesData}
           />
         </Suspense>
-        <Suspense fallback={<span>Loading...</span>}>
+        <Suspense fallback={<LoadingTable />}>
           <PaginatedMasteries
             masteriesData={masteriesData}
             championsData={championsData}

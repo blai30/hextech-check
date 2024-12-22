@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   darkMode: 'class',
@@ -15,11 +14,10 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-    },
-    screens: {
-      '2xs': '420px',
-      xs: '500px',
-      ...defaultTheme.screens,
+      screens: {
+        '2xs': '420px',
+        xs: '500px',
+      },
     },
   },
   plugins: [],
