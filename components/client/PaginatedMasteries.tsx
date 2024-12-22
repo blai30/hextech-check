@@ -196,6 +196,7 @@ export default function PaginatedMasteries({
               </ListboxButton>
               <ListboxOptions
                 transition
+                modal={false}
                 className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72"
               >
                 {sortingOptions.map((option, index) => (
