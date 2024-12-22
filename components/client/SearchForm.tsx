@@ -64,7 +64,7 @@ const SearchForm = ({
             <ListboxButton
               id="region-select"
               title="Select region"
-              className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+              className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="flex items-center">
                 <span className="hidden uppercase md:block">{region}</span>
@@ -137,7 +137,7 @@ const SearchForm = ({
           autoComplete="off"
           value={player}
           onChange={handleChangeName}
-          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         />
 
         {/* Search button */}
@@ -149,11 +149,11 @@ const SearchForm = ({
             !player ||
             (player === decodeURI(defaultPlayer) && region === defaultRegion)
           }
-          className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
+          className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
           {isLoading ? (
             <svg
-              className="h-6 w-6 animate-spin transition-colors"
+              className="h-6 w-6 animate-spin "
               fill="none"
               viewBox="0 0 24 24"
             >

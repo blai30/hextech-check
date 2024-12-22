@@ -4,7 +4,7 @@ export default function LoadingTable() {
   return (
     <div className="flex items-center justify-center">
       <svg
-        className="h-60 w-60 animate-spin p-20 text-gray-600 transition-colors dark:text-gray-400"
+        className="h-60 w-60 animate-spin p-20 text-gray-600 dark:text-gray-400"
         fill="none"
         viewBox="0 0 24 24"
       >

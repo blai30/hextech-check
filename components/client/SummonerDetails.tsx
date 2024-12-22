@@ -43,14 +43,14 @@ export default function SummonerDetails({
   const date = new Date(playerData.revisionDate)
   const totalMastery = masteriesData.reduce(
     (acc, cur) => acc + cur.championPoints,
-    0
+    0,
   )
   const league = leaguesData
     .filter((item) => item.tier)
     .sort((a, b) => TierOrder[b.tier] - TierOrder[a.tier])[0]
 
   return (
-    <div className="rounded-lg bg-gray-50 p-6 shadow transition-colors dark:bg-gray-900 dark:shadow-gray-700/30 print:shadow-none">
+    <div className="rounded-lg bg-gray-50 p-6 shadow dark:bg-gray-900 dark:shadow-gray-700/30 print:shadow-none">
       <div className="flex flex-col space-y-4 md:grid md:grid-cols-3 md:items-center md:justify-between md:space-y-0">
         <div className="flex flex-col items-center space-y-2 md:flex-row md:gap-4 md:space-y-0 lg:gap-6">
           <Image
@@ -83,7 +83,7 @@ export default function SummonerDetails({
                 title="Summoner rank"
                 className={[
                   leagueClasses[league?.tier ?? Tier.Unranked],
-                  'items-center rounded-l-md px-2.5 text-sm transition-colors lg:px-3 lg:text-lg',
+                  'items-center rounded-l-md px-2.5 text-sm lg:px-3 lg:text-lg',
                 ].join(' ')}
               >
                 {league?.tier
@@ -93,7 +93,7 @@ export default function SummonerDetails({
               <span
                 id={`summoner-level-${playerData.id}`}
                 title="Summoner level"
-                className="items-center rounded-r-md bg-gray-100 px-2.5 text-sm transition-colors dark:bg-gray-950 lg:px-3 lg:text-lg"
+                className="items-center rounded-r-md bg-gray-100 px-2.5 text-sm dark:bg-gray-950 lg:px-3 lg:text-lg"
               >
                 {playerData.summonerLevel}
               </span>

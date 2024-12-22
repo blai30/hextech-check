@@ -127,7 +127,7 @@ export default function PaginatedMasteries({
           autoComplete="off"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black transition-colors hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
+          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
         />
 
         {/* Filter by tags and chest */}
@@ -141,7 +141,7 @@ export default function PaginatedMasteries({
               checked={filterTags.includes(tagName)}
               onChange={() => toggleFilterTag(tagName)}
               className={[
-                'group flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
+                'group flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
                 filterTags.includes(tagName)
                   ? tagClasses[tagName]
                   : 'text-gray-300 hover:text-gray-400 dark:text-gray-700 dark:hover:text-gray-500',
@@ -157,7 +157,7 @@ export default function PaginatedMasteries({
             checked={filterChest}
             onChange={() => setFilterChest(!filterChest)}
             className={[
-              'group flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
+              'group flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
               filterChest
                 ? 'text-yellow-600 hover:text-yellow-700 dark:text-yellow-300 dark:hover:text-yellow-200'
                 : 'text-gray-300 hover:text-gray-400 dark:text-gray-700 dark:hover:text-gray-500',
@@ -175,7 +175,7 @@ export default function PaginatedMasteries({
               <ListboxButton
                 id="sort-masteries-dropdown"
                 title="Sort masteries dropdown"
-                className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                className="h-10 w-full cursor-default items-center rounded-md bg-gray-200 py-2 pl-3 pr-8 text-black hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
               >
                 <span className="flex items-center">{sortBy}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -237,7 +237,7 @@ export default function PaginatedMasteries({
             title="Sorting direction button"
             name="Sorting direction button"
             onClick={() => setAscending(!ascending)}
-            className="flex h-10 cursor-default items-center justify-center rounded-md bg-gray-200 px-2 text-black transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+            className="flex h-10 cursor-default items-center justify-center rounded-md bg-gray-200 px-2 text-black hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >
             {ascending ? (
               <svg

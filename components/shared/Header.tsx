@@ -32,7 +32,7 @@ const Header = () => {
             href="/"
             id="home-link"
             title="Homepage"
-            className="rounded-full text-gray-500 transition-colors hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 dark:text-gray-400 dark:hover:text-gray-50"
+            className="rounded-full text-gray-500 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 dark:text-gray-400 dark:hover:text-gray-50"
           >
             <span className="sr-only">Home</span>
             <ChestIcon className="h-8 w-8" />
@@ -41,7 +41,7 @@ const Header = () => {
             href="https://github.com/blai30/hextech-check"
             id="github-link"
             title="GitHub repository"
-            className="rounded-full text-gray-500 transition-colors hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 dark:text-gray-400 dark:hover:text-gray-50"
+            className="rounded-full text-gray-500 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 dark:text-gray-400 dark:hover:text-gray-50"
           >
             <span className="sr-only">GitHub</span>
             <svg fill="currentColor" className="h-8 w-8" viewBox="0 0 16 16">
