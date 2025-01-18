@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { DarkToggle } from '@/components/shared'
+import { ThemeSwitch } from '@/components/shared'
 import { ChestIcon } from '@/components/common'
 
 const Header = () => {
@@ -102,7 +102,7 @@ const Header = () => {
           </div>
         </button>
         <div className="flex items-center justify-end">
-          <DarkToggle />
+          <ThemeSwitch />
         </div>
       </div>
     </nav>

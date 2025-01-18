@@ -1,9 +1,9 @@
-import DarkToggle from './DarkToggle'
 import Footer from './Footer'
 import Header from './Header'
+import ThemeSwitch from './ThemeSwitch'
 
 export {
-  DarkToggle,
   Footer,
   Header,
+  ThemeSwitch,
 }

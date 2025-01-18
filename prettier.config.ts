@@ -1,7 +1,7 @@
 import type { Config } from 'prettier'
 
 const config: Config = {
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: ['prettier-plugin-tailwindcss'],
   arrowParens: 'always',
   bracketSpacing: true,
   endOfLine: 'lf',
