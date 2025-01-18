@@ -31,14 +31,14 @@ export const Pagination = ({
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems)
 
   return (
-    <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
       <p className="text-sm text-gray-600 dark:text-gray-400">
         {totalItems === 0
           ? `${totalItems} results`
           : `${startIndex + 1} - ${endIndex} of ${totalItems} results`}
       </p>
       <nav
-        className="flex flex-row flex-wrap items-center justify-center gap-1"
+        className="flex flex-row items-center justify-center gap-1"
         aria-label="Pagination"
       >
         <button
@@ -63,26 +63,28 @@ export const Pagination = ({
             />
           </svg>
         </button>
-        {getPageNumbers(currentPage, totalPages).map((pageNumber, idx) => (
-          <button
-            key={idx}
-            id={`page-${pageNumber}-button`}
-            name={`Page ${pageNumber} button`}
-            type="button"
-            onClick={() =>
-              typeof pageNumber === 'number' && onPageChangeAction(pageNumber)
-            }
-            disabled={pageNumber === '...'}
-            className={[
-              'flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 focus-visible:dark:ring-offset-gray-900',
-              pageNumber === currentPage
-                ? 'bg-yellow-500 text-white dark:bg-yellow-700'
-                : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800',
-            ].join(' ')}
-          >
-            {pageNumber}
-          </button>
-        ))}
+        <div className="grid grid-cols-4 gap-1 2xs:flex 2xs:flex-row 2xs:items-center 2xs:justify-center">
+          {getPageNumbers(currentPage, totalPages).map((pageNumber, idx) => (
+            <button
+              key={idx}
+              id={`page-${pageNumber}-button`}
+              name={`Page ${pageNumber} button`}
+              type="button"
+              onClick={() =>
+                typeof pageNumber === 'number' && onPageChangeAction(pageNumber)
+              }
+              disabled={pageNumber === '...'}
+              className={[
+                'flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 focus-visible:dark:ring-offset-gray-900',
+                pageNumber === currentPage
+                  ? 'bg-yellow-500 text-white dark:bg-yellow-700'
+                  : 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800',
+              ].join(' ')}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        </div>
         <button
           id="next-page-button"
           name="Next page button"
