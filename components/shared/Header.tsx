@@ -54,24 +54,24 @@ const Header = () => {
           type="button"
           onClick={copyToClipboard}
           className={[
-            'group order-last w-full 2xs:w-auto items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:outline-gray-700 2xs:order-none lg:py-0',
+            'group order-last w-full items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 2xs:order-none 2xs:w-auto lg:py-0 dark:outline-gray-700',
             pathname === '/' ? 'hidden' : 'flex',
           ].join(' ')}
         >
-          <h3 className="select-none truncate text-base text-gray-800 opacity-80 transition group-hover:opacity-100 dark:text-gray-100 lg:text-xl">
+          <h3 className="select-none truncate text-base text-gray-800 opacity-80 group-hover:opacity-100 lg:text-xl dark:text-gray-100">
             {`~${decodeURI(pathname)}`}
           </h3>
           <div className="flex items-center justify-end pl-8">
             <span
               className={[
                 copied ? 'opacity-100' : 'opacity-40',
-                'absolute h-6 w-6 transition group-hover:opacity-100',
+                'absolute h-6 w-6 group-hover:opacity-100',
               ].join(' ')}
             >
               <svg
                 className={[
                   copied ? 'scale-0' : 'scale-100',
-                  'absolute h-6 w-6 text-gray-700 transition duration-300 ease-in-out dark:text-gray-200',
+                  'absolute h-6 w-6 text-gray-700 transition-transform duration-300 ease-in-out dark:text-gray-200',
                 ].join(' ')}
                 viewBox="0 0 24 24"
                 fill="none"
@@ -87,7 +87,7 @@ const Header = () => {
               <svg
                 className={[
                   copied ? 'scale-100' : 'scale-0',
-                  'absolute h-6 w-6 text-green-700 transition duration-300 ease-in-out dark:text-green-200',
+                  'absolute h-6 w-6 text-green-700 transition-transform duration-300 ease-in-out dark:text-green-200',
                 ].join(' ')}
                 viewBox="0 0 20 20"
                 fill="currentColor"

@@ -25,7 +25,6 @@ export interface ChampionMasteryDto {
   lastPlayTime: number
   championPointsSinceLastLevel: number
   championPointsUntilNextLevel: number
-  chestGranted: boolean
   tokensEarned: number
   summonerId: string
 }
@@ -110,7 +109,7 @@ export const Tier = {
   Challenger: 'CHALLENGER',
 } as const
 
-export type TierKey = typeof Tier[keyof typeof Tier]
+export type TierKey = (typeof Tier)[keyof typeof Tier]
 
 export const TierOrder: { [key in TierKey]: number } = {
   UNRANKED: 0,

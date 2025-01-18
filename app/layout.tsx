@@ -1,5 +1,5 @@
 import { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Geist, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Providers } from '@/app/providers'
@@ -42,6 +42,11 @@ export const viewport: Viewport = {
   themeColor: '#fbbf24',
 }
 
+const geist = Geist({
+  variable: '--font-geist',
+  subsets: ['latin'],
+})
+
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
@@ -57,6 +62,7 @@ export default function RootLayout({
       <body
         className={[
           'bg-gray-100 subpixel-antialiased dark:bg-gray-950',
+          geist.variable,
           inter.variable,
         ].join(' ')}
       >

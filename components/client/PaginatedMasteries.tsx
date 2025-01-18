@@ -10,7 +10,7 @@ import {
   Switch,
 } from '@headlessui/react'
 import { MasteryCard } from '@/components/client'
-import { ChestIcon, ClassIcon, Pagination } from '@/components/common'
+import { ClassIcon, Pagination } from '@/components/common'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 
 const ITEMS_PER_PAGE = 24
@@ -20,7 +20,6 @@ enum SortingOption {
   Points = 'Points',
   Level = 'Level',
   LastPlayed = 'Last Played',
-  Chest = 'Chest',
 }
 
 const sortingOptions: SortingOption[] = [
@@ -28,7 +27,6 @@ const sortingOptions: SortingOption[] = [
   SortingOption.Points,
   SortingOption.Level,
   SortingOption.LastPlayed,
-  SortingOption.Chest,
 ]
 
 const tags: Tag[] = [
@@ -53,7 +51,6 @@ const sortByCompare = (
   [SortingOption.Points]: a.championPoints - b.championPoints,
   [SortingOption.Level]: a.championLevel - b.championLevel,
   [SortingOption.LastPlayed]: a.lastPlayTime - b.lastPlayTime,
-  [SortingOption.Chest]: Number(a.chestGranted) - Number(b.chestGranted),
 })[sortBy] * (ascending ? 1 : -1)
 
 // prettier-ignore
@@ -80,7 +77,6 @@ export default function PaginatedMasteries({
   const [sortBy, setSortBy] = useState<SortingOption>(SortingOption.Points)
   const [ascending, setAscending] = useState(false)
   const [filterTags, setFilterTags] = useState<Tag[]>([])
-  const [filterChest, setFilterChest] = useState<boolean>(false)
 
   // Filter and sort masteries based on the query, tags, and chest filter.
   const filteredMasteries = useMemo(() => {
@@ -93,11 +89,10 @@ export default function PaginatedMasteries({
         const hasTag =
           filterTags.length === 0 ||
           filterTags.every((tag) => champion.tags.includes(tag))
-        const hasChest = !filterChest || !mastery.chestGranted
-        return matchedQuery && hasTag && hasChest
+        return matchedQuery && hasTag
       })
       .sort(sortByCompare(sortBy, ascending, championsData))
-  }, [ascending, championsData, filterChest, filterTags, masteriesData, query, sortBy])
+  }, [ascending, championsData, filterTags, masteriesData, query, sortBy])
 
   // Paginate the filtered masteries.
   const totalPages = Math.ceil(filteredMasteries.length / ITEMS_PER_PAGE)
@@ -127,11 +122,11 @@ export default function PaginatedMasteries({
           autoComplete="off"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 md:w-48 lg:w-72"
+          className="h-10 w-full items-center rounded-md bg-gray-200 px-3 py-2 text-black hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 md:w-48 lg:w-72 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         />
 
         {/* Filter by tags and chest */}
-        <div className="grid grid-cols-4 items-center justify-center gap-2 2xs:grid-cols-7">
+        <div className="grid grid-cols-3 items-center justify-center gap-2 2xs:grid-cols-6">
           {tags.map((tagName) => (
             <Switch
               key={tagName}
@@ -150,21 +145,6 @@ export default function PaginatedMasteries({
               <ClassIcon className="h-8 w-8" tag={tagName} />
             </Switch>
           ))}
-          <Switch
-            id="filter-chest"
-            name="Filter by chest"
-            aria-label="Filter by chest"
-            checked={filterChest}
-            onChange={() => setFilterChest(!filterChest)}
-            className={[
-              'group flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
-              filterChest
-                ? 'text-yellow-600 hover:text-yellow-700 dark:text-yellow-300 dark:hover:text-yellow-200'
-                : 'text-gray-300 hover:text-gray-400 dark:text-gray-700 dark:hover:text-gray-500',
-            ].join(' ')}
-          >
-            <ChestIcon className="h-8 w-8" />
-          </Switch>
         </div>
 
         {/* Sorting options */}
@@ -197,7 +177,7 @@ export default function PaginatedMasteries({
               <ListboxOptions
                 transition
                 modal={false}
-                className="absolute left-0 z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none dark:bg-gray-700/50 sm:text-sm md:w-72"
+                className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg focus:outline-none sm:text-sm md:w-48 lg:w-72 dark:bg-gray-700/50"
               >
                 {sortingOptions.map((option, index) => (
                   <ListboxOption
@@ -210,6 +190,7 @@ export default function PaginatedMasteries({
                       {option}
                     </span>
 
+                    {/* Checkmark */}
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-black dark:text-yellow-300">
                       <svg
                         className="h-6 w-6"

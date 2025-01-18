@@ -163,7 +163,7 @@ export async function getAccount(
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
   const [gameName, tagLine] = summoner.trim().split('-')
-  if (!gameName || !tagLine) throw new Error('Invalid summoner name')
+  if (!gameName || !tagLine) throw new Error('Invalid Riot ID')
 
   const response = await fetch(
     `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,

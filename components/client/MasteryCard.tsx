@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { Switch } from '@headlessui/react'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
-import { ChestIcon, ClassIcon } from '@/components/common'
+import { ClassIcon } from '@/components/common'
 import { formatRelativeDate } from '@/lib/formatDate'
 
 // prettier-ignore
@@ -125,12 +125,7 @@ export default function MasteryCard({
           <div className="absolute inset-0 -z-10 scale-110 bg-gradient-to-t from-gray-900 via-gray-900/40" />
         </div>
         <div
-          className={[
-            'pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border md:m-3',
-            mastery.chestGranted
-              ? 'border-yellow-300/80'
-              : 'border-gray-300/40',
-          ].join(' ')}
+          className="pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border border-gray-300/40 md:m-3"
           style={{
             transform: `translateZ(10px)`,
             backfaceVisibility: 'hidden',
@@ -171,7 +166,7 @@ export default function MasteryCard({
                 </div>
               ))}
             </div>
-            <p className="text-left text-2xl font-extralight text-white subpixel-antialiased 2xs:text-3xl xs:text-3xl sm:text-2xl md:text-2xl">
+            <p className="text-left text-2xl font-normal text-white subpixel-antialiased 2xs:text-3xl xs:text-3xl sm:text-2xl md:text-2xl">
               {champion.name}
             </p>
             <div
@@ -183,18 +178,18 @@ export default function MasteryCard({
                   title="Mastery level"
                   className={[
                     masteryClasses(mastery.championLevel),
-                    'text-left text-lg font-normal transition',
+                    'text-left text-lg font-normal',
                   ].join(' ')}
                 >
                   {mastery.championLevel}
                 </span>
-                <span className="w-2.5 text-center text-lg font-thin text-white transition">
+                <span className="w-2.5 text-center text-lg font-thin text-white">
                   |
                 </span>
                 <span
                   id={`champion-points-${champion.id}`}
                   title="Mastery points"
-                  className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg font-medium text-transparent transition"
+                  className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg font-medium text-transparent"
                 >
                   {mastery.championPoints.toLocaleString()}
                 </span>
@@ -252,7 +247,7 @@ export default function MasteryCard({
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-left text-2xl font-extralight text-white subpixel-antialiased 2xs:text-3xl xs:text-3xl sm:text-2xl md:text-2xl">
+            <span className="text-left text-2xl font-normal text-white subpixel-antialiased 2xs:text-3xl xs:text-3xl sm:text-2xl md:text-2xl">
               {champion.name}
             </span>
             <span
@@ -260,7 +255,7 @@ export default function MasteryCard({
               title="Mastery level"
               className={[
                 masteryClasses(mastery.championLevel),
-                'text-left text-lg transition',
+                'text-left text-lg',
               ].join(' ')}
             >
               <span className="font-bold">Level: </span>
@@ -269,7 +264,7 @@ export default function MasteryCard({
             <span
               id={`champion-points-${champion.id}`}
               title="Mastery points"
-              className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg text-transparent transition"
+              className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg text-transparent"
             >
               <span className="font-bold">Points: </span>
               <span className="font-medium">
@@ -279,17 +274,6 @@ export default function MasteryCard({
             <span className="text-left text-lg font-light text-gray-300">
               Played {formatRelativeDate(lastPlayed)}
             </span>
-            <div
-              className={[
-                'flex items-center gap-2 text-left text-lg font-light',
-                mastery.chestGranted ? 'text-yellow-500' : 'text-amber-100',
-              ].join(' ')}
-            >
-              <ChestIcon className="h-6 w-6" />
-              <span className="text-left text-lg font-light">
-                {mastery.chestGranted ? 'Claimed' : 'Available'}
-              </span>
-            </div>
           </div>
         </div>
       </div>
