@@ -125,7 +125,7 @@ export default function MasteryCard({
           <div className="absolute inset-0 -z-10 scale-110 bg-gradient-to-t from-gray-900 via-gray-900/40" />
         </div>
         <div
-          className="pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border border-gray-300/40 md:m-3"
+          className="pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border border-yellow-300/40 md:m-3"
           style={{
             transform: `translateZ(10px)`,
             backfaceVisibility: 'hidden',
