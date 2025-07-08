@@ -58,14 +58,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={[
-          'bg-gray-100 subpixel-antialiased dark:bg-gray-950',
-          geist.variable,
-          inter.variable,
-        ].join(' ')}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={[
+        'h-full scheme-light dark:scheme-dark',
+        geist.variable,
+        inter.variable,
+      ].join(' ')}
+    >
+      <body className="bg-gray-100 subpixel-antialiased dark:bg-gray-950">
         <Providers>
           <main className="flex min-h-screen flex-col gap-6 px-4 py-6 print:mx-0 print:max-w-none print:p-0">
             <Header />
