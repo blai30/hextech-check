@@ -18,7 +18,7 @@ export default async function SummonerSection({
   const accountData = await getAccount(player)
   const masteriesData = await getChampionMasteries(region, accountData.puuid)
   const playerData = await getSummoner(region, accountData.puuid)
-  const leaguesData = await getLeagues(region, playerData.id)
+  const leaguesData = await getLeagues(region, playerData.puuid)
   const imageUrl = await getProfileIconUrl(playerData.profileIconId)
 
   return (

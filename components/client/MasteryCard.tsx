@@ -96,7 +96,7 @@ export default function MasteryCard({
       {/* Card */}
       <div
         ref={cardRef}
-        className="relative aspect-[3/2] transform-gpu rounded-2xl transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out group-focus-visible/card:duration-300 group-focus-visible/card:ease-out sm:aspect-[3/4]"
+        className="relative aspect-3/2 transform-gpu rounded-2xl transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out group-focus-visible/card:duration-300 group-focus-visible/card:ease-out sm:aspect-3/4"
         style={{
           transform: `rotateX(${rotateX * -1}deg) rotateY(${
             flipped ? 180 + rotateY : rotateY
@@ -122,7 +122,7 @@ export default function MasteryCard({
               scale: 1.2,
             }}
           />
-          <div className="absolute inset-0 -z-10 scale-110 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+          <div className="absolute inset-0 -z-10 scale-110 bg-linear-to-t from-gray-900 via-gray-900/40" />
         </div>
         <div
           className="pointer-events-none absolute inset-0 -z-10 m-4 rounded-xl border border-yellow-300/40 md:m-3"
@@ -189,7 +189,7 @@ export default function MasteryCard({
                 <span
                   id={`champion-points-${champion.id}`}
                   title="Mastery points"
-                  className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg font-medium text-transparent"
+                  className="bg-linear-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg font-medium text-transparent"
                 >
                   {mastery.championPoints.toLocaleString()}
                 </span>
@@ -264,7 +264,7 @@ export default function MasteryCard({
             <span
               id={`champion-points-${champion.id}`}
               title="Mastery points"
-              className="bg-gradient-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg text-transparent"
+              className="bg-linear-to-b from-yellow-100 via-yellow-100 to-yellow-200 bg-clip-text text-left text-lg text-transparent"
             >
               <span className="font-bold">Points: </span>
               <span className="font-medium">

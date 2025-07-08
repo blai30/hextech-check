@@ -95,19 +95,19 @@ const SearchForm = ({
                 <ListboxOption
                   key={index}
                   id={`region-${index}`}
-                  className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-[active]:bg-yellow-600 data-[active]:text-white dark:text-gray-100 data-[active]:dark:bg-yellow-400 data-[active]:dark:text-black"
+                  className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-active:bg-yellow-600 data-active:text-white dark:text-gray-100 data-active:dark:bg-yellow-400 data-active:dark:text-black"
                   value={region}
                 >
                   <div className="flex items-center">
                     <span className="w-12 text-right font-bold uppercase">
                       {region}
                     </span>
-                    <span className="ml-4 block font-normal group-data-[selected]:font-semibold">
+                    <span className="ml-4 block font-normal group-data-selected:font-semibold">
                       {regions[region]}
                     </span>
                   </div>
 
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-black dark:text-yellow-300">
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-focus:text-black dark:text-yellow-300">
                     <svg
                       className="h-6 w-6"
                       fill="none"

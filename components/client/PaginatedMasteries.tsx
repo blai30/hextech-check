@@ -183,15 +183,15 @@ export default function PaginatedMasteries({
                   <ListboxOption
                     key={index}
                     id={`sort-option-${index}`}
-                    className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-[active]:bg-yellow-600 data-[active]:text-white dark:text-gray-100 data-[active]:dark:bg-yellow-400 data-[active]:dark:text-black"
+                    className="group relative cursor-default select-none py-2 pl-2 pr-8 text-gray-900 data-active:bg-yellow-600 data-active:text-white dark:text-gray-100 data-active:dark:bg-yellow-400 data-active:dark:text-black"
                     value={option}
                   >
-                    <span className="flex items-center font-normal group-data-[selected]:font-semibold">
+                    <span className="flex items-center font-normal group-data-selected:font-semibold">
                       {option}
                     </span>
 
                     {/* Checkmark */}
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-black dark:text-yellow-300">
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-focus:text-black dark:text-yellow-300">
                       <svg
                         className="h-6 w-6"
                         fill="none"

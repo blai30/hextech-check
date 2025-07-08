@@ -72,7 +72,7 @@ export async function getChampionMasteries(
 
 export async function getLeagues(
   region: string,
-  summonerId: string
+  puuid: string
 ): Promise<LeagueEntryDto[]> {
   if (!process.env.RIOT_API_KEY) throw new Error('Missing RIOT_API_KEY')
 
@@ -80,7 +80,7 @@ export async function getLeagues(
   if (!regionCode) throw new Error('Invalid region')
 
   const response = await fetch(
-    `https://${regionCode}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}`,
+    `https://${regionCode}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
     {
       headers: {
         'X-Riot-Token': process.env.RIOT_API_KEY,

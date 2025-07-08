@@ -16,7 +16,7 @@ export default function Error({
   }, [error])
 
   return (
-    <div className="min-h-full w-full flex flex-col items-center justify-center flex-grow gap-8">
+    <div className="min-h-full w-full flex flex-col items-center justify-center grow gap-8">
       <h2 className="text-4xl font-light">Something went wrong!</h2>
       <button
         onClick={() => router.push('/')}

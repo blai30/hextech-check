@@ -69,7 +69,7 @@ export default function RootLayout({
         <Providers>
           <main className="flex min-h-screen flex-col gap-6 px-4 py-6 print:mx-0 print:max-w-none print:p-0">
             <Header />
-            <section className="flex flex-grow flex-col items-center">
+            <section className="flex grow flex-col items-center">
               {children}
             </section>
             <Footer />
