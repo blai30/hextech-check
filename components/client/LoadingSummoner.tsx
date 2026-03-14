@@ -1,5 +1,3 @@
-'use client'
-
 export default function LoadingSummoner() {
   return (
     <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">

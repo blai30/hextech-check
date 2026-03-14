@@ -1,7 +1,4 @@
-'use client'
-
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import { Switch } from '@headlessui/react'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 import { ClassIcon } from '@/components/common'
@@ -83,7 +80,7 @@ export default function MasteryCard({
     <Switch
       id={`card-container-${champion.id}`}
       className={[
-        'group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
+        'group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
         className,
       ].join(' ')}
       style={{ perspective: '800px' }}
@@ -106,13 +103,9 @@ export default function MasteryCard({
       >
         {/* Front side background */}
         <div className="pointer-events-none absolute top-0 h-full w-full overflow-hidden rounded-2xl shadow-xl">
-          <Image
+          <img
             src={imageUrl}
             alt={`Champion ${champion.name} loading screen image`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
             className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
             style={{
               transform: `translateX(${
@@ -151,7 +144,7 @@ export default function MasteryCard({
                   key={tag}
                   id={`${champion.id}-tag-${tag}`}
                   className={[
-                    'group/tag relative flex h-8 w-8 cursor-default flex-col items-center justify-center rounded-full focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
+                    'group/tag relative flex h-8 w-8 cursor-default flex-col items-center justify-center rounded-full focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
                     tagClasses[tag],
                   ].join(' ')}
                 >
@@ -222,7 +215,7 @@ export default function MasteryCard({
         >
           <div className="flex items-start gap-6">
             <div className="h-12 w-12 overflow-hidden rounded-full">
-              <Image
+              <img
                 src={iconUrl}
                 alt={`Champion ${champion.name} icon`}
                 width={64}

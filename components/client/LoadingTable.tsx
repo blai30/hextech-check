@@ -1,5 +1,3 @@
-'use client'
-
 export default function LoadingTable() {
   return (
     <div className="flex items-center justify-center">

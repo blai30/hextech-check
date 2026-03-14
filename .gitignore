@@ -8,9 +8,9 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# tanstack start / vinxi
+/.vinxi/
+/.output/
 
 # production
 /build
@@ -32,7 +32,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# auto-generated
+app/routeTree.gen.ts
 
 .idea/
 
@@ -47,3 +49,4 @@ next-env.d.ts
 
 # Local history extension
 /.history
+dist/

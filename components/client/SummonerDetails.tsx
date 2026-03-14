@@ -1,6 +1,3 @@
-'use client'
-
-import Image from 'next/image'
 import { formatDate, formatRelativeDate } from '@/lib/formatDate'
 import {
   AccountDto,
@@ -53,7 +50,7 @@ export default function SummonerDetails({
     <div className="rounded-lg bg-gray-50 p-6 shadow dark:bg-gray-900 dark:shadow-gray-700/30 print:shadow-none">
       <div className="flex flex-col space-y-4 md:grid md:grid-cols-3 md:items-center md:justify-between md:space-y-0">
         <div className="flex flex-col items-center space-y-2 md:flex-row md:gap-4 md:space-y-0 lg:gap-6">
-          <Image
+          <img
             id={`summoner-icon-${playerData.id}`}
             src={imageUrl}
             alt={`Summoner profile icon ${playerData.profileIconId}`}
