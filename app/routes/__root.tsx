@@ -11,8 +11,8 @@ import appCss from '@/app/globals.css?url'
 const themeScript = `
 (function() {
   try {
-    var theme = localStorage.getItem('theme') || 'system';
-    var isDark = theme === 'dark' ||
+    const theme = localStorage.getItem('theme') || 'system';
+    const isDark = theme === 'dark' ||
       (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -39,7 +39,7 @@ export const Route = createRootRoute({
       { rel: 'stylesheet', href: appCss },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap',
       },
       { rel: 'icon', href: '/favicon.ico' },
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },

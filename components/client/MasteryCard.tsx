@@ -112,7 +112,7 @@ export default function MasteryCard({
                 rotateY * 0.8 * (flipped ? 1 : -1)
               }px) translateY(${rotateX * 0.8 * -1}px)
             translateZ(${flipped ? 10 : -10}px)`,
-              scale: '1.2',
+              scale: 1.2,
             }}
           />
           <div className="absolute inset-0 -z-10 scale-110 bg-linear-to-t from-gray-900 via-gray-900/40" />

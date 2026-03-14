@@ -90,7 +90,7 @@ export const Route = createFileRoute('/$region/$player')({
       ],
     }
   },
-  loader: async ({ params }): Promise<SummonerData> => {
+  loader: async ({ params }) => {
     return fetchSummonerData({ data: params })
   },
   errorComponent: PlayerError,
