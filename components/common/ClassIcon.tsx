@@ -1,5 +1,3 @@
-'use client'
-
 import { JSX, SVGProps } from 'react'
 
 const icon = (

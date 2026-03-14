@@ -1,7 +1,4 @@
-'use client'
-
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import { Switch } from '@headlessui/react'
 import { ChampionDto, ChampionMasteryDto, Tag } from '@/models/riotapi'
 import { ClassIcon } from '@/components/common'
@@ -106,20 +103,16 @@ export default function MasteryCard({
       >
         {/* Front side background */}
         <div className="pointer-events-none absolute top-0 h-full w-full overflow-hidden rounded-2xl shadow-xl">
-          <Image
+          <img
             src={imageUrl}
             alt={`Champion ${champion.name} loading screen image`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUlFCvBwABYwDRnrhuoAAAAABJRU5ErkJggg=="
             className="absolute inset-0 -z-10 transform-gpu object-cover transition-transform duration-1000 ease-in-out group-hover/card:duration-300 group-hover/card:ease-out"
             style={{
               transform: `translateX(${
                 rotateY * 0.8 * (flipped ? 1 : -1)
               }px) translateY(${rotateX * 0.8 * -1}px)
             translateZ(${flipped ? 10 : -10}px)`,
-              scale: 1.2,
+              scale: '1.2',
             }}
           />
           <div className="absolute inset-0 -z-10 scale-110 bg-linear-to-t from-gray-900 via-gray-900/40" />
@@ -222,7 +215,7 @@ export default function MasteryCard({
         >
           <div className="flex items-start gap-6">
             <div className="h-12 w-12 overflow-hidden rounded-full">
-              <Image
+              <img
                 src={iconUrl}
                 alt={`Champion ${champion.name} icon`}
                 width={64}

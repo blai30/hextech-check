@@ -1,5 +1,3 @@
-'use client'
-
 const getPageNumbers = (current: number, total: number) => {
   if (total <= 7) {
     return Array.from({ length: total }, (_, i) => i + 1)

@@ -1,7 +1,5 @@
-'use client'
-
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useNavigate } from '@tanstack/react-router'
 import {
   Label,
   Listbox,
@@ -37,7 +35,7 @@ const SearchForm = ({
   defaultRegion?: string
   defaultPlayer?: string
 }) => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const [player, setPlayer] = useState<string>(decodeURI(defaultPlayer) ?? '')
   const [region, setRegion] = useState<string>(defaultRegion ?? 'na')
   const [isLoading, setIsLoading] = useState(false)
@@ -50,8 +48,13 @@ const SearchForm = ({
     event.preventDefault()
     setIsLoading(true)
     const playerName = player.trim().replace(/\s+/g, '').replace(/#/g, '-')
-    const route = `/${region}/${playerName}`.toLowerCase()
-    router.push(route)
+    navigate({
+      to: '/$region/$player',
+      params: {
+        region: region.toLowerCase(),
+        player: playerName.toLowerCase(),
+      },
+    })
   }
 
   return (
@@ -106,7 +109,6 @@ const SearchForm = ({
                       {regions[region]}
                     </span>
                   </div>
-
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-yellow-600 group-[&:not([data-selected])]:hidden group-data-focus:text-black dark:text-yellow-300">
                     <svg
                       className="h-6 w-6"
@@ -153,32 +155,13 @@ const SearchForm = ({
           className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
           {isLoading ? (
-            <svg
-              className="h-6 w-6 animate-spin "
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+            <svg className="h-6 w-6 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
           ) : (
             <svg className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              />
+              <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
             </svg>
           )}
         </button>
