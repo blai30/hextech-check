@@ -80,7 +80,7 @@ export default function MasteryCard({
     <Switch
       id={`card-container-${champion.id}`}
       className={[
-        'group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
+        'group/card relative cursor-default focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
         className,
       ].join(' ')}
       style={{ perspective: '800px' }}
@@ -144,7 +144,7 @@ export default function MasteryCard({
                   key={tag}
                   id={`${champion.id}-tag-${tag}`}
                   className={[
-                    'group/tag relative flex h-8 w-8 cursor-default flex-col items-center justify-center rounded-full focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
+                    'group/tag relative flex h-8 w-8 cursor-default flex-col items-center justify-center rounded-full focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400',
                     tagClasses[tag],
                   ].join(' ')}
                 >

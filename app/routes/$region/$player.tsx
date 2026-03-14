@@ -102,7 +102,7 @@ function PlayerError({ error }: { error: Error }) {
 
   return (
     <div className="flex min-h-full w-full grow flex-col items-center justify-center gap-8">
-      <h2 className="text-4xl font-light">Something went wrong!</h2>
+      <h2 className="text-4xl font-light text-gray-600 dark:text-gray-300">Something went wrong!</h2>
       <p className="text-gray-600 dark:text-gray-300">{error.message}</p>
       <button
         onClick={() => router.navigate({ to: '/' })}

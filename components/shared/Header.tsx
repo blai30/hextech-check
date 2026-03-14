@@ -54,7 +54,7 @@ const Header = () => {
           type="button"
           onClick={copyToClipboard}
           className={[
-            'group order-last w-full items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 2xs:order-none 2xs:w-auto lg:py-0 dark:outline-gray-700',
+            'group order-last w-full items-center justify-center rounded-lg px-2 py-1 outline-2 outline-offset-8 outline-gray-200 transition-all duration-75 ease-in-out hover:outline hover:outline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 2xs:order-0 2xs:w-auto lg:py-0 dark:outline-gray-700',
             pathname === '/' ? 'hidden' : 'flex',
           ].join(' ')}
         >

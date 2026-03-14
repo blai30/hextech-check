@@ -51,8 +51,8 @@ const SearchForm = ({
     navigate({
       to: '/$region/$player',
       params: {
-        region: region.toLowerCase(),
-        player: playerName.toLowerCase(),
+        region: region.toLowerCase().toString(),
+        player: playerName.toLowerCase().toString(),
       },
     })
   }
@@ -135,7 +135,7 @@ const SearchForm = ({
           id="player-input"
           name="player"
           title="Player name"
-          type="search"
+          type="text"
           placeholder="Riot ID"
           autoComplete="off"
           value={player}
@@ -147,11 +147,7 @@ const SearchForm = ({
         <button
           id="search-button"
           title="Search"
-          disabled={
-            !region ||
-            !player ||
-            (player === decodeURI(defaultPlayer) && region === defaultRegion)
-          }
+          type="submit"
           className="flex h-10 w-full flex-row items-center justify-center rounded-md bg-yellow-200 px-4 py-2 text-black hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-60 disabled:hover:bg-yellow-200 dark:bg-yellow-800 dark:text-white dark:hover:bg-yellow-700 disabled:dark:text-gray-500 disabled:dark:hover:bg-yellow-800 md:w-fit"
         >
           {isLoading ? (
